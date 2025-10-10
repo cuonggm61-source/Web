@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,7 +41,7 @@
         <div id="slider">
             <div class="text-content">
                 <h2 class="text-heading">Ha NoI</h2>
-                <div class="text-description">Noi nhung tham vong dinh cao</div>
+                <div class="text-description">Nơi nuôi những lớn đam mê</div>
             </div>
 
         </div>
@@ -62,27 +62,60 @@
                 </div>
 
                 <div class="member-item">
-                    <p class="member-name">Name</p>
-                    <img src="./assets/img/slide2.jpg" alt="picture" class="member-img">
+                    <p class="member-name">YEN TU</p>
+                    <img src="./assets/img/z6272672532722_b6894a02d317dfbbb2509bf0a548ae11.jpg" alt="picture" class="member-img">
                 </div>
 
                 <div class="member-item">
-                    <p class="member-name">Name</p>
-                    <img src="./assets/img/slide2.jpg" alt="picture" class="member-img">
+                    <p class="member-name">CAP 3</p>
+                    <img src="./assets/img/IMG_0774.jpg" alt="picture" class="member-img">
                 </div>
             </div>
             </div>
               <!-- Tour-->
             <div class="tour-section">
                 <div class="content-selection">
-                    <h2 class="selection-heading text-while">TOUR DATES</h2>
-                    <p class="selection-sub-heading text-while">Remember to book your tickets!</p>
-                    
-                    <ul class="ticket-list">
+                    <h2 class="selection-heading text-while">TRAVEL</h2>
+                    <p class="selection-sub-heading text-while">Remember my traveled in year !</p>
+                <!-- Ticket -->
+                    <!-- <ul class="ticket-list">
                         <li>September <span class="sold-out">Sold-out</span></li>
                         <li>October<span class="sold-out">Sold-out</span></li>
                         <li>November <span class="number">3</span></li>
-                    </ul>
+                    </ul> -->
+
+                    <!-- Places -->
+                     <div class="place-list">
+                        <div class="play-item">
+                            <img src="./assets/img/catba.jpg" height="183.99" alt="New York" class="place-img">
+                            <div class="place-body">
+                                <h3 class="place-heading">CÁT BÀ</h3>
+                                <p class="place-timne">Saturday, June 14, 2025</p>
+                                <p class="place-desc">Cát Bà ư ?</p>
+                                <button  class="place-btn js-buy-ticket">Xem thêm </button>
+                            </div>
+                        </div>
+                        <div class="play-item">
+                            <img src="./assets/img/doson.jpg" height="183.99" alt="New York" class="place-img">
+                            <div class="place-body">
+                                <h3 class="place-heading">ĐỒ SƠN</h3>
+                                <p class="place-timne">Thursday, October 2, 2025</p>
+                                <p class="place-desc">Đồ Sơn biển đỉnh lắm nha</p>
+                                <button  class="place-btn js-buy-ticket"> Xem thêm </button>
+                            </div>
+                        </div>
+                        <div class="play-item">
+                            <img src="./assets/img/DSC_0217.jpg"alt="Ha Giang" height="183.99" class="place-img">
+                            <div class="place-body">
+                                <h3 class="place-heading">HÀ GIANG</h3>
+                                <p class="place-timne">Tuesday, June 17, 2025</p>
+                                <p class="place-desc">Tôi nghĩ nó quá đẹp đi mất</p>
+                                <button  class="place-btn js-buy-ticket"> Xem thêm </button>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                     </div>
+
                 </div>
             </div>
            
@@ -102,6 +135,62 @@
 
 
     </div>
-    
+
+    <div class="modal js-modal">
+        <div class="modal-container">
+            <div class="modal-close js-modal-close">
+                <i class="ti-close"></i>
+            </div>
+            <header class="modal-header">
+                <i class="modal-heading-icon ti-bag">
+                    Tickets
+                </i>
+            </header>
+            
+            <div class="modal-boby">
+                <label for="" class="modal-label">
+                    <i class="ti-shopping-cart">
+
+                    </i>
+                    Tickets, $15 per person
+                </label>
+                <input type="text" class="modal-input" placeholder="Buy rigth">
+
+                
+                <label for="" class="modal-label">
+                    <i class="ti-user"></i>
+                    Tickets, $15 per person
+                </label>
+                <input type="text" class="modal-input" placeholder="Buy rigth">   
+                <button id="but-ticket">
+                    Pay <i class="ti-check"></i>
+                </button>
+            </div>
+            <footer class="modal-footer">
+                <p class="modal-help" > Need <a href=""> help!</a></p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        const buyBtns = document.querySelectorAll('.js-buy-ticket')
+        const  modal = document.querySelector('.js-modal')
+        const close = document.querySelector('.js-modal-close')
+
+
+        function showbuyticket(){
+            modal.classList.add('open')        
+        }
+
+        function closebuyticket(){
+            modal.classList.remove('open')
+        }
+        close.addEventListener('click',closebuyticket)
+
+        for(const buyBtn of buyBtns){
+            buyBtn.addEventListener('click',showbuyticket  )
+        }
+
+    </script>
 </body>
 </html>
