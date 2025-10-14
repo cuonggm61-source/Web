@@ -39,7 +39,6 @@ html{
 .col{
    float: left;
    padding: 8px;
-   height: 400px;
 
 }
 .col-thir{
@@ -47,6 +46,9 @@ html{
 }
 .col-half{
     width: 50%;
+}
+.col-full{
+    width: 100%;
 }
 .text-center{
     text-align: center !important;
@@ -388,6 +390,29 @@ html{
     color: aqua;
 }
 
+.contact-content{
+    margin-top: 48px;
+}
+.contact-form{
+    font-size: 15px;
+
+}
+.contact-form .form-control{
+    padding: 11px ;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+.contact-info{
+    font-size: 18px;
+    line-height: 1.4;
+    
+}
+.contact-info i[ class *= "t-" ] {
+    width: 30px;
+    display: block;
+
+}
 
 /* #footer{
 
