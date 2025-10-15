@@ -36,11 +36,24 @@ html{
     margin-right: -8px;
 
 }
+.row::after{
+    content: "";
+    display: block;
+    clear:both;
+}
 .col{
    float: left;
    padding: 8px;
 
 }
+.mt-8{
+    margin-top: 8px !important;
+}
+.mt-16{
+    margin-top: 16px !important;
+}
+
+
 .col-thir{
     width: 33.333%;
 }
@@ -401,6 +414,13 @@ html{
     padding: 11px ;
     border: 1px solid #ccc;
     width: 100%;
+}
+.contact-form .form-submit{
+    color: white;
+    background-color: black;
+    float: right;
+    padding: 6px 7px;
+    border: 1px solid;
 }
 
 .contact-info{
