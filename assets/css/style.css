@@ -66,6 +66,18 @@ html{
 .text-center{
     text-align: center !important;
 }
+.btn{
+    color: #fff;
+    text-decoration: none;
+    background-color: black;
+    padding: 11px 16px;
+    display: inline-block;
+    margin-top: 15px;
+    border: none;
+}
+.floatRight{
+    float: right;
+}
 
 
 
@@ -306,15 +318,8 @@ html{
     line-height: 1.4;
 
 }
-.place-btn{
-    color: #fff;
-    text-decoration: none;
-    background-color: black;
-    padding: 11px 16px;
-    display: inline-block;
-    margin-top: 15px;
-}
-.place-btn:hover{
+
+.btn:hover{
     color: #000;
     background-color: #ccc;
 
@@ -415,13 +420,13 @@ html{
     border: 1px solid #ccc;
     width: 100%;
 }
-.contact-form .form-submit{
+/* .contact-form .form-submit{
     color: white;
     background-color: black;
     float: right;
     padding: 6px 7px;
     border: 1px solid;
-}
+} */
 
 .contact-info{
     font-size: 18px;
@@ -434,6 +439,34 @@ html{
 
 }
 
-/* #footer{
+/* Map section */
+.map-section img{
+    width: 100%;
+}
+#footer .socials-list{
+    font-size: 24px;
+    
+    
+}
+#footer .socials-list a{
+    color :rgba(0, 0, 0, 0.6);
+    text-decoration: none;
+}
+#footer .coppy-right a:hover{
+       color :rgba(0, 0, 0, 0.3);
+}
+#footer .socials-list a:hover{
+    color :rgba(0, 0, 0, 0.3);
+}
+#footer .coppy-right a{
+    color :rgba(0, 0, 0, 0.6);
+}
+#footer .coppy-right {
+    margin-top: 15px;
+    color :rgba(0, 0, 0, 0.6);
+}
+#footer{
+    padding: 64px 16px;
+    text-align: center;
 
-} */
+}
