@@ -23,7 +23,9 @@ kieu dang (kieu chu )
 /* Common */
 
 .clear {clear: both}
+
 html{
+    scroll-behavior: smooth;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
@@ -82,7 +84,9 @@ html{
 
 
 /* Main */
-
+#header {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
 #header{
     height: 46.5px;
     background-color: black;
@@ -227,12 +231,27 @@ html{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+.wide-photo-container {
+    margin-top: 32px; 
+    text-align: center;
+}
+
+.wide-photo {
+    width: 100%;           
+    height: auto;          
+    border-radius: 4px;   
+    display: block;        
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.wide-photo-container {
+    perspective: 1000px; /* Tạo chiều sâu 3D */
+}
 #content .members-list {
     margin-top: 35px;
     display: flex;
-    gap: 20px; /* khoảng cách giữa các item */
-    justify-content: center; /* căn giữa cả hàng */
-    align-items: center; /* căn giữa theo chiều dọc */
+    gap: 20px; 
+    justify-content: center; 
+    align-items: center; 
 }
 #content .member-name{
     margin: 15px 0px;
@@ -288,6 +307,28 @@ html{
     font-family: 'Times New Roman', Times, serif;
 
 }
+
+
+.place-list .col-thir {
+    transition: transform 0.3s ease;
+}
+
+.place-list .col-thir:hover {
+    transform: translateY(-10px); /* Cả thẻ nổi lên khi di chuột */
+}
+
+.place-body {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Đổ bóng cho phần nội dung thẻ */
+}
+.place-img {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+
+
 
 .place-img{
     width: 100%;
@@ -442,6 +483,8 @@ html{
 /* Map section */
 .map-section img{
     width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 #footer .socials-list{
     font-size: 24px;
