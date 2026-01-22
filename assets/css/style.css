@@ -156,10 +156,10 @@ html{
 
     margin-top: 40.5px;
     padding-top :46%;
-    background-image: url(../img/DSC_0245.jpg);
-    background-position: top center;
+    background-image: url(/Web/assets/img/DSC_0249.jpg);
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center center;
     position: relative;
     /* background-color: #333; */
 }
