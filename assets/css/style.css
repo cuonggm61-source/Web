@@ -155,8 +155,8 @@ html{
 #slider{
 
     margin-top: 40.5px;
-    padding-top : 46%;
-    background-image: url(/assets/img/DSC_0245.jpg);
+    padding-top :46%;
+    background-image: url(../img/DSC_0245.jpg);
     background-position: top center;
     background-size: cover;
     background-repeat: no-repeat;
