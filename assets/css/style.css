@@ -1,522 +1,650 @@
-*{
+/* ==================
+   CSS VARIABLES
+================== */
+:root {
+    --primary-color: #0f172a;      /* Slate 900 */
+    --secondary-color: #334155;    /* Slate 700 */
+    --accent-color: #3b82f6;       /* Blue 500 */
+    --accent-hover: #2563eb;       /* Blue 600 */
+    --bg-color: #f8fafc;           /* Slate 50 */
+    --surface-color: #ffffff;      
+    --text-main: #1e293b;          /* Slate 800 */
+    --text-muted: #64748b;         /* Slate 500 */
+    --text-light: #f8fafc;
+    --font-family: 'Inter', sans-serif;
+    --transition: all 0.3s ease;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+}
+
+/* ==================
+   RESET & COMMON
+================== */
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-
-
-/* 
-tu ngoai vao trong
-tu tren xuong duoi
-tong quan den chi tiet
-*/
-
-/* 
-vi tri 
-kich thuoc 
-mau sac
-kieu dang (kieu chu )
-
-
-*/
-/* Common */
-
-.clear {clear: both}
-
-html{
+html {
     scroll-behavior: smooth;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-main);
 }
 
-.text-while{
-    color : #fff !important;
+.clear { clear: both; }
+
+.text-white { color: var(--text-light) !important; }
+.text-center { text-align: center !important; }
+.mt-8 { margin-top: 8px !important; }
+.mt-16 { margin-top: 16px !important; }
+.floatRight { float: right; }
+
+.row {
+    margin-left: -12px;
+    margin-right: -12px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.row{
-    margin-left: -8px;
-    margin-right: -8px;
+.col {
+    padding: 12px;
+}
+.col-thir { width: 33.33333%; }
+.col-half { width: 50%; }
+.col-full { width: 100%; }
 
-}
-.row::after{
-    content: "";
-    display: block;
-    clear:both;
-}
-.col{
-   float: left;
-   padding: 8px;
-
-}
-.mt-8{
-    margin-top: 8px !important;
-}
-.mt-16{
-    margin-top: 16px !important;
-}
-
-
-.col-thir{
-    width: 33.333%;
-}
-.col-half{
-    width: 50%;
-}
-.col-full{
-    width: 100%;
-}
-.text-center{
-    text-align: center !important;
-}
-.btn{
-    color: #fff;
-    text-decoration: none;
-    background-color: black;
-    padding: 11px 16px;
+/* Buttons */
+.btn {
+    color: var(--text-light);
+    background-color: var(--primary-color);
+    padding: 12px 24px;
     display: inline-block;
-    margin-top: 15px;
     border: none;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
-.floatRight{
-    float: right;
+
+.btn:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
 }
 
-
-
-/* Main */
-/* 1. Cấu hình cho Header (Thẻ cha) */
+/* ==================
+   HEADER (GLASSMORPHISM)
+================== */
 #header {
-    height: 60px; /* Chiều cao của header */
-    background-color: black; /* Màu nền header */
-    display: flex; /* Quan trọng: Xếp các con thành hàng ngang */
-    justify-content: space-between; /* Đẩy Nav sang trái, Search sang phải */
-    align-items: center; /* Căn giữa theo chiều dọc */
-    padding: 0 20px; /* Khoảng cách lề 2 bên */
-    position: fixed; /* (Tùy chọn) Ghim header lên đầu trang */
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100; /* Đảm bảo header nổi lên trên cùng */
+    height: 70px;
+    background: rgba(15, 23, 42, 0.85); /* Thay vì đen đặc */
+    backdrop-filter: blur(12px); /* Hiệu ứng kính */
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 999;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* 2. Cấu hình cho Menu (#nav) */
 #nav {
-    list-style-type: none; /* Bỏ dấu chấm đầu dòng */
-    margin: 0;
-    padding: 0;
-    display: flex; /* Xếp các thẻ li thành hàng ngang */
+    list-style-type: none;
+    display: flex;
+    gap: 10px;
 }
 
 #nav li a {
-    text-decoration: none; /* Bỏ gạch chân */
-    color: white;
-    padding: 0 20px;
-    line-height: 60px; /* Mẹo: Để chữ căn giữa chiều cao bằng header */
+    text-decoration: none;
+    color: var(--text-light);
+    padding: 10px 20px;
     display: block;
-    text-transform: uppercase; /* Chữ in hoa */
-    font-weight: bold;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 1px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    position: relative;
 }
 
-#nav li a:hover {
-    background-color: #ccc;
-    color: #000;
+/* Hover Effect: Underline animation */
+#nav li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 5px;
+    left: 20px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
 }
 
-/* 3. Cấu hình cho ô Tìm kiếm (.search-btn) */
-/* Copy logic từ câu trả lời trước và chỉnh lại một chút cho hợp header */
+#nav li a:hover::after {
+    width: calc(100% - 40px);
+}
+
+/* Search Box */
 .search-btn {
     position: relative;
-    width: 250px; /* Độ rộng ô tìm kiếm */
+    width: 280px;
 }
 
 .search-btn input {
     width: 100%;
-    height: 34px; /* Nhỏ hơn header một chút cho đẹp */
-    padding: 5px 40px 5px 15px;
-    border-radius: 17px;
-    border: none;
+    height: 40px;
+    padding: 10px 45px 10px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
     outline: none;
     font-size: 14px;
+    transition: var(--transition);
+}
+.search-btn input::placeholder {
+    color: rgba(255,255,255,0.6);
+}
+
+.search-btn input:focus {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255,255,255,0.5);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
 }
 
 .search-btn .search-icon {
     position: absolute;
-    right: 12px;
+    right: 16px;
     top: 50%;
     transform: translateY(-50%);
-    color: #333;
+    color: rgba(255,255,255,0.8);
     cursor: pointer;
+    font-size: 16px;
+    transition: var(--transition);
+}
+.search-btn .search-icon:hover {
+    color: #fff;
+    transform: translateY(-50%) scale(1.1);
 }
 
-
-
-
-
-#slider{
-
-    margin-top: 40.5px;
-    padding-top :46%;
-    background-image: url(/Web/assets/img/DSC_0245.jpg);
+/* ==================
+   HERO / SLIDER
+================== */
+#slider {
+    min-height: 100vh;
+    background-image: url('../img/DSC_0245.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center;
+    background-attachment: fixed; /* Parallax effect */
     position: relative;
-    /* background-color: #333; */
-}
-#slider .text-content{
-    position: absolute;
-    bottom: 30px;
-    color: white;
-    left:0;
-    right:0;
-    text-align: center;
-}
-#slide .text-heading{
-    font-size: 24px;
-    font-weight: 500;
-}
-#slider .text-description{
-    font-family: Arial;
-    font-size : 15px;
-    margin-top: 25px; 
-}
-
-#content .content-selection{
-    width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 64px 16px;
-}
-
-#content .selection-heading{
-    margin: 10px 0;
-    text-align: center;
-    font-size : 30px ;
-    font-weight: 500px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    letter-spacing: 4px;
-}
-#content .selection-sub-heading{
-    margin: 15px 0;
-    text-align: center;
-    font-size : 15px;
-    font-style: italic;
-    opacity:0.6 
-}
-#content .about-text{
-    margin-top: 25px;
-    text-align: justify;
-    font-size : 15px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
-.wide-photo-container {
-    margin-top: 32px; 
-    text-align: center;
-}
-
-.wide-photo {
-    width: 100%;           
-    height: auto;          
-    border-radius: 4px;   
-    display: block;        
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-.wide-photo-container {
-    perspective: 1000px; /* Tạo chiều sâu 3D */
-}
-#content .members-list {
-    margin-top: 35px;
     display: flex;
-    gap: 20px; 
-    justify-content: center; 
-    align-items: center; 
-}
-#content .member-name{
-    margin: 15px 0px;
-}
-#content .member-img{
-   margin-top: 15px; 
-   width: 200px;
-   height: 300px;
-   border-radius:4px;
-}
-.tour-section{
-    background-color: black;
-
+    align-items: flex-end;
+    justify-content: center;
 }
 
+/* Overlay to darken image */
+#slider::before {
+    content: "";
+    position: absolute;
+    top:0; left:0; right:0; bottom:0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 100%);
+    z-index: 1;
+}
 
+#slider .text-content {
+    position: relative;
+    z-index: 2;
+    color: var(--text-light);
+    text-align: center;
+    padding-bottom: 80px;
+}
 
-/* Places */
-.place-list{
-    margin-top: 32px;
+.text-heading {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+/* ==================
+   SECTIONS
+================== */
+.content-selection {
+    max-width: 900px; /* Instead of hard 800px */
+    width: 90%;
+    margin: 0 auto;
+    padding: 100px 0;
+}
+
+.selection-heading {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: 6px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    color: var(--primary-color);
+}
+.tour-section .selection-heading {
+    color: var(--text-light);
+}
+
+.selection-sub-heading {
+    text-align: center;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--text-muted);
     margin-bottom: 40px;
-    padding-bottom: 48px;
-
-    font-family: 'Times New Roman', Times, serif;
-
+}
+.tour-section .selection-sub-heading {
+    color: rgba(255,255,255,0.7);
 }
 
-
-.place-list .col-thir {
-    transition: transform 0.3s ease;
+.about-text {
+    text-align: justify;
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--text-main);
+    margin-bottom: 48px;
 }
 
-.place-list .col-thir:hover {
-    transform: translateY(-10px); /* Cả thẻ nổi lên khi di chuột */
+/* The Photo */
+.wide-photo-container {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+}
+.wide-photo-container:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-5px);
+}
+.wide-photo {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* ==================
+   TOUR / PLACES
+================== */
+.tour-section {
+    background-color: var(--primary-color);
+}
+
+.place-list {
+    margin-top: 32px;
+}
+
+.place-list .col {
+    display: flex;
+}
+
+.place-item {
+    background-color: var(--surface-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.place-item:hover {
+    transform: translateY(-12px);
+    box-shadow: var(--shadow-hover);
+}
+
+.place-img-wrapper {
+    overflow: hidden;
+    height: 220px; /* Fixed height for consistency */
+}
+
+.place-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.place-item:hover .place-img {
+    transform: scale(1.1);
 }
 
 .place-body {
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Đổ bóng cho phần nội dung thẻ */
-}
-.place-img {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+.place-heading {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+}
 
+.place-timne {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
 
+/* ==================
+   CONTACT
+================== */
+.contact-content {
+    background: var(--surface-color);
+    border-radius: var(--radius-md);
+    padding: 40px;
+    box-shadow: var(--shadow-md);
+    margin-top: 40px;
+}
 
-.place-img{
+.contact-info {
+    font-size: 18px;
+    line-height: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contact-info p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+.contact-info i {
+    width: 40px;
+    height: 40px;
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 18px;
+}
+
+.contact-form .form-control {
+    padding: 14px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-sm);
+    width: 100%;
+    font-family: inherit;
+    font-size: 15px;
+    transition: var(--transition);
+    background-color: var(--bg-color);
+}
+
+.contact-form .form-control:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    background-color: var(--surface-color);
+}
+
+/* ==================
+   MAP & FOOTER
+================== */
+.map-section {
+    margin-top: 40px;
+    overflow: hidden;
+}
+.map-section img {
     width: 100%;
     display: block;
+    filter: grayscale(30%) contrast(1.2);
+    transition: var(--transition);
 }
-.place-img:hover {
-    opacity: 0.6;
+.map-section img:hover {
+    filter: grayscale(0%) contrast(1);
 }
-.place-body{
+
+#footer {
+    padding: 80px 16px;
+    text-align: center;
+    background: var(--primary-color);
+    color: var(--text-light);
+}
+
+#footer .socials-list {
+    margin-bottom: 24px;
+}
+
+#footer .socials-list a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 28px;
+    margin: 0 10px;
+    transition: var(--transition);
+    display: inline-block;
+}
+
+#footer .socials-list a:hover {
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+#footer .coppy-right {
+    color: rgba(255,255,255,0.5);
     font-size: 15px;
-    padding: 16px;
-    background-color: #fff;
-
 }
 
-
-.place-heading{
-    font-size: 15px;
+#footer .coppy-right a {
+    color: var(--accent-color);
+    text-decoration: none;
     font-weight: 600;
-
 }
 
-.place-timne{
-    margin-top: 80px;
-    justify-content: center;
-    color: #757575;
-}
-.place-desc{
-    margin-top: 15px;
-    line-height: 1.4;
-
+#footer .coppy-right a:hover {
+    text-decoration: underline;
 }
 
-.btn:hover{
-    color: #000;
-    background-color: #ccc;
-
-}
-.modal{
+/* ==================
+   MODAL (TICKET) - Glassmorphism
+================== */
+.modal {
     position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0,0,0,0.3);
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(5px);
     display: none;
     align-items: center;
-    justify-content:center ;
-    
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
-.modal-header{
-    background-color:aquamarine;
-    height: 130px;
+
+.modal.open {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-container {
+    width: 90%;
+    max-width: 600px;
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    position: relative;
+    transform: translateY(-50px);
+    transition: transform 0.3s ease;
+}
+
+.modal.open .modal-container {
+    transform: translateY(0);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--accent-color), #8b5cf6);
+    height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 30px;
+    font-size: 32px;
+    font-weight: 700;
     color: #fff;
+    letter-spacing: 2px;
 }
-.modal.open{
+
+.modal-heading-icon { margin-right: 12px; }
+
+.modal-close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 50%;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
 }
-.modal-container{
-    width: 900px;
-    max-width: calc(100% -32px); 
-    min-height: 200px;
-    background: #fff;
-    position: relative;
+
+.modal-close:hover {
+    background: rgba(0,0,0,0.4);
+    transform: rotate(90deg);
 }
-.modal-close{
-    position:absolute;
-    right: 0;
-    top: 0;
+
+.modal-boby { padding: 30px; }
+
+.modal-label {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-main);
+}
+
+.modal-input {
+    padding: 12px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: var(--radius-sm);
+    width: 100%;
+    font-size: 15px;
+    margin-bottom: 24px;
+    outline: none;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.modal-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+#but-ticket {
+    background: var(--accent-color);
     color: #fff;
-    padding: 15px;
-    cursor: pointer;
-}
-.modal-close:hover{
-    color:#000;
-}
-.modal-heading-icon{
-    margin-right: 16px;
-}
-.modal-boby{
-    padding: 16px;
-
-}
-.modal-label{
-    display: block;
-    font-size: 15px;
-    margin-bottom: 5px;
-}
-.modal-input{
-    padding: 10px;
-    border: 1px solid #ccc;
-    width: 100%;
-    font-size: 15px;
-    margin-bottom: 20px;
-}
-#but-ticket{
-    color:#fff;
-    background-color: aquamarine;
     border: none;
+    border-radius: var(--radius-sm);
     width: 100%;
-    font-size: 15px;
+    font-size: 16px;
+    font-weight: 700;
     text-transform: uppercase;
-    padding: 12px;
-}
-#but-ticket:hover{
-    opacity: 0.7;
-    cursor: pointer;
-}
-.modal-footer{
     padding: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+#but-ticket:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.modal-footer {
+    padding: 20px 30px;
+    background: var(--bg-color);
     text-align: right;
+    font-size: 14px;
+    color: var(--text-muted);
 }
-
-.modal-footer a{
-    
-    color: aqua;
-}
-
-.contact-content{
-    margin-top: 48px;
-}
-.contact-form{
-    font-size: 15px;
-
-}
-.contact-form .form-control{
-    padding: 11px ;
-    border: 1px solid #ccc;
-    width: 100%;
-}
-/* .contact-form .form-submit{
-    color: white;
-    background-color: black;
-    float: right;
-    padding: 6px 7px;
-    border: 1px solid;
-} */
-
-.contact-info{
-    font-size: 18px;
-    line-height: 1.4;
-    
-}
-.contact-info i[ class *= "t-" ] {
-    width: 30px;
-    display: block;
-
-}
-
-/* Map section */
-.map-section img{
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-}
-#footer .socials-list{
-    font-size: 24px;
-    
-    
-}
-#footer .socials-list a{
-    color :rgba(0, 0, 0, 0.6);
+.modal-footer a {
+    color: var(--accent-color);
+    font-weight: 600;
     text-decoration: none;
 }
-#footer .coppy-right a:hover{
-       color :rgba(0, 0, 0, 0.3);
+.modal-footer a:hover {
+    text-decoration: underline;
 }
-#footer .socials-list a:hover{
-    color :rgba(0, 0, 0, 0.3);
-}
-#footer .coppy-right a{
-    color :rgba(0, 0, 0, 0.6);
-}
-#footer .coppy-right {
-    margin-top: 15px;
-    color :rgba(0, 0, 0, 0.6);
-}
-#footer{
-    padding: 64px 16px;
-    text-align: center;
 
-}
-/* =========================================
-   MOBILE RESPONSIVE (Thêm vào cuối file CSS)
-   ========================================= */
-
-@media (max-width: 740px) {
-    /* 1. Sửa lỗi chiều rộng 800px -> Cho full màn hình */
-    #content .content-selection {
-        width: 100% !important;
-        padding: 64px 16px;
-    }
-
-    /* 2. Chuyển các cột từ ngang sang dọc (xếp chồng lên nhau) */
-    .col-thir, 
-    .col-half {
-        width: 100% !important;
-        display: block;
-        margin-bottom: 20px; /* Tạo khoảng cách giữa các phần tử khi xếp dọc */
-    }
-
-    /* 3. Sửa ảnh to full màn hình */
-    .wide-photo {
-        width: 100%;
-        height: auto;
-    }
-
-    /* 4. Tạm thời xử lý Header trên mobile (vì bạn chưa có nút menu) */
+/* ==================
+   MOBILE RESPONSIVE
+================== */
+@media (max-width: 800px) {
     #header {
-        height: auto !important; /* Để header tự dãn chiều cao */
-        flex-direction: column;  /* Xếp menu xuống dưới */
-        padding: 10px 0;
+        padding: 0 20px;
+    }
+    
+    .search-btn {
+        display: none; /* Ẩn tìm kiếm trên mobile */
     }
     
     #nav {
-        display: flex;
-        flex-wrap: wrap; /* Cho phép menu xuống dòng nếu dài quá */
-        justify-content: center;
+        gap: 0;
     }
-
+    
     #nav li a {
-        padding: 0 10px; /* Giảm khoảng cách các chữ menu */
-        font-size: 14px;
-        line-height: 40px; /* Giảm chiều cao dòng */
-        display: inline-block;
+        padding: 5px 10px;
+        font-size: 13px;
     }
-
-    /* Ẩn ô tìm kiếm trên mobile cho đỡ chật */
-    .search-btn {
-        display: none;
+    
+    #slider {
+        min-height: 60vh;
     }
-
-    /* Sửa lại form liên hệ cho đẹp */
+    
+    .text-heading {
+        font-size: 32px;
+    }
+    
+    .content-selection {
+        padding: 60px 0;
+    }
+    
+    .col-thir, .col-half {
+        width: 100% !important;
+    }
+    
+    .contact-content {
+        padding: 20px;
+    }
+    
     .contact-info {
         margin-bottom: 30px;
+    }
+    
+    .place-img-wrapper {
+        height: auto;
     }
 }
