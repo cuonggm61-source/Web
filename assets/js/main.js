@@ -96,17 +96,36 @@ function nextLightbox() {
 document.addEventListener('DOMContentLoaded', () => {
     buildLightboxList();
 
-    document.querySelectorAll('.js-lightbox').forEach((img, i) => {
-        img.addEventListener('click', () => openLightbox(i));
+    // Gắn click cho tất cả ảnh js-lightbox (bao gồm wide-photo)
+    document.querySelectorAll('.js-lightbox').forEach((img) => {
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', () => {
+            const src = img.dataset.src || img.src;
+            const idx = lightboxImages.findIndex(l => l.src === src);
+            openLightbox(idx >= 0 ? idx : 0);
+        });
     });
 
-    // Also make wide-photo-container clickable
+    // Gắn click cho toàn bộ .gallery-item (để click vào bất kỳ vị trí nào trong card)
+    document.querySelectorAll('.gallery-item').forEach((item) => {
+        item.addEventListener('click', () => {
+            const img = item.querySelector('.js-lightbox');
+            if (!img) return;
+            const src = img.dataset.src || img.src;
+            const idx = lightboxImages.findIndex(l => l.src === src);
+            openLightbox(idx >= 0 ? idx : 0);
+        });
+    });
+
+    // Wide photo container click
     const wideContainer = document.querySelector('.wide-photo-container');
     if (wideContainer) {
+        wideContainer.style.cursor = 'pointer';
         wideContainer.addEventListener('click', () => {
             const wideImg = wideContainer.querySelector('.js-lightbox');
             if (wideImg) {
-                const idx = lightboxImages.findIndex(l => l.src === (wideImg.dataset.src || wideImg.src));
+                const src = wideImg.dataset.src || wideImg.src;
+                const idx = lightboxImages.findIndex(l => l.src === src);
                 openLightbox(idx >= 0 ? idx : 0);
             }
         });

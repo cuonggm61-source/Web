@@ -297,7 +297,7 @@ img { display: block; max-width: 100%; }
     margin-bottom: 16px;
     line-height: 1;
 }
-.accent-text { color: var(--accent); }
+.accent-text { color: #e11d48; }
 
 .hero-subtitle {
     font-size: 18px;
@@ -460,6 +460,7 @@ img { display: block; max-width: 100%; }
     transition: var(--transition);
     font-size: 30px;
     color: #fff;
+    pointer-events: none; /* Cho click xuyên qua overlay xuống ảnh */
 }
 .gallery-item:hover .gallery-overlay { opacity: 1; }
 
