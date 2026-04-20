@@ -1,232 +1,258 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-
-        <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-E807NX4KH4"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-E807NX4KH4');
     </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Trang web cá nhân của Cường - Yêu thích chụp ảnh và khám phá Việt Nam.">
     <title>CuongThinh - Photography</title>
     <link rel="icon" type="image/x-icon" href="./assets/img/DOSON.jpg">
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/font/themify-icons-font/themify-icons/themify-icons.css">
-</head> 
+</head>
 <body>
-    <div id="main">
-        <div id="header">
-            <!-- BeginNav -->
-           <ul id="nav">
-            <li><a href="#">Home</a></li>
-            <li><a href="#band">Picture</a></li>
-            <li><a href="#tour">PHOTO</a></li>
-            <li><a href="#contact">Contact</a></li>
-           </ul>
-           <!-- EndNav -->
-            <!-- Begin: Search button -->
-            <div class="search-btn">
-                <input type="text" placeholder="Tìm kiếm ">
-                <i class="search-icon ti-search"></i>
-            </div>
-            <!-- <div class="search-btn">
-            </div> -->
-            <!-- End: Search button -->
+
+    <!-- ===== HEADER ===== -->
+    <div id="header">
+        <!-- Logo -->
+        <a href="#" class="logo">CT<span>.</span></a>
+
+        <!-- Nav -->
+        <ul id="nav">
+            <li><a href="#" class="nav-link">Home</a></li>
+            <li><a href="#band" class="nav-link">About</a></li>
+            <li><a href="#gallery" class="nav-link">Gallery</a></li>
+            <li><a href="#tour" class="nav-link">Travel</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+
+        <!-- Search -->
+        <div class="search-btn">
+            <input type="text" id="search-input" placeholder="Tìm kiếm...">
+            <i class="search-icon ti-search"></i>
         </div>
 
-        <div id="slider">
-            <div class="text-content">
-                <h2 class="text-heading"></h2>
-            </div>
+        <!-- Hamburger button (mobile) -->
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+    <!-- Mobile nav drawer -->
+    <div class="mobile-nav" id="mobile-nav">
+        <ul>
+            <li><a href="#" onclick="closeMobileNav()">Home</a></li>
+            <li><a href="#band" onclick="closeMobileNav()">About</a></li>
+            <li><a href="#gallery" onclick="closeMobileNav()">Gallery</a></li>
+            <li><a href="#tour" onclick="closeMobileNav()">Travel</a></li>
+            <li><a href="#contact" onclick="closeMobileNav()">Contact</a></li>
+        </ul>
+    </div>
+    <div class="mobile-nav-overlay" id="mobile-nav-overlay" onclick="closeMobileNav()"></div>
+
+    <!-- ===== HERO SLIDER ===== -->
+    <div id="slider">
+        <div class="hero-overlay"></div>
+        <div class="text-content reveal-up">
+            <h1 class="text-heading">Cuong<span class="accent-text">Thinh</span></h1>
+            <p class="hero-subtitle">Photography · Adventure · Life</p>
+            <a href="#band" class="hero-btn">Khám phá <i class="ti-arrow-down"></i></a>
         </div>
-        <div id="content">
-            <!-- About The Band -->
-            <div id = "band" class="content-selection">
-                <h2 class="selection-heading">THE PHOTO</h2>
-                <p class="selection-sub-heading">I love photo</p>
-                <p class="about-text">
-                Hello, Tôi là Cường một sinh viên trường đại học VNU. Đây là trang web cá nhân đầu tiên của tôi, chỉ là những dòng code đơn giản thôi. Tôi rất thích chụp ảnh, từ c3 những ngày học sinh tôi đã nhịn từng bũa ăn sáng của mình để có tiền mua chiếc máy ảnh đầu tiên. Những bức ảnh đầu tiên của tôi rất xấuuuu :>> hihi, về sau tôi tự mày mò chỉnh màu ảnh các thứ thì cũng đẹp dần dần lên. Tôi rất vui vì điều đó, giờ đây tôi muốn up những bức ảnh của mình lên trang web này để có thể share những bức ảnh này. Cảm ơn bạn đã quan tâm tới tuiii.
-                </p> 
-
-                <div class="wide-photo-container">
-                    <img src="./assets/img/DSC_0222.jpg" alt="The big photo" class="wide-photo">
-                </div>
-            </div>
-
-              <!-- Tour-->
-            <div id="tour" class="tour-section">
-                <div class="content-selection">
-                    <h2 class="selection-heading text-while">TRAVEL</h2>
-                    <p class="selection-sub-heading text-while">Remember my traveled in year !</p>
-                <!-- Ticket -->
-                    <!-- <ul class="ticket-list">
-                        <li>September <span class="sold-out">Sold-out</span></li>
-                        <li>October<span class="sold-out">Sold-out</span></li>
-                        <li>November <span class="number">3</span></li>
-                    </ul> -->
-
-                    <!-- Places -->
-                     <div class="row place-list">
-                        <div class="col col-thir">
-                          <div class="place-item">
-                             <div class="place-img-wrapper">
-                                <img src="./assets/img/DSC_0069.jpg" alt="New York" class="place-img">
-                             </div>
-                            <div class="place-body">
-                                <h3 class="place-heading">CÁT BÀ</h3>
-                                <p class="place-timne">Saturday, June 14, 2025</p>                              
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col col-thir">
-                          <div class="place-item">
-                             <div class="place-img-wrapper">
-                                <img src="./assets/img/DOSON.jpg" alt="New York" class="place-img">
-                             </div>
-                            <div class="place-body">
-                                <h3 class="place-heading">ĐỒ SƠN</h3>
-                                <p class="place-timne">Thursday, October 2, 2025</p>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col col-thir">
-                          <div class="place-item">
-                             <div class="place-img-wrapper">
-                                <img src="./assets/img/DSC_0217.jpg" alt="Ha Giang" class="place-img">
-                             </div>
-                            <div class="place-body">
-                                <h3 class="place-heading">HÀ GIANG</h3>
-                                <p class="place-timne">Tuesday, June 17, 2025</p>                                                      
-                            </div>
-                          </div>
-                        </div>
-                        <div class="clear"></div>
-                     </div>
-                </div>
-            </div>
-
-              <!-- Begin Contact -->
-            <div id= "contact" class="content-selection">
-                <h2 class="selection-heading">CONTACT</h2>
-
-
-                <div class="row contact-content">
-                    <div class="col col-half contact-info">
-                        <p><i class="ti-location-pin"></i> Viet Nam</p>
-                        <p><i class="ti-mobile"></i> Phone :0866175542</p>
-                        <p><i class="ti-email"></i> Email: cuonggm61@gmail.com</p>
-                    </div>
-
-                    <div class="col col-half contact-form">
-                      <form action="https://formsubmit.co/cuonggm61@gmail.com" method="POST">
-                            <div class="row">
-                                <div class="col col-half">
-                                    <input type="text" name="name" placeholder="Name" required class="form-control">
-                                </div>
-                                <div class="col col-half">
-                                    <input type="email" name="email" placeholder="Email" required class="form-control">
-                                </div>
-                            </div>
-                            <div class="row mt-8">
-                                <div class="col col-full">
-                                    <input type="text" name="message" placeholder="Message" class="form-control">
-                                </div>
-                            </div>
-                            
-                            <input class="btn floatRight mt-16" type="submit" value="SEND">
-                        </form>
-                    </div>
-                </div>   
-            </div>
-              <!-- End Contact -->
-            <div class="map-section">
-                <img src="./assets/img/Ảnh chụp màn hình 2025-10-31 092052.png" alt="">
-            </div>   
-        </div>
-        <!-- Footer -->
-        <div id="footer">
-            <div class="socials-list">
-
-                <a href="https://www.facebook.com/teo.vu.94043/?locale=vi_VN"><i class="ti-facebook" ></i></a>
-                <a href="https://www.instagram.com/weal__86/"><i class="ti-instagram" ></i></a>
-                <a href=""><i class="ti-linkedin" ></i></a>
-
-
-            </div>
-            <p class="coppy-right"> Click <a href="">CuongPro</a>
-
-            </p>    
-
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-dot"></div>
         </div>
     </div>
 
-    <div class="modal js-modal">
-        <div class="modal-container">
-            <div class="modal-close js-modal-close">
-                <i class="ti-close"></i>
+    <!-- ===== CONTENT ===== -->
+    <div id="content">
+
+        <!-- ===== ABOUT ===== -->
+        <div id="band" class="content-selection">
+            <div class="section-label reveal-up">Photography</div>
+            <h2 class="selection-heading reveal-up">THE PHOTO</h2>
+            <p class="selection-sub-heading reveal-up">I love photo ❤️</p>
+            <p class="about-text reveal-up">
+                Hello! Tôi là <strong>Cường</strong>, một sinh viên trường đại học VNU. Đây là trang web cá nhân đầu tiên của tôi.
+                Tôi rất thích chụp ảnh — từ hồi cấp 3 tôi đã nhịn từng bữa ăn sáng để dành tiền mua chiếc máy ảnh đầu tiên.
+                Những bức ảnh đầu tiên rất xấu 😅 nhưng qua thời gian mày mò chỉnh màu, ảnh ngày càng đẹp hơn.
+                Giờ tôi muốn chia sẻ những khoảnh khắc đặc biệt đó lên đây. Cảm ơn bạn đã ghé thăm! 🙏
+            </p>
+
+            <div class="wide-photo-container reveal-up">
+                <img src="./assets/img/DSC_0222.jpg" alt="Featured Photo" class="wide-photo js-lightbox" data-src="./assets/img/DSC_0222.jpg">
+                <div class="photo-overlay-btn">
+                    <i class="ti-zoom-in"></i> Xem ảnh
+                </div>
             </div>
-            
-            <header class="modal-header">
-                <i class="modal-heading-icon ti-bag">
-                    Tickets
-                </i>
-            </header>
-            
-            <div class="modal-boby">
-                <label for="" class="modal-label">
-                    <i class="ti-shopping-cart">
+        </div>
 
-                    </i>
-                    Tickets, $15 per person
-                </label>
-                <input type="text" class="modal-input" placeholder="Buy rigth">
-
+        <!-- ===== GALLERY SECTION ===== -->
+        <div id="gallery" class="gallery-section">
+            <div class="content-selection">
+                <div class="section-label reveal-up" style="color: rgba(255,255,255,0.5)">Moments</div>
+                <h2 class="selection-heading text-white reveal-up">GALLERY</h2>
+                <p class="selection-sub-heading reveal-up" style="color:rgba(255,255,255,0.6)">Những khoảnh khắc đáng nhớ</p>
                 
-                <label for="" class="modal-label">
-                    <i class="ti-user"></i>
-                    Tickets, $15 per person
-                </label>
-                <input type="text" class="modal-input" placeholder="Buy rigth">   
-                <button id="but-ticket">
-                    Pay <i class="ti-check"></i>
-                </button>
+                <div class="gallery-grid">
+                    <div class="gallery-item reveal-scale" style="--delay: 0s">
+                        <img src="./assets/img/DSC_0069.jpg" alt="Gallery 1" class="js-lightbox" data-src="./assets/img/DSC_0069.jpg">
+                        <div class="gallery-overlay"><i class="ti-zoom-in"></i></div>
+                    </div>
+                    <div class="gallery-item reveal-scale" style="--delay: 0.1s">
+                        <img src="./assets/img/DOSON.jpg" alt="Gallery 2" class="js-lightbox" data-src="./assets/img/DOSON.jpg">
+                        <div class="gallery-overlay"><i class="ti-zoom-in"></i></div>
+                    </div>
+                    <div class="gallery-item reveal-scale" style="--delay: 0.2s">
+                        <img src="./assets/img/DSC_0217.jpg" alt="Gallery 3" class="js-lightbox" data-src="./assets/img/DSC_0217.jpg">
+                        <div class="gallery-overlay"><i class="ti-zoom-in"></i></div>
+                    </div>
+                    <div class="gallery-item reveal-scale" style="--delay: 0.3s">
+                        <img src="./assets/img/DSC_0222.jpg" alt="Gallery 4" class="js-lightbox" data-src="./assets/img/DSC_0222.jpg">
+                        <div class="gallery-overlay"><i class="ti-zoom-in"></i></div>
+                    </div>
+                    <div class="gallery-item reveal-scale" style="--delay: 0.4s">
+                        <img src="./assets/img/DSC_0245.jpg" alt="Gallery 5" class="js-lightbox" data-src="./assets/img/DSC_0245.jpg">
+                        <div class="gallery-overlay"><i class="ti-zoom-in"></i></div>
+                    </div>
+                    <div class="gallery-item reveal-scale" style="--delay: 0.5s">
+                        <img src="./assets/img/DSC_0069.jpg" alt="Gallery 6" class="js-lightbox" data-src="./assets/img/DSC_0069.jpg">
+                        <div class="gallery-overlay"><i class="ti-zoom-in"></i></div>
+                    </div>
+                </div>
             </div>
-            <footer class="modal-footer">
-                <p class="modal-help" > Need <a href=""> help!</a></p>
-            </footer>
+        </div>
+
+        <!-- ===== TRAVEL ===== -->
+        <div id="tour" class="tour-section">
+            <div class="content-selection">
+                <div class="section-label reveal-up" style="color: rgba(255,255,255,0.5)">My Journey</div>
+                <h2 class="selection-heading text-white reveal-up">TRAVEL</h2>
+                <p class="selection-sub-heading reveal-up" style="color:rgba(255,255,255,0.6)">Những chuyến đi đáng nhớ trong năm!</p>
+
+                <div class="row place-list">
+                    <div class="col col-thir reveal-up" style="--delay: 0s">
+                        <div class="place-item">
+                            <div class="place-img-wrapper">
+                                <img src="./assets/img/DSC_0069.jpg" alt="Cát Bà" class="place-img js-lightbox" data-src="./assets/img/DSC_0069.jpg">
+                            </div>
+                            <div class="place-body">
+                                <span class="place-badge">Hải Phòng</span>
+                                <h3 class="place-heading">CÁT BÀ</h3>
+                                <p class="place-timne"><i class="ti-calendar"></i> June 14, 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-thir reveal-up" style="--delay: 0.15s">
+                        <div class="place-item">
+                            <div class="place-img-wrapper">
+                                <img src="./assets/img/DOSON.jpg" alt="Đồ Sơn" class="place-img js-lightbox" data-src="./assets/img/DOSON.jpg">
+                            </div>
+                            <div class="place-body">
+                                <span class="place-badge">Hải Phòng</span>
+                                <h3 class="place-heading">ĐỒ SƠN</h3>
+                                <p class="place-timne"><i class="ti-calendar"></i> October 2, 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-thir reveal-up" style="--delay: 0.3s">
+                        <div class="place-item">
+                            <div class="place-img-wrapper">
+                                <img src="./assets/img/DSC_0217.jpg" alt="Hà Giang" class="place-img js-lightbox" data-src="./assets/img/DSC_0217.jpg">
+                            </div>
+                            <div class="place-body">
+                                <span class="place-badge">Hà Giang</span>
+                                <h3 class="place-heading">HÀ GIANG</h3>
+                                <p class="place-timne"><i class="ti-calendar"></i> June 17, 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== CONTACT ===== -->
+        <div id="contact" class="content-selection">
+            <div class="section-label reveal-up">Say Hello</div>
+            <h2 class="selection-heading reveal-up">CONTACT</h2>
+
+            <div class="row contact-content reveal-up">
+                <div class="col col-half contact-info">
+                    <p><i class="ti-location-pin"></i> Việt Nam</p>
+                    <p><i class="ti-mobile"></i> 0866 175 542</p>
+                    <p><i class="ti-email"></i> cuonggm61@gmail.com</p>
+                </div>
+
+                <div class="col col-half contact-form">
+                    <form action="https://formsubmit.co/cuonggm61@gmail.com" method="POST">
+                        <div class="row">
+                            <div class="col col-half">
+                                <input type="text" name="name" placeholder="Họ và tên" required class="form-control">
+                            </div>
+                            <div class="col col-half">
+                                <input type="email" name="email" placeholder="Email" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mt-8">
+                            <div class="col col-full">
+                                <textarea name="message" placeholder="Lời nhắn của bạn..." class="form-control" rows="4"></textarea>
+                            </div>
+                        </div>
+                        <input class="btn floatRight mt-16" type="submit" value="GỬI TIN NHẮN →">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map -->
+        <div class="map-section">
+            <img src="./assets/img/Ảnh chụp màn hình 2025-10-31 092052.png" alt="Map">
         </div>
     </div>
 
-    <script>
-        const buyBtns = document.querySelectorAll('.js-buy-ticket')
-        const  modal = document.querySelector('.js-modal')
-        const close = document.querySelector('.js-modal-close')
+    <!-- ===== FOOTER ===== -->
+    <div id="footer">
+        <div class="footer-logo">CT<span>.</span></div>
+        <div class="socials-list">
+            <a href="https://www.facebook.com/teo.vu.94043/?locale=vi_VN" target="_blank" aria-label="Facebook"><i class="ti-facebook"></i></a>
+            <a href="https://www.instagram.com/weal__86/" target="_blank" aria-label="Instagram"><i class="ti-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="ti-linkedin"></i></a>
+        </div>
+        <p class="coppy-right">© 2025 <a href="#">CuongPro</a>. Made with ❤️</p>
+    </div>
 
+    <!-- ===== LIGHTBOX ===== -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Đóng"><i class="ti-close"></i></button>
+        <button class="lightbox-prev" id="lightbox-prev" aria-label="Ảnh trước"><i class="ti-angle-left"></i></button>
+        <button class="lightbox-next" id="lightbox-next" aria-label="Ảnh sau"><i class="ti-angle-right"></i></button>
+        <div class="lightbox-content">
+            <img src="" alt="" id="lightbox-img">
+        </div>
+    </div>
 
-        function showbuyticket(){
-            modal.classList.add('open')        
-        }
+    <!-- ===== SCROLL TO TOP ===== -->
+    <button class="scroll-top" id="scroll-top" aria-label="Lên đầu trang">
+        <i class="ti-angle-up"></i>
+    </button>
 
-        function closebuyticket(){
-            modal.classList.remove('open')
-        }
-        close.addEventListener('click',closebuyticket)
-
-        for(const buyBtn of buyBtns){
-            buyBtn.addEventListener('click',showbuyticket  )
-        }
-
-    </script>
+    <!-- ===== SCRIPTS ===== -->
+    <script src="./assets/js/main.js"></script>
 </body>
 </html>
