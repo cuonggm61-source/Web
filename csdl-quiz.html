@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trắc Nghiệm Cơ Sở Dữ Liệu | CSDL Quiz</title>
+<meta name="description" content="Ôn tập trắc nghiệm Cơ sở dữ liệu - 356 câu hỏi tổng hợp">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #6c63ff;
+    --primary-dark: #4e46e0;
+    --secondary: #00d4aa;
+    --accent: #ff6b6b;
+    --bg: #0f0f1a;
+    --bg2: #16162a;
+    --bg3: #1e1e35;
+    --card: #1a1a2e;
+    --card2: #22223b;
+    --text: #e8e8f0;
+    --text-muted: #8888aa;
+    --border: #2e2e4a;
+    --correct: #00d4aa;
+    --wrong: #ff6b6b;
+    --correct-bg: rgba(0,212,170,0.12);
+    --wrong-bg: rgba(255,107,107,0.12);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  /* Animated background */
+  body::before {
+    content:'';
+    position:fixed; top:0;left:0;right:0;bottom:0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(108,99,255,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(0,212,170,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 90%, rgba(255,107,107,0.05) 0%, transparent 50%);
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ===== SCREENS ===== */
+  .screen { display:none; position:relative; z-index:1; }
+  .screen.active { display:block; }
+
+  /* ===== HOME SCREEN ===== */
+  #home-screen {
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding: 2rem;
+    text-align:center;
+  }
+  .logo-icon {
+    width:90px; height:90px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 24px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:2.5rem; margin-bottom:2rem;
+    box-shadow: 0 0 40px rgba(108,99,255,0.4);
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-10px); }
+  }
+  .home-title {
+    font-size: clamp(2rem,5vw,3.5rem);
+    font-weight:800;
+    background: linear-gradient(135deg, #fff 0%, var(--primary) 50%, var(--secondary) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    line-height:1.2; margin-bottom:0.75rem;
+  }
+  .home-sub {
+    font-size:1.1rem; color:var(--text-muted); margin-bottom:0.5rem;
+  }
+  .home-author {
+    font-size:0.9rem; color:var(--primary); margin-bottom:3rem; opacity:0.8;
+  }
+  .stats-row {
+    display:flex; gap:1.5rem; margin-bottom:3rem; flex-wrap:wrap; justify-content:center;
+  }
+  .stat-card {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.5rem;
+    text-align:center;
+    min-width:100px;
+  }
+  .stat-num { font-size:1.8rem; font-weight:800; color:var(--primary); }
+  .stat-lbl { font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; }
+
+  .mode-grid {
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:1rem; max-width:700px; width:100%; margin-bottom:2rem;
+  }
+  .mode-card {
+    background: var(--card2);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding:1.5rem;
+    cursor:pointer;
+    transition: all 0.25s;
+    text-align:left;
+  }
+  .mode-card:hover {
+    border-color: var(--primary);
+    transform:translateY(-4px);
+    box-shadow: 0 12px 32px rgba(108,99,255,0.2);
+  }
+  .mode-card.selected {
+    border-color: var(--primary);
+    background: rgba(108,99,255,0.12);
+  }
+  .mode-icon { font-size:2rem; margin-bottom:0.75rem; }
+  .mode-name { font-size:1rem; font-weight:700; margin-bottom:0.25rem; }
+  .mode-desc { font-size:0.8rem; color:var(--text-muted); }
+
+  .settings-row {
+    display:flex; gap:1rem; align-items:center; margin-bottom:2rem;
+    flex-wrap:wrap; justify-content:center;
+  }
+  .settings-row label { color:var(--text-muted); font-size:0.9rem; }
+  .settings-row input[type=number] {
+    background:var(--card2); border:1px solid var(--border);
+    color:var(--text); padding:0.5rem 0.75rem; border-radius:8px;
+    font-size:0.95rem; width:80px; text-align:center;
+    outline:none; font-family:inherit;
+  }
+  .settings-row input:focus { border-color:var(--primary); }
+
+  .btn-start {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color:#fff; border:none; border-radius: var(--radius);
+    padding: 1rem 3rem; font-size:1.1rem; font-weight:700;
+    cursor:pointer; letter-spacing:0.5px;
+    transition: all 0.25s;
+    box-shadow: 0 4px 20px rgba(108,99,255,0.4);
+  }
+  .btn-start:hover {
+    transform:translateY(-2px);
+    box-shadow: 0 8px 30px rgba(108,99,255,0.5);
+  }
+  .btn-start:active { transform:translateY(0); }
+
+  /* ===== QUIZ SCREEN ===== */
+  #quiz-screen {
+    min-height:100vh;
+    display:none; flex-direction:column;
+  }
+  #quiz-screen.active { display:flex; }
+
+  .quiz-header {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 1.5rem;
+    display:flex; align-items:center; gap:1rem;
+    position:sticky; top:0; z-index:10;
+    backdrop-filter:blur(10px);
+  }
+  .btn-back {
+    background:var(--card2); border:1px solid var(--border);
+    color:var(--text); border-radius:10px; padding:0.5rem 1rem;
+    cursor:pointer; font-size:0.85rem; font-family:inherit;
+    transition:all 0.2s;
+  }
+  .btn-back:hover { border-color:var(--primary); color:var(--primary); }
+  .quiz-progress-wrap { flex:1; }
+  .quiz-meta {
+    display:flex; justify-content:space-between; margin-bottom:0.4rem;
+    font-size:0.8rem; color:var(--text-muted);
+  }
+  .progress-bar {
+    height:6px; background:var(--border); border-radius:99px; overflow:hidden;
+  }
+  .progress-fill {
+    height:100%; background:linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius:99px; transition:width 0.4s ease;
+  }
+  .timer-badge {
+    background:var(--card2); border:1px solid var(--border);
+    border-radius:10px; padding:0.4rem 0.75rem;
+    font-size:0.9rem; font-weight:600; color:var(--text);
+    font-variant-numeric:tabular-nums; min-width:60px; text-align:center;
+  }
+  .timer-badge.danger { border-color:var(--wrong); color:var(--wrong); animation:pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+  .quiz-body {
+    flex:1; display:flex; gap:0;
+    overflow:hidden;
+  }
+
+  /* Navigation Panel */
+  .nav-panel {
+    width:220px; min-width:220px;
+    background:var(--card);
+    border-right: 1px solid var(--border);
+    overflow-y:auto;
+    padding:1rem;
+    display:none;
+  }
+  .nav-panel.show { display:block; }
+  .nav-title { font-size:0.75rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:0.75rem; }
+  .nav-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:4px; }
+  .nav-btn {
+    aspect-ratio:1; border-radius:6px;
+    border:1px solid var(--border); background:transparent;
+    color:var(--text-muted); font-size:0.7rem; cursor:pointer;
+    transition:all 0.15s; font-family:inherit;
+  }
+  .nav-btn:hover { border-color:var(--primary); color:var(--primary); }
+  .nav-btn.current { border-color:var(--primary); background:var(--primary); color:#fff; }
+  .nav-btn.answered { background:rgba(108,99,255,0.2); border-color:var(--primary); color:var(--primary); }
+  .nav-btn.correct { background:var(--correct-bg); border-color:var(--correct); color:var(--correct); }
+  .nav-btn.wrong { background:var(--wrong-bg); border-color:var(--wrong); color:var(--wrong); }
+
+  .nav-legend { margin-top:1rem; }
+  .legend-item { display:flex; align-items:center; gap:0.5rem; font-size:0.72rem; color:var(--text-muted); margin-bottom:0.35rem; }
+  .legend-dot { width:10px;height:10px; border-radius:3px; }
+
+  /* Main content */
+  .quiz-main {
+    flex:1; overflow-y:auto;
+    padding: 1.5rem;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .question-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding:2rem;
+    max-width:820px;
+    width:100%;
+    margin-bottom:1.5rem;
+    box-shadow: var(--shadow);
+    animation: slideIn 0.3s ease;
+  }
+  @keyframes slideIn {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+  .question-tag {
+    display:inline-flex; align-items:center; gap:0.5rem;
+    background: rgba(108,99,255,0.15); color:var(--primary);
+    padding:0.3rem 0.75rem; border-radius:99px; font-size:0.78rem; font-weight:600;
+    margin-bottom:1.25rem;
+  }
+  .question-text {
+    font-size:1.05rem; line-height:1.7; font-weight:500;
+    color:var(--text); margin-bottom:1.75rem;
+  }
+  .options-list { display:flex; flex-direction:column; gap:0.75rem; }
+  .option-btn {
+    display:flex; align-items:flex-start; gap:0.875rem;
+    padding:0.875rem 1.25rem;
+    background:var(--bg3); border:2px solid var(--border);
+    border-radius:var(--radius-sm);
+    cursor:pointer; transition:all 0.2s;
+    text-align:left; width:100%;
+    font-family:inherit; color:var(--text);
+  }
+  .option-btn:hover:not(:disabled) {
+    border-color:var(--primary);
+    background: rgba(108,99,255,0.08);
+    transform:translateX(4px);
+  }
+  .option-letter {
+    min-width:28px; height:28px;
+    background: var(--card2); border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.8rem; font-weight:700; color:var(--primary);
+    flex-shrink:0; transition:all 0.2s;
+  }
+  .option-text { font-size:0.95rem; line-height:1.55; padding-top:3px; }
+  .option-btn.selected { border-color:var(--primary); background:rgba(108,99,255,0.12); }
+  .option-btn.selected .option-letter { background:var(--primary); color:#fff; }
+  .option-btn.correct-ans { border-color:var(--correct)!important; background:var(--correct-bg)!important; }
+  .option-btn.correct-ans .option-letter { background:var(--correct)!important; color:#fff!important; }
+  .option-btn.wrong-ans { border-color:var(--wrong)!important; background:var(--wrong-bg)!important; }
+  .option-btn.wrong-ans .option-letter { background:var(--wrong)!important; color:#fff!important; }
+  .option-btn:disabled { cursor:default; transform:none!important; }
+
+  .explanation-box {
+    margin-top:1.5rem; padding:1rem 1.25rem;
+    background:rgba(108,99,255,0.08); border-left:3px solid var(--primary);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    font-size:0.9rem; color:var(--text-muted); line-height:1.6;
+    display:none;
+  }
+  .explanation-box.show { display:block; }
+
+  .quiz-actions {
+    display:flex; justify-content:space-between; align-items:center;
+    max-width:820px; width:100%; gap:1rem; flex-wrap:wrap;
+  }
+  .btn-nav {
+    background:var(--card2); border:1px solid var(--border);
+    color:var(--text); border-radius:var(--radius-sm);
+    padding:0.65rem 1.5rem; cursor:pointer; font-size:0.9rem;
+    font-family:inherit; font-weight:500; transition:all 0.2s;
+  }
+  .btn-nav:hover { border-color:var(--primary); color:var(--primary); }
+  .btn-nav:disabled { opacity:0.3; cursor:default; }
+  .btn-submit {
+    background:linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color:#fff; border:none; border-radius:var(--radius-sm);
+    padding:0.65rem 2rem; cursor:pointer; font-size:0.9rem;
+    font-family:inherit; font-weight:600; transition:all 0.2s;
+  }
+  .btn-submit:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(108,99,255,0.4); }
+  .btn-submit:disabled { opacity:0.4; cursor:default; transform:none; box-shadow:none; }
+  .btn-end-quiz {
+    background:linear-gradient(135deg, var(--accent), #ff4444);
+    color:#fff; border:none; border-radius:var(--radius-sm);
+    padding:0.65rem 1.5rem; cursor:pointer; font-size:0.9rem;
+    font-family:inherit; font-weight:600; transition:all 0.2s;
+  }
+  .btn-end-quiz:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(255,107,107,0.4); }
+
+  /* Panel toggle button */
+  .btn-panel {
+    background:var(--card2); border:1px solid var(--border);
+    color:var(--text); border-radius:10px; padding:0.5rem 1rem;
+    cursor:pointer; font-size:0.85rem; font-family:inherit;
+    transition:all 0.2s; white-space:nowrap;
+  }
+  .btn-panel:hover { border-color:var(--primary); color:var(--primary); }
+
+  /* ===== RESULT SCREEN ===== */
+  #result-screen {
+    min-height:100vh; padding:2rem;
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+  }
+  .result-header { text-align:center; margin-bottom:2rem; }
+  .result-emoji {
+    font-size:4rem; margin-bottom:1rem;
+    animation:bounceIn 0.5s ease;
+  }
+  @keyframes bounceIn {
+    0%{transform:scale(0)} 60%{transform:scale(1.2)} 100%{transform:scale(1)}
+  }
+  .result-title {
+    font-size:2rem; font-weight:800; margin-bottom:0.5rem;
+    background:linear-gradient(135deg, #fff, var(--primary));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .score-circle {
+    width:160px; height:160px;
+    border-radius:50%;
+    background: conic-gradient(var(--primary) var(--pct), var(--border) 0);
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 2rem;
+    position:relative;
+  }
+  .score-circle::after {
+    content:''; position:absolute;
+    width:130px; height:130px; border-radius:50%; background:var(--bg);
+  }
+  .score-inner {
+    position:relative; z-index:1; text-align:center;
+  }
+  .score-pct { font-size:2rem; font-weight:800; color:var(--primary); }
+  .score-lbl { font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; }
+
+  .result-stats {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+    gap:1rem; max-width:600px; width:100%; margin-bottom:2rem;
+  }
+  .rstat {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:var(--radius-sm); padding:1rem; text-align:center;
+  }
+  .rstat-num { font-size:1.6rem; font-weight:800; }
+  .rstat-lbl { font-size:0.75rem; color:var(--text-muted); }
+  .rstat.c .rstat-num { color:var(--correct); }
+  .rstat.w .rstat-num { color:var(--wrong); }
+  .rstat.s .rstat-num { color:var(--primary); }
+  .rstat.t .rstat-num { color:var(--secondary); }
+
+  .result-btns { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-bottom:2rem; }
+  .btn-retry {
+    background:linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color:#fff; border:none; border-radius:var(--radius-sm);
+    padding:0.75rem 2rem; cursor:pointer; font-size:0.95rem;
+    font-family:inherit; font-weight:600; transition:all 0.2s;
+  }
+  .btn-retry:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(108,99,255,0.4); }
+  .btn-home-r {
+    background:var(--card2); border:1px solid var(--border);
+    color:var(--text); border-radius:var(--radius-sm);
+    padding:0.75rem 2rem; cursor:pointer; font-size:0.95rem;
+    font-family:inherit; font-weight:600; transition:all 0.2s;
+  }
+  .btn-home-r:hover { border-color:var(--primary); color:var(--primary); }
+
+  /* Review section */
+  .review-section { max-width:820px; width:100%; }
+  .review-title {
+    font-size:1.1rem; font-weight:700; margin-bottom:1rem; color:var(--text);
+    border-bottom:1px solid var(--border); padding-bottom:0.75rem;
+  }
+  .review-item {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:var(--radius-sm); padding:1.25rem;
+    margin-bottom:0.75rem; transition:all 0.2s;
+  }
+  .review-item.correct-r { border-left:4px solid var(--correct); }
+  .review-item.wrong-r { border-left:4px solid var(--wrong); }
+  .review-item.skip-r { border-left:4px solid var(--text-muted); }
+  .review-q { font-size:0.9rem; color:var(--text); margin-bottom:0.75rem; font-weight:500; }
+  .review-q-num { color:var(--primary); font-weight:700; margin-right:0.5rem; }
+  .review-ans { font-size:0.85rem; display:flex; flex-direction:column; gap:0.3rem; }
+  .review-user { color:var(--wrong); }
+  .review-user.ok { color:var(--correct); }
+  .review-correct { color:var(--correct); }
+  .review-skip { color:var(--text-muted); font-style:italic; }
+  .review-filter {
+    display:flex; gap:0.5rem; margin-bottom:1rem; flex-wrap:wrap;
+  }
+  .filter-btn {
+    padding:0.4rem 1rem; border-radius:99px;
+    border:1px solid var(--border); background:transparent;
+    color:var(--text-muted); font-size:0.8rem; cursor:pointer;
+    font-family:inherit; transition:all 0.2s;
+  }
+  .filter-btn:hover { border-color:var(--primary); color:var(--primary); }
+  .filter-btn.active { background:var(--primary); border-color:var(--primary); color:#fff; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width:6px; height:6px; }
+  ::-webkit-scrollbar-track { background:var(--bg); }
+  ::-webkit-scrollbar-thumb { background:var(--border); border-radius:99px; }
+  ::-webkit-scrollbar-thumb:hover { background:var(--primary); }
+
+  /* Responsive */
+  @media(max-width:768px) {
+    .nav-panel { display:none!important; }
+    .quiz-main { padding:1rem; }
+    .question-card { padding:1.25rem; }
+    .result-stats { grid-template-columns:repeat(2,1fr); }
+  }
+  @media(max-width:480px) {
+    .mode-grid { grid-template-columns:1fr; }
+    .stats-row { gap:0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== HOME ========== -->
+<div id="home-screen" class="screen active">
+  <div class="logo-icon">🗄️</div>
+  <h1 class="home-title">Trắc Nghiệm CSDL</h1>
+  <p class="home-sub">Cơ Sở Dữ Liệu – Nguyễn Hồng Phương</p>
+  <p class="home-author">cuuduongthancong.com</p>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num">356</div>
+      <div class="stat-lbl">Câu hỏi</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">8</div>
+      <div class="stat-lbl">Chủ đề</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">4</div>
+      <div class="stat-lbl">Chế độ</div>
+    </div>
+  </div>
+
+  <div class="mode-grid">
+    <div class="mode-card selected" data-mode="practice" onclick="selectMode(this)">
+      <div class="mode-icon">📚</div>
+      <div class="mode-name">Luyện tập</div>
+      <div class="mode-desc">Xem đáp án sau mỗi câu</div>
+    </div>
+    <div class="mode-card" data-mode="exam" onclick="selectMode(this)">
+      <div class="mode-icon">📝</div>
+      <div class="mode-name">Thi thử</div>
+      <div class="mode-desc">Nộp bài xem kết quả</div>
+    </div>
+    <div class="mode-card" data-mode="timed" onclick="selectMode(this)">
+      <div class="mode-icon">⏱️</div>
+      <div class="mode-name">Giới hạn thời gian</div>
+      <div class="mode-desc">60 giây mỗi câu</div>
+    </div>
+    <div class="mode-card" data-mode="review" onclick="selectMode(this)">
+      <div class="mode-icon">🔁</div>
+      <div class="mode-name">Xem lại tất cả</div>
+      <div class="mode-desc">Duyệt câu hỏi và đáp án</div>
+    </div>
+  </div>
+
+  <div class="settings-row">
+    <label>Số câu:</label>
+    <input type="number" id="num-questions" value="30" min="5" max="356" step="5">
+    <label style="margin-left:1rem;">Từ câu:</label>
+    <input type="number" id="start-from" value="1" min="1" max="356">
+  </div>
+
+  <button class="btn-start" onclick="startQuiz()">Bắt đầu →</button>
+</div>
+
+<!-- ========== QUIZ ========== -->
+<div id="quiz-screen" class="screen">
+  <header class="quiz-header">
+    <button class="btn-back" onclick="goHome()">← Thoát</button>
+    <div class="quiz-progress-wrap">
+      <div class="quiz-meta">
+        <span id="q-counter">Câu 1/30</span>
+        <span id="q-score-live">✓ 0 &nbsp;✗ 0</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    </div>
+    <div class="timer-badge" id="timer-badge" style="display:none">1:00</div>
+    <button class="btn-panel" onclick="togglePanel()">☰ Bảng</button>
+  </header>
+
+  <div class="quiz-body">
+    <div class="nav-panel" id="nav-panel">
+      <div class="nav-title">Điều hướng</div>
+      <div class="nav-grid" id="nav-grid"></div>
+      <div class="nav-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--primary)"></div>Đang làm</div>
+        <div class="legend-item"><div class="legend-dot" style="background:rgba(108,99,255,0.3)"></div>Đã trả lời</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--border)"></div>Chưa làm</div>
+      </div>
+    </div>
+
+    <div class="quiz-main">
+      <div class="question-card" id="question-card">
+        <div class="question-tag" id="q-tag">📌 Câu 1</div>
+        <div class="question-text" id="question-text"></div>
+        <div class="options-list" id="options-list"></div>
+        <div class="explanation-box" id="explanation-box"></div>
+      </div>
+
+      <div class="quiz-actions">
+        <button class="btn-nav" id="btn-prev" onclick="prevQ()">← Câu trước</button>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;">
+          <button class="btn-submit" id="btn-submit" onclick="submitAnswer()">Kiểm tra</button>
+          <button class="btn-end-quiz" onclick="endQuiz()">Nộp bài 🏁</button>
+        </div>
+        <button class="btn-nav" id="btn-next" onclick="nextQ()">Câu tiếp →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== RESULT ========== -->
+<div id="result-screen" class="screen">
+  <div class="result-header">
+    <div class="result-emoji" id="result-emoji">🎉</div>
+    <div class="result-title" id="result-title">Hoàn thành!</div>
+    <div style="color:var(--text-muted);font-size:0.9rem" id="result-sub"></div>
+  </div>
+
+  <div class="score-circle" id="score-circle" style="--pct:0deg">
+    <div class="score-inner">
+      <div class="score-pct" id="score-pct">0%</div>
+      <div class="score-lbl">Điểm số</div>
+    </div>
+  </div>
+
+  <div class="result-stats">
+    <div class="rstat c"><div class="rstat-num" id="rs-correct">0</div><div class="rstat-lbl">✓ Đúng</div></div>
+    <div class="rstat w"><div class="rstat-num" id="rs-wrong">0</div><div class="rstat-lbl">✗ Sai</div></div>
+    <div class="rstat s"><div class="rstat-num" id="rs-skip">0</div><div class="rstat-lbl">— Bỏ qua</div></div>
+    <div class="rstat t"><div class="rstat-num" id="rs-time">0:00</div><div class="rstat-lbl">⏱ Thời gian</div></div>
+  </div>
+
+  <div class="result-btns">
+    <button class="btn-retry" onclick="retryQuiz()">🔁 Làm lại</button>
+    <button class="btn-home-r" onclick="goHome()">🏠 Trang chủ</button>
+  </div>
+
+  <div class="review-section">
+    <div class="review-title">📋 Xem lại câu trả lời</div>
+    <div class="review-filter">
+      <button class="filter-btn active" onclick="filterReview('all',this)">Tất cả</button>
+      <button class="filter-btn" onclick="filterReview('wrong',this)">Sai ✗</button>
+      <button class="filter-btn" onclick="filterReview('correct',this)">Đúng ✓</button>
+      <button class="filter-btn" onclick="filterReview('skip',this)">Bỏ qua</button>
+    </div>
+    <div id="review-list"></div>
+  </div>
+</div>
+
+<script>
+// ===========================
+// DATA – 356 questions
+// ===========================
+const RAW_QUESTIONS = [
+  {q:"Trường khóa chính là trường:", opts:["Single Key","Unique Key","First Key","Primary Key"], ans:3},
+  {q:"Câu nào trong các câu dưới đây sai khi nói về hệ CSDL khách-chủ?", opts:["Trong kiến trúc khách-chủ, các thành phần tương tác với nhau tạo nên hệ thống gồm thành phần yêu cầu tài nguyên và thành phần cấp tài nguyên","Hai thành phần yêu cầu tài nguyên và thành phần cấp tài nguyên phải cài đặt trên cùng một máy tính","Thành phần cấp tài nguyên thường được cài đặt tại một máy chủ trên mạng (cục bộ)","Thành phần yêu cầu tài nguyên có thể cài đặt tại nhiều máy khác (máy khách) trên mạng"], ans:1},
+  {q:"Hãy chọn phương án đúng. Hai bảng trong một CSDL quan hệ liên kết với nhau thông qua:", opts:["Địa chỉ của các bảng","Tên trường","Thuộc tính của các trường được chọn (không nhất thiết phải là khóa)","Thuộc tính khóa"], ans:3},
+  {q:"Câu nào trong các câu dưới đây sai khi nói về hệ CSDL cá nhân?", opts:["Người dùng đóng vai trò là người quản trị CSDL","Tính an toàn của hệ CSDL cá nhân rất cao","Hệ CSDL cá nhân được lưu trữ trên 1 máy","Hệ CSDL chỉ cho phép 1 người dùng tại một thời điểm"], ans:1},
+  {q:"Tiêu chí nào sau đây thường được dùng để chọn khóa chính?", opts:["Khóa có ít thuộc tính nhất","Không chứa các thuộc tính thay đổi theo thời gian","Khóa bất kì","Chỉ là khóa có một thuộc tính"], ans:0},
+  {q:"Thế nào là cơ sở dữ liệu quan hệ?", opts:["Cơ sở dữ liệu được xây dựng dựa trên mô hình dữ liệu quan hệ","Cơ sở dữ liệu dùng để tạo lập, cập nhật và khai thác CSDL quan hệ","Cơ sở dữ liệu được xây dựng dựa trên mô hình dữ liệu quan hệ và khai thác CSDL quan hệ","Cơ sở dữ liệu dùng để tạo lập, cập nhật và khai thác CSDL quan hệ dựa trên mô hình dữ liệu quan hệ"], ans:3},
+  {q:"Liên kết giữa các bảng được dựa trên:", opts:["Thuộc tính khóa","Các thuộc tính trùng tên nhau giữa các bảng","Ý định của người quản trị hệ CSDL","Ý định ghép các bảng thành một bảng có nhiều thuộc tính hơn"], ans:0},
+  {q:"Câu nào sai trong các câu dưới đây khi nói về ưu điểm của hệ CSDL khách-chủ?", opts:["Chi phí cho truyền thông giảm","Bổ sung thêm máy khách là dễ dàng","Phát triển và sử dụng các hệ CSDL khách-chủ khá đơn giản, dễ dàng","Nâng cao khả năng đảm bảo tính nhất quán của dữ liệu"], ans:2},
+  {q:"Khẳng định nào sau đây về CSDL quan hệ là đúng?", opts:["Tập hợp các bảng dữ liệu","Cơ sở dữ liệu được tạo ra từ hệ QTCSDL Access","Cơ sở dữ liệu mà giữa các dữ liệu có quan hệ với nhau","Cơ sở dữ liệu được xây dựng trên mô hình dữ liệu quan hệ"], ans:3},
+  {q:"Câu nào sai trong các câu dưới đây?", opts:["Mỗi bảng có ít nhất một khóa","Nên chọn khóa chính là khóa có ít thuộc tính nhất","Trong một bảng có thể có nhiều khóa chính","Việc xác định khóa phụ thuộc vào quan hệ logic của các dữ liệu chứ không phụ thuộc vào giá trị các dữ liệu"], ans:2},
+  {q:"Trong quá trình cập nhật dữ liệu, được hệ quản trị CSDL kiểm soát để đảm bảo tính chất nào?", opts:["Tính chất ràng buộc toàn vẹn","Tính độc lập","Tính nhất quán","Tính bảo mật"], ans:2},
+  {q:"Hãy cho biết ý kiến nào là đúng. Với một bảng dữ liệu, hệ QTCSDL cho phép:", opts:["Xem nội dung các bản ghi","Xem mối liên kết giữa bảng đó với các bảng khác","Xem một số trường của mỗi bản ghi","Tất cả đều đúng"], ans:3},
+  {q:"Câu nào trong các câu dưới đây sai khi nói về hệ CSDL trung tâm?", opts:["Là hệ CSDL được cài đặt trên máy tính trung tâm cho phép nhiều người sử dụng cùng một lúc","Máy tính trung tâm này chỉ là một máy tính duy nhất","Nhiều người dùng từ xa có thể truy cập vào CSDL này thông qua thiết bị đầu cuối và các phương tiện truyền thông","Các hệ CSDL trung tâm thường rất lớn và có nhiều người dùng"], ans:1},
+  {q:"Trong các ưu điểm dưới đây, ưu điểm nào không phải của các hệ CSDL phân tán?", opts:["Dữ liệu có tính sẵn sàng","Dữ liệu được chia sẻ trên mạng nhưng vẫn cho phép quản trị dữ liệu địa phương","Việc thiết kế CSDL đơn giản, chi phí thấp hơn","Dữ liệu có tính tin cậy cao"], ans:2},
+  {q:"Câu nào sai trong các câu dưới đây khi nói về ưu điểm của hệ CSDL khách-chủ?", opts:["Khả năng truy cập rộng rãi đến các CSDL","Phát triển và sử dụng các hệ CSDL khách-chủ khá đơn giản, dễ dàng","Nâng cao khả năng thực hiện","Chi phí cho phần cứng có thể giảm"], ans:1},
+  {q:"Trong các phần mềm sau đây, phần mềm nào không phải là hệ quản trị CSDL quan hệ?", opts:["Microsoft Excel","Microsoft Access","Microsoft SQL server","Oracle"], ans:0},
+  {q:"Đâu không phải là các bước xây dựng cơ sở dữ liệu?", opts:["Thiết kế","Khảo sát","Chạy thử","Ký hợp đồng"], ans:3},
+  {q:"Hãy chọn phương án trả lời đúng. Tại sao phải khai báo kích thước cho mỗi trường?", opts:["Để giúp hệ thống kiểm tra tính đúng đắn khi nhập dữ liệu","Để có thể tính kích thước của bản ghi và xác định vị trí các trường trong bản ghi","Để hệ thống dự trữ vùng nhớ phục vụ ghi dữ liệu","Tất cả đều đúng"], ans:3},
+  {q:"Các bước chính để tạo CSDL:", opts:["Tạo bảng; Chọn khóa chính cho bảng; Đặt tên bảng và lưu cấu trúc bảng; Tạo liên kết bảng","Tạo bảng; Chọn khóa chính cho bảng; Đặt tên bảng và lưu cấu trúc bảng","Tạo bảng; Chọn khóa chính cho bảng; Lưu cấu trúc bảng; Tạo liên kết bảng; cập nhật và khai thác CSDL","Tạo bảng; Chọn khóa chính cho bảng; Đặt tên bảng; Tạo liên kết bảng"], ans:0},
+  {q:"SQL là tên viết tắt của:", opts:["Structure Query Language","Query Structure Language","Structure Question Language","Structure Query Locator"], ans:0},
+  {q:"An toàn dữ liệu có thể hiểu là?", opts:["Dễ dàng cho công việc bảo trì dữ liệu","Ngăn chặn các truy nhập trái phép, sai quy định từ trong ra hoặc từ ngoài vào","Thống nhất các tiêu chuẩn, thủ tục và các biện pháp bảo vệ, an toàn dữ liệu","Tính nhất quán và toàn vẹn dữ liệu"], ans:1},
+  {q:"Mô hình ngoài là?", opts:["Nội dung thông tin của toàn bộ CSDL","Nội dung thông tin của toàn bộ CSDL dưới cách nhìn của người sử dụng","Nội dung thông tin của một phần cơ sở dữ liệu","Nội dung thông tin của một phần dữ liệu dưới cách nhìn của người sử dụng"], ans:3},
+  {q:"Mô hình trong là?", opts:["Là một trong các mô hình biểu diễn CSDL dưới dạng lưu trữ vật lý","Mô hình biểu diễn cơ sở dữ liệu trìu tượng ở mức quan niệm","Có nhiều cách biểu diễn CSDL dưới dạng lưu trữ vật lý","Mô hình lưu trữ vật lý dữ liệu"], ans:0},
+  {q:"Ánh xạ quan niệm-ngoài?", opts:["Quan hệ giữa mô hình trong và mô hình trong","Quan hệ giữa mô hình ngoài và mô hình ngoài","Quan hệ giữa mô hình ngoài và mô hình trong","Quan hệ môt-một giữa mô hình ngoài và mô hình dữ liệu"], ans:2},
+  {q:"Mục tiêu của cơ sở dữ liệu là?", opts:["Không làm thay đổi chiến lược truy nhập cơ sở dữ liệu","Bảo đảm tính độc lập dữ liệu","Không làm thay đổi cấu trúc lưu trữ dữ liệu","Dữ liệu chỉ được biểu diễn, mô tả một cách duy nhất"], ans:1},
+  {q:"Ràng buộc giải tích?", opts:["Quy tắc biểu diễn cấu trúc dữ liệu","Mối quan hệ giữa các thuộc tính được biểu diễn bằng các biểu thức toán học","Mô tả tính chất của các thuộc tính khi tạo lập CSDL","Các phép toán đại số quan hệ"], ans:1},
+  {q:"Ràng buộc logic?", opts:["Mối quan hệ giữa các thuộc tính được biểu diễn bằng các phụ thuộc hàm","Mối quan hệ giữa các thuộc tính được biểu diễn bằng các biểu thức toán học","Các phép so sánh","Các phép toán quan hệ"], ans:0},
+  {q:"Mô hình CSDL phân cấp là mô hình?", opts:["Dữ liệu được biểu diễn bằng con trỏ","Dữ liệu được biểu diễn bằng mối quan hệ thực thể","Dữ liệu được biểu diễn bằng bảng","Dữ liệu được biểu diễn bằng cấu trúc cây"], ans:3},
+  {q:"Khi thao tác bằng ngôn ngữ thao tác dữ liệu trên CSDL phân cấp?", opts:["Đảm bảo tính độc lập của dữ liệu","Đảm bảo tính ổn định","Đảm bảo tính toàn vẹn của dữ liệu","Có nhiều khả năng xẩy ra dị thường thông tin"], ans:3},
+  {q:"Đặc trưng cấu trúc của mô hình mạng là?", opts:["Chứa các liên kết một - một và một - nhiều","Chứa các liên kết một - một, một - nhiều và nhiều - nhiều","Chứa các liên kết một - một, một - nhiều và nhiều - nhiều","Chứa các liên kết nhiều - một và một - nhiều"], ans:1},
+  {q:"Trong CSDL mạng, khi thực hiện các phép tìm kiếm?", opts:["Không phức tạp","CSDL càng lớn thì tìm kiếm càng phức tạp","Câu hỏi và kết quả các câu hỏi tìm kiếm thường đối xứng với nhau","Câu hỏi và kết quả các câu hỏi tìm kiếm không đối xứng với nhau"], ans:3},
+  {q:"Trong mô hình cơ sở dữ liệu quan hệ?", opts:["Thứ tự của các cột là quan trọng","Thứ tự của các cột là không quan trọng","Thứ tự của các hàng là quan trọng","Thứ tự của các hàng là không quan trọng"], ans:1},
+  {q:"Ngôn ngữ thao tác dữ liệu quan hệ?", opts:["Phức tạp, tổn thất thông tin","Đơn giản và thuận tiện cho người sử dụng","Không toàn vẹn dữ liệu","Đơn giản nhưng không tiện lợi cho người sử dụng"], ans:1},
+  {q:"Thực thể là?", opts:["Các đối tượng dữ liệu","Các quan hệ","Các mối liên kết giữa các đối tượng","Các đối tượng và mối liên kết giữa các đối tượng"], ans:0},
+  {q:"Nếu A => B và A => C thì suy ra?", opts:["A => BC","A => AB","AB => BC","AA => C"], ans:0},
+  {q:"Phụ thuộc nào sau đây là phụ thuộc đầy đủ?", opts:["(Số thứ tự, mã lớp) => Họ tên sinh viên","(Mã báo, mã khách hàng) => Giá báo","(Số chứng minh thư, mã nhân viên) => Quá trình công tác","(Số hoá đơn, mã khách hàng) => Họ tên khách hàng"], ans:2},
+  {q:"Mục tiêu của cơ sở dữ liệu là?", opts:["Tính phụ thuộc dữ liệu","Tính toàn vẹn của dữ liệu","Tính độc lập của dữ liệu","Phản ánh trung thực thế giới hiện thực dữ liệu"], ans:2},
+  {q:"Có thể chèn thêm thông tin một loại cáp khi chưa được lắp đặt?", opts:["Không thể được vì giá trị khoá không xác định","Có thể chèn được","Không thể được vì mâu thuẫn thông tin","Không thể được vì dị thường thông tin"], ans:0},
+  {q:"Ngôn ngữ thao tác dữ liệu là?", opts:["Một tập các ký hiệu biểu diễn dữ liệu","Một tập các phép toán dùng để cập nhật, bổ sung trên các hệ cơ sở dữ liệu","Một tập các quy tắc biểu diễn dữ liệu","Một tập các phép toán dùng để thao tác trên các hệ cơ sở dữ liệu"], ans:3},
+  {q:"Kết quả của các phép thao tác dữ liệu là?", opts:["Chuỗi dữ liệu","Tệp dữ liệu","Quan hệ","Cơ sở dữ liệu"], ans:2},
+  {q:"Ưu điểm của cơ sở dữ liệu là?", opts:["Giảm dư thừa, nhất quán và toàn vẹn của dữ liệu","Các thuộc tính được mô tả trong nhiều tệp dữ liệu khác nhau","Khả năng xuất hiện mâu thuẫn và không nhất quán dữ liệu","Xuất hiện dị thường thông tin"], ans:0},
+  {q:"Dị thường thông tin có thể?", opts:["Dữ liệu nhất quán và toàn vẹn","Không xuất hiện mâu thuẫn thông tin","Thừa thiếu thông tin trong lưu trữ","Phản ánh đúng hiện thực khách quan dữ liệu"], ans:2},
+  {q:"Người sử dụng có thể truy nhập?", opts:["Toàn bộ cơ sở dữ liệu","Hạn chế","Một phần cơ sở dữ liệu","Phụ thuộc vào quyền truy nhập"], ans:3},
+  {q:"Hệ quản trị CSDL DBMS (DataBase Management System) là?", opts:["Hệ thống phần mềm điều khiển các chiến lược truy nhập và tổ chức lưu trữ cơ sở dữ liệu","Tạo cấu trúc dữ liệu tương ứng với mô hình dữ liệu","Cập nhật, chèn thêm, loại bỏ hay sửa đổi dữ liệu mức tệp","Đảm bảo an toàn, bảo mật dữ liệu và tính toàn vẹn dữ liệu"], ans:0},
+  {q:"Đặc trưng của một mô hình dữ liệu là?", opts:["Người sử dụng có quyền truy nhập tại mọi lúc, mọi nơi","Tính ổn định, tính đơn giản, cần phải kiểm tra dư thừa, đối xứng và có cơ sở lý thuyết vững chắc","Biểu diễn dữ liệu đơn giản và không cấu trúc","Mô hình dữ liệu đơn giản"], ans:1},
+  {q:"Khi thao tác bằng ngôn ngữ thao tác dữ liệu trên CSDL phân cấp?", opts:["Có nhiều khả năng xảy ra dị thường thông tin","Đảm bảo tính độc lập của dữ liệu","Đảm bảo tính toàn vẹn của dữ liệu","Đảm bảo tính ổn định"], ans:0},
+  {q:"Trong CSDL mạng, khi thêm các bản ghi mới thì?", opts:["Phải đảm bảo được tính nhất quán và tính toàn vẹn của dữ liệu","Dư thừa thông tin","Không đảm bảo tính nhất quán và toàn vẹn của dữ liệu","Mâu thuẫn thông tin"], ans:2},
+  {q:"Cần thiết phải chuẩn hoá dữ liệu vì?", opts:["Khi thực hiện các phép lưu trữ trên các quan hệ chưa được chuẩn hoá thường xuất hiện các dị thường thông tin","Khi thực hiện các phép tách - kết nối tự nhiên các quan hệ","Khi thực hiện các phép tìm kiếm, xuất hiện các dị thường thông tin","Giá trị khoá nhận giá trị null hay giá trị không xác định"], ans:0},
+  {q:"Mục tiêu của chuẩn hoá dữ liệu là?", opts:["Đảm bảo tính bảo mật dữ liệu","Triệt tiêu mức cao nhất khả năng xuất hiện các dị thường thông tin","Đảm bảo tính nhất quán dữ liệu","Đảm bảo cho việc lưu trữ dữ liệu"], ans:1},
+  {q:"Quan hệ gồm các thuộc tính mã số, họ tên và địa chỉ ở dạng chuẩn nào?", opts:["Dạng chuẩn 2NF","Dạng chuẩn 1NF, không là 2NF","Dạng chuẩn 3NF","Dạng chuẩn 2NF, không là 3NF"], ans:2},
+  {q:"Các toán hạng trong các phép toán là?", opts:["Các biểu thức","Các quan hệ","Các thuộc tính","Các bộ n giá trị"], ans:1},
+  {q:"Phép sửa đổi là phép toán?", opts:["Sửa đổi giá trị của một số thuộc tính","Sửa đổi mô tả các thuộc tính","Sửa đổi giá trị của một quan hệ hay một nhóm các quan hệ","Sửa đổi giá trị của một bộ hay một nhóm các bộ"], ans:3},
+  {q:"Thứ tự đúng trong câu lệnh SELECT là?", opts:["SELECT, FROM, WHERE, GROUP BY HAVING, ORDER BY","SELECT, FROM, GROUP BY HAVING, ORDER BY","SELECT, FROM, GROUP BY HAVING, ORDER BY","SELECT, FROM, GROUP BY HAVING, WHERE, ORDER BY"], ans:0},
+  {q:"Phép toán tập hợp trong mệnh đề WHERE bao gồm?", opts:["Các phép đại số quan hệ","Các phép số học và các phép so sánh","Biểu thức đại số","Các phép so sánh"], ans:1},
+  {q:"Các phép toán gộp nhóm được sử dụng sau mệnh đề?", opts:["SELECT","FROM","WHERE","GROUP BY"], ans:3},
+  {q:"Phép chọn được thực hiện sau mệnh đề nào trong SELECT - FROM - WHERE?", opts:["GROUP BY HAVING","WHERE","SELECT","FROM"], ans:1},
+  {q:"Ngôn ngữ định nghĩa dữ liệu - DDL (Data Definition Language):", opts:["Được đặc tả bằng cách chương trình ứng dụng","Được đặc tả bằng một phần của hệ quản trị cơ sở dữ liệu","Được đặc tả bằng một ngôn ngữ dữ liệu","Được đặc tả bằng một ngôn ngữ, một phần của hệ quản trị cơ sở dữ liệu"], ans:3},
+  {q:"Hai biểu thức E1 và E2 tương đương với nhau, nếu:", opts:["Chúng biểu diễn cùng một ánh xạ","Các quan hệ giống nhau trong biểu thức","Các kết quả giống nhau","Các quan hệ trong các biểu thức cùng miền xác định"], ans:0},
+  {q:"An toàn mức độ mạng là?", opts:["Bảo vệ thông tin trên đường truyền","Cho phép truy cập từ xa, có kiểm soát","Cho phép truy cập từ xa","Không cho phép truy cập từ xa"], ans:0},
+  {q:"Dạng cấp quyền truy xuất trong SQL là?", opts:["GRANT ON TO","GRANT GO TO","GRANT TO","GRANT READ ON"], ans:0},
+  {q:"Chọn một khẳng định sau đây là đúng nhất?", opts:["Sự không nhất quán dữ liệu trong lưu trữ làm cho dữ liệu mất đi tính toàn vẹn","Tính toàn vẹn dữ liệu đảm bảo dữ liệu luôn luôn đúng","Tính nhất quán dữ liệu đảm bảo cho sự cập nhật, bổ sung dễ dàng","Tổ chức lưu trữ theo lý thuyết cơ sở dữ liệu, các thuộc tính có thể lặp lại"], ans:0},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất?", opts:["Dữ liệu được biểu diễn, mô tả nhiều cách khác nhau","Người sử dụng khi thao tác trên các cơ sở dữ liệu có thể làm thay đổi cấu trúc lưu trữ dữ liệu và chiến lược truy nhập cơ sở dữ liệu","Cấu trúc lưu trữ và các hệ chương trình ứng dụng trên độc lập với nhau","Mục tiêu của các hệ CSDL là: tính bất biến cuả các hệ ứng dụng đối với sự thay đổi trong cấu trúc lưu trữ và chiến lược truy nhập dữ liệu"], ans:3},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất?", opts:["Chuẩn hoá dữ liệu là quá trình tách quan hệ không làm tổn thất thông tin","Quan hệ gốc được chứa trong quan hệ kết nối tự nhiên của các quan hệ chiếu","Dữ liệu lưu trữ trong CSDL phản ảnh tính toàn vẹn dữ liệu","Chuẩn hoá dữ liệu là quá trình thực hiện các phép lưu trữ"], ans:0},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về mục tiêu?", opts:["Tách quan hệ là thực hiện tối ưu truy vấn, tìm kiếm","Tách quan hệ là nhằm đảm bảo tính độc lập dữ liệu","Tách quan hệ là thực hiện tối ưu lưu trữ, tiết kiệm bộ nhớ","Tách quan hệ là làm giảm nhẹ tính toán"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất?", opts:["Khi thực hiện phép tách, quan hệ gốc không tổn thất","Khi thực hiện phép tách, quan hệ gốc bị tổn thất","Khi thực hiện phép tách, quan hệ gốc luôn luôn tổn thất","Khi thực hiện phép tách, quan hệ gốc có thể bị tổn thất"], ans:3},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất?", opts:["Cấu trúc dữ liệu trong các quan hệ 1NF cho phép sửa đổi bổ sung thuận tiện","Cấu trúc dữ liệu trong các quan hệ 1NF ẩn chứa dị thường thông tin","Cấu trúc dữ liệu trong các quan hệ 1NF gây khó khăn truy vấn thông tin","Cấu trúc dữ liệu trong các quan hệ 1NF đơn giản"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi khảo sát quan hệ gồm các thuộc tính: Mã cáp, tên cáp, giá, mã nước sản xuất, nước sản xuất?", opts:["Là quan hệ 3NF","Là quan hệ 3NF, không phải là quan hệ 2NF","Là quan hệ 2NF và không chứa các phụ thuộc bắc cầu","Tồn tại phụ thuộc mà vế phải và trái không phải là thuộc tính khoá"], ans:3},
+  {q:"Quá trình tối ưu hoá các câu hỏi truy vấn dữ liệu là?", opts:["Kết quả của các phép toán được biểu diễn duy nhất bằng một quan hệ","Cần thiết phải biến đổi các câu hỏi hợp lý","Biến đổi câu hỏi sao cho chi phí thời gian và sử dụng bộ nhớ là ít nhất","Giảm chi phí thời gian thực hiện các phép toán còn ít nhất"], ans:2},
+  {q:"Tính độc lập dữ liệu là '...... cuả các hệ ứng dụng đối với sự thay đổi trong cấu trúc lưu trữ và chiến lược truy nhập dữ liệu'?", opts:["Phương thức truy nhập","Các chiến lược truy nhập","Nội dung thông tin","Tính tất biến"], ans:3},
+  {q:"Trong cấu trúc hình cây, khi sửa đổi một số thông tin trong các bản ghi phụ thuộc thì phải duyệt toàn bộ mô hình, bằng cách dò tìm trong từng xuất hiện. Dẫn đến sự xuất hiện ...", opts:["Toàn vẹn dữ liệu trong lưu trữ","An toàn dữ liệu","Tổn thất thông tin","Không nhất quán dữ liệu trong lưu trữ"], ans:3},
+  {q:"Mô hình dữ liệu mạng là mô hình thực thể quan hệ, trong đó các mối liên kết hạn chế ... không chứa liên kết nhiêu - nhiều.", opts:["Tính đối xứng","Trong kiểu một - một và nhiều - một","Trong kiểu một bản ghi liên kết","Trong kiểu một bản ghi thực thể"], ans:1},
+  {q:"Tính độc lập dữ liệu trong các hệ cơ sở dữ liệu quan hệ cao, thể hiện cấu trúc lưu trữ và chiến lược truy nhập có thể ... nhưng không thay đổi sơ đồ quan niệm và ngược lại.", opts:["Thay đổi","Độc lập lẫn nhau","Không thay đổi","Phụ thuộc lẫn nhau"], ans:0},
+  {q:"Giá trị các thành phần của khoá ...", opts:["Có thể nhận giá trị null hay các giá trị không xác định","Có thể nhận giá trị các giá trị không xác định","Không thể nhận giá trị null và chấp nhận các giá trị không xác định","Không thể nhận giá trị null hay các giá trị không xác định"], ans:3},
+  {q:"Nói rằng bộ t của quan hệ R thoả mãn biểu thức logic E, ký hiệu t(E) nếu sau khi thay mọi giá trị của thuộc tính A trong E bởi giá trị t[A] tương ứng thì ...", opts:["Nhận được giá trị đa trị","Nhận được giá trị False","Nhận được giá trị đơn trị","Nhận được giá trị True"], ans:3},
+  {q:"Từ các phép toán đại số quan hệ, một câu vấn tin có thể được biểu diễn bởi ...", opts:["Một biểu thức quan hệ","Một cây quan hệ","Biểu thức quan hệ và một cây phép toán quan hệ","Biểu thức quan hệ hay một cây quan hệ"], ans:3},
+  {q:"Nếu trong câu lệnh SELECT có chứa GROUP BY, hệ thống sẽ ... và thực hiện các phép gộp nhóm.", opts:["Phân hoạch quan hệ thành nhiều nhóm tách biệt nhau","Thực hiện việc sắp xếp theo chỉ dẫn sau mệnh đề ORDER BY","Thực hiện phép chọn sau mệnh đề WHERE","Thực hiện phép chiếu sau mệnh đề SELECT"], ans:0},
+  {q:"Toàn vẹn dữ liệu nghĩa là?", opts:["Có thể thực hiện các chiến lược truy nhập dữ liệu","Dữ liệu trong CSDL luôn luôn chính xác tại mọi thời điểm","Có thể tìm kiếm tại mọi thời điểm","Bảo đảm tính độc lập dữ liệu tại mọi thời điểm"], ans:1},
+  {q:"Hình thức thông dụng nhất để nhận biết người sử dụng là mật khẩu ...", opts:["Đảm bảo toàn vẹn dữ liệu","Chỉ có hệ thống và người sử dụng biết","Mới được phép truy nhập CSDL","Và các quy tắc bảo vệ cơ sở dữ liệu"], ans:1},
+  {q:"Cho quan hệ R gồm các thuộc tính: K# mã thuê bao, TB tên thuê bao, SDT số điện thoại, DC địa chỉ. Chọn câu đúng khi tính tổng các thuê bao có cùng tên là Lê Ngọc Hà?", opts:["SELECT COUNT(*) FROM R WHERE TB = 'Lê Ngọc Hà'","SELECT TB, DC FROM R WHERE TB = 'Lê Ngọc Hà'","SELECT * FROM R WHERE TB = 'Lê Ngọc Hà'","SELECT * FROM R WHERE TB = 'Lê Ngọc Hà' GROUP BY TB"], ans:0},
+  {q:"Cho quan hệ R gồm các thuộc tính: K# mã thuê bao, TB tên thuê bao, SDT số điện thoại, DC địa chỉ. Chọn câu đúng khi tính tổng có bao nhiêu thuê bao trên Đường Nguyễn Trãi?", opts:["SELECT * FROM R","SELECT * FROM R GROUP BY TB HAVING DC = 'Đường Nguyễn Trãi'","SELECT COUNT(*) FROM R WHERE DC = 'Đường Nguyễn Trãi'","SELECT * FROM R WHERE DC = 'Đường Nguyễn Trãi'"], ans:2},
+  {q:"Cơ sở dữ liệu là:", opts:["Một bộ sưu tập rất lớn về các loại dữ liệu tác nghiệp, lưu trữ theo quy tắc","Một bộ sưu tập rất lớn về các loại dữ liệu tác nghiệp","Tập các File dữ liệu tác nghiệp","Kho dữ liệu tác nghiệp"], ans:0},
+  {q:"Các loại dữ liệu bao gồm:", opts:["Tập các File số liệu","Âm thanh, tiếng nói, chữ viết, văn bản, đồ hoạ, hình ảnh tĩnh, hình ảnh động","Âm thanh, tiếng nói, chữ viết, văn bản, đồ hoạ, hình ảnh tĩnh hay hình ảnh động dưới dạng nhị phân","Âm thanh, tiếng nói, chữ viết, văn bản, đồ hoạ, hình ảnh tĩnh hay hình ảnh động được lưu trữ trong các bộ nhớ"], ans:2},
+  {q:"Cơ sở dữ liệu là tài nguyên thông tin chung, nghĩa là:", opts:["Truy nhập trực tuyến","Nhiều người sử dụng, không phụ thuộc vị trí địa lý, có phân quyền","Nhiều người sử dụng","Nhiều người sử dụng, có phân quyền"], ans:1},
+  {q:"Hệ quản trị CSDL - HQTCSDL (DataBase Management System - DBMS) là:", opts:["Hệ điều hành","Các phần mềm hệ thống","Phần mềm điều khiển các chiến lược truy nhập CSDL","Các phần mềm ứng dụng"], ans:2},
+  {q:"Chức năng quan trọng của các dịch vụ cơ sở dữ liệu là:", opts:["Cập nhật, sửa đổi, bổ sung dữ liệu","Khôi phục thông tin","Tìm kiếm và tra cứu thông tin","Xử lý, tìm kiếm, tra cứu, sửa đổi, bổ sung hay loại bỏ dữ liệu"], ans:3},
+  {q:"Ưu điểm cơ sở dữ liệu:", opts:["Xuất hiện dị thường thông tin","Các thuộc tính được mô tả trong nhiều tệp dữ liệu khác nhau","Khả năng xuất hiện mâu thuẫn và không nhất quán dữ liệu","Giảm dư thừa, nhất quán và toàn vẹn của dữ liệu"], ans:3},
+  {q:"Dị thường thông tin có thể:", opts:["Thừa thiếu thông tin trong lưu trữ","Dữ liệu nhất quán và toàn vẹn","Phản ánh đúng hiện thực khách quan dữ liệu","Không xuất hiện mâu thuẫn thông tin"], ans:0},
+  {q:"Không nhất quán dữ liệu trong lưu trữ:", opts:["Không xuất hiện mâu thuẫn thông tin","Làm cho dữ liệu mất đi tính toàn vẹn cuả nó","Không thể sửa đổi, bổ sung, cập nhật dữ liệu","Có thể triển khai tra cứu tìm kiếm"], ans:1},
+  {q:"Tính toàn vẹn dữ liệu đảm bảo:", opts:["Cho sự lưu trữ dữ liệu luôn luôn đúng","Phản ánh đúng hiện thực khách quan dữ liệu","Giảm dư thừa, nhất quán và toàn vẹn của dữ liệu","Cho việc cập nhật, sửa đổi, bổ sung dữ liệu thuận lợi"], ans:1},
+  {q:"An toàn dữ liệu có thể hiểu là:", opts:["Ngăn chặn các truy nhập trái phép, sai quy định từ trong ra hoặc từ ngoài vào","Tính nhất quán và toàn vẹn dữ liệu","Dễ dàng cho công việc bảo trì dữ liệu","Thống nhất các tiêu chuẩn, thủ tục và các biện pháp bảo vệ, an toàn dữ liệu"], ans:0},
+  {q:"Thứ tự đúng các mức trong mô hình kiến trúc cơ sở dữ liệu:", opts:["Mức ngoài, mức quan niệm và mức mô hình","Mức quan niệm, mức trong và mức ngoài","Mức ngoài, mức quan niệm và mức trong","Mức trong, mức mô hình dữ liệu và mức ngoài"], ans:2},
+  {q:"Người sử dụng có thể truy nhập:", opts:["Một phần cơ sở dữ liệu","Phụ thuộc vào quyền truy nhập","Toàn bộ cơ sở dữ liệu","Hạn chế"], ans:1},
+  {q:"Cách nhìn cơ sở dữ liệu của người sử dụng bằng:", opts:["Mô hình trong","Mô hình ngoài","Mô hình ngoài và mô hình dữ liệu","Mô hình dữ liệu"], ans:1},
+  {q:"Mô hình ngoài là:", opts:["Nội dung thông tin của toàn bộ CSDL","Nội dung thông tin của một phần dữ liệu dưới cách nhìn của người sử dụng","Nội dung thông tin của toàn bộ CSDL dưới cách nhìn của người sử dụng","Nội dung thông tin của một phần cơ sở dữ liệu"], ans:1},
+  {q:"Mô hình quan niệm là:", opts:["Cách nhìn dữ liệu ở mức ngoài","Nội dung thông tin của một phần dữ liệu dưới cách nhìn của người sử dụng","Cách nhìn dữ liệu một cách tổng quát của người sử dụng","Nội dung thông tin của một phần dữ liệu"], ans:2},
+  {q:"Mô hình trong là:", opts:["Mô hình biểu diễn cơ sở dữ liệu trìu tượng ở mức quan niệm","Có nhiều cách biểu diễn CSDL dưới dạng lưu trữ vật lý","Mô hình lưu trữ vật lý dữ liệu","Là một trong các mô hình biểu diễn CSDL dưới dạng lưu trữ vật lý"], ans:3},
+  {q:"Ánh xạ quan niệm trong:", opts:["Bảo đảm tính độc lập của dữ liệu","Bảo đảm tính phụ thuộc lẫn nhau giữa mô hình trong và mô hình ngoài","Bảo đảm cấu trúc lưu trữ của mô hình dữ liệu không thay đổi","Bảo đảm cấu trúc lưu trữ của CSDL khi có sự thay đổi"], ans:0},
+  {q:"Ánh xạ quan niệm-ngoài:", opts:["Quan hệ giữa mô hình ngoài và mô hình ngoài","Quan hệ giữa mô hình trong và mô hình trong","Quan hệ môt-một giữa mô hình ngoài và mô hình dữ liệu","Quan hệ giữa mô hình ngoài và mô hình trong"], ans:3},
+  {q:"Mục tiêu của cơ sở dữ liệu là:", opts:["Không làm thay đổi chiến lược truy nhập cơ sở dữ liệu","Không làm thay đổi cấu trúc lưu trữ dữ liệu","Dữ liệu chỉ được biểu diễn, mô tả một cách duy nhất","Bảo đảm tính độc lập dữ liệu"], ans:3},
+  {q:"Hệ quản trị CSDL DBMS (DataBase Management System) là:", opts:["Đảm bảo an toàn, bảo mật dữ liệu và tính toàn vẹn dữ liệu","Tạo cấu trúc dữ liệu tương ứng với mô hình dữ liệu","Hệ thống phần mềm điều khiển các chiến lược truy nhập và tổ chức lưu trữ cơ sở dữ liệu","Cập nhật, chèn thêm, loại bỏ hay sửa đổi dữ liệu mức tệp"], ans:2},
+  {q:"Mô hình CSDL phân cấp là mô hình:", opts:["Dữ liệu được biểu diễn bằng con trỏ","Dữ liệu được biểu diễn bằng cấu trúc cây","Dữ liệu được biểu diễn bằng mối quan hệ thực thể","Dữ liệu được biểu diễn bằng bảng"], ans:1},
+  {q:"Trong mô hình CSDL phân cấp có thể:", opts:["Không có bản ghi gốc","Tồn tại các loại cây không chứa gốc và phụ thuộc","Các bản ghi phụ thuộc chỉ tồn tại khi và chỉ khi tồn tại bản ghi gốc","Tồn tại các loại cây chỉ có các bản ghi phụ thuộc"], ans:2},
+  {q:"Điều gì sẽ xẩy ra khi loại bỏ bản ghi gốc duy nhất trong một cây?", opts:["Mâu thuẫn thông tin","Dư thừa thông tin","Không toàn vẹn dữ liệu","Mất thông tin"], ans:3},
+  {q:"Mất thông tin khi xoá bản ghi phụ thuộc trong trường hợp:", opts:["Xoá bản ghi gốc","Xoá tất cả các bản ghi phụ thuộc","Xoá cấu trúc cây phân cấp","Xoá bản ghi phụ thuộc duy nhất"], ans:3},
+  {q:"Tìm kiếm thông tin trong CSDL phân cấp:", opts:["CSDL phân cấp càng lớn thì tìm kiếm càng phức tạp","Đơn giản, tiện lợi","Dễ thao tác, dễ sử dụng","Nhanh chóng, chính xác"], ans:0},
+  {q:"Trong mô hình phân cấp dữ liệu được biểu diễn:", opts:["Trong mỗi một cây, một bản gốc và bản ghi phụ thuộc","Trong một tệp duy nhất theo cấu trúc cây","Trong nhiều cây","Trong nhiều tệp theo cấu trúc cây"], ans:3},
+  {q:"Khi thao tác bằng ngôn ngữ thao tác dữ liệu trên CSDL phân cấp:", opts:["Có nhiều khả năng xẩy ra dị thường thông tin","Đảm bảo tính toàn vẹn của dữ liệu","Đảm bảo tính độc lập của dữ liệu","Đảm bảo tính ổn định"], ans:0},
+  {q:"Đặc trưng cấu trúc của mô hình mạng là:", opts:["Chứa các liên kết một - một và một - nhiều","Chứa các liên kết một - một, một - nhiều và nhiều - nhiều","Chứa các liên kết một - một, một - nhiều và nhiều - nhiều","Chứa các liên kết nhiều - một và một - nhiều"], ans:1},
+  {q:"Biểu diễn dữ liệu trong mô hình CSDL mạng:", opts:["Bằng các bảng 2 chiều","Các mối nối liên kết giữa các bản ghi, tạo thành một đồ thị có hướng","Bằng các ký hiệu biểu diễn","Các mối nối liên kết giữa các bản ghi theo cấu trúc cây"], ans:1},
+  {q:"Trong CSDL mạng, khi thêm các bản ghi mới:", opts:["Mâu thuẫn thông tin","Dư thừa thông tin","Đảm bảo được tính nhất quán và tính toàn vẹn của dữ liệu","Không đảm bảo tính nhất quán và toàn vẹn của dữ liệu"], ans:3},
+  {q:"Người quản trị CSDL là:", opts:["Quyết định cấu trúc lưu trữ & chiến lược truy nhập","Xác định chiến lược lưu trữ, sao chép, phục hồi dữ liệu","Cho phép người sử dụng những quyền truy nhập cơ sở dữ liệu","Một người hay một nhóm người có khả năng chuyên môn cao về tin học, có trách nhiệm quản lý và điều khiển toàn bộ hoạt động của các hệ CSDL"], ans:3},
+  {q:"Ràng buộc dữ liệu:", opts:["Các định nghĩa, tiên đề, định lý","Quy tắc biểu diễn cấu trúc dữ liệu","Mối quan hệ giữa các thực thể dữ liệu","Các quy tắc, quy định"], ans:3},
+  {q:"Ràng buộc kiểu:", opts:["Quy tắc đặt tên cơ sở dữ liệu","Mô tả tính chất của các thuộc tính khi tạo lập CSDL","Quy tắc truy nhập cơ sở dữ liệu","Mối quan hệ giữa các thực thể dữ liệu"], ans:1},
+  {q:"Ràng buộc giải tích:", opts:["Mối quan hệ giữa các thuộc tính được biểu diễn bằng các biểu thức toán học","Quy tắc biểu diễn cấu trúc dữ liệu","Các phép toán đại số quan hệ","Mô tả tính chất của các thuộc tính khi tạo lập CSDL"], ans:0},
+  {q:"Ràng buộc logic:", opts:["Các phép so sánh","Mối quan hệ giữa các thuộc tính được biểu diễn bằng các biểu thức toán học","Mối quan hệ giữa các thuộc tính được biểu diễn bằng các phụ thuộc hàm","Các phép toán quan hệ"], ans:2},
+  {q:"Mô hình cơ sở dữ liệu Client-Server:", opts:["Máy chủ và máy đều tham gia quá trình xử lý","Máy khách thực hiện các ứng dụng, nó gửi yêu cầu về máy chủ được kết nối với cơ sở dữ liệu, máy chủ xử lý và gửi trả lại kết quả về máy khách","Máy khách yêu cầu máy chủ cung cấp các loại dịch vụ","Các máy khách chia sẻ gánh nặng xử lý của máy chủ trung tâm"], ans:1},
+  {q:"Đặc trưng của một mô hình dữ liệu:", opts:["Mô hình dữ liệu đơn giản","Biểu diễn dữ liệu đơn giản và không cấu trúc","Tính ổn định, tính đơn giản, cần phải kiểm tra dư thừa, đối xứng và có cơ sở lý thuyết vững chắc","Người sử dụng có quyền truy nhập tại mọi lúc, mọi nơi"], ans:2},
+  {q:"Mô hình dữ liệu tốt nhất:", opts:["Khi thao tác dễ dàng nhất","Không tổn thất thông tin","Phụ thuộc vào yêu cầu truy xuất và khai thác thông tin","Độc lập dữ liệu"], ans:2},
+  {q:"Mô hình dữ liệu nào có khả năng hạn chế sự dư thừa dữ liệu tốt hơn?", opts:["Tất cả các loại mô hình dữ liệu","Mô hình dữ liệu hướng đối tượng","Mô hình cơ sở dữ liệu phân cấp","Mô hình cơ sở dữ liệu phân tán"], ans:1},
+  {q:"Mô hình dữ liệu nào không chấp nhận mối quan hệ nhiều - nhiều?", opts:["Mô hình dữ liệu mạng","Cơ sở dữ liệu phân cấp","Tất cả các mô hình dữ liệu","Cơ sở dữ liệu phân tán"], ans:1},
+  {q:"Trong CSDL mạng, khi xoá các bản ghi:", opts:["Không toàn vẹn dữ liệu","Làm mất thông tin","Mâu thuẫn thông tin sẽ xuất hiện","Đảm bảo được tính nhất quán và tính toàn vẹn của dữ liệu"], ans:3},
+  {q:"Trong CSDL mạng, khi thực hiện các phép sửa đổi nội dung dữ liệu:", opts:["Đảm bảo tính toàn vẹn dữ liệu","Không dư thừa thông tin","Làm xuất hiện mâu thuẫn dữ liệu","Không làm xuất hiện mâu thuẫn dữ liệu"], ans:2},
+  {q:"Trong CSDL mạng, khi thực hiện các phép tìm kiếm:", opts:["Câu hỏi và kết quả các câu hỏi tìm kiếm không đối xứng với nhau","CSDL càng lớn thì tìm kiếm càng phức tạp","Câu hỏi và kết quả các câu hỏi tìm kiếm thường đối xứng với nhau","Không phức tạp"], ans:0},
+  {q:"Cấu trúc dữ liệu trong mô hình CSDL mạng:", opts:["Quá phức tạp vì quá nhiều liên kết giữa các thực thể","Chứa 2 thực thể","Quá phức tạp vì quá nhiều các thực thể","Chứa n thực thể"], ans:0},
+  {q:"Trong mô hình cơ sở dữ liệu quan hệ:", opts:["Thứ tự của các cột là quan trọng","Thứ tự của các cột là không quan trọng","Thứ tự của các hàng là không quan trọng","Thứ tự của các hàng là quan trọng"], ans:1},
+  {q:"Cấu trúc dữ liệu quan hệ là:", opts:["Liên kết giữa các bộ được biểu diễn duy nhất bằng các giá trị trong các cột","Mối liên kết giữa các bộ","Mối liên kết hình xây","Mối liên kết giữa các cột"], ans:0},
+  {q:"Dữ liệu trong mô hình quan hệ:", opts:["Được biểu diễn theo cấu trúc hình cây","Được biểu diễn một cách duy nhất","Được biểu diễn theo cấu trúc mô hình mạng","Được biểu diễn nhiều kiểu khác nhau"], ans:1},
+  {q:"Ngôn ngữ thao tác dữ liệu:", opts:["Là các phép toán được xây dựng trên đại số quan hệ","Là các phép chèn thêm, sửa đổi và loại bỏ","Là các phép toán số học","Là các phép toán: hợp, giao, trừ..."], ans:0},
+  {q:"Khi thực hiện các phép lưu trữ trên quan hệ:", opts:["Dị thường thông tin, không bảo đảm được tính toàn vẹn dữ liệu","Không dị thường thông tin, bảo đảm được tính toàn vẹn dữ liệu","Dị thường thông tin, không bảo đảm được việc thực hiện truy vấn dữ liệu","Không dị thường thông tin, là bảo đảm được tính độc lập dữ liệu"], ans:1},
+  {q:"Kết quả của các thao tác dữ liệu là:", opts:["Một biểu thức","Một File","Một quan hệ","Nhiều quan hệ"], ans:2},
+  {q:"Ngôn ngữ thao tác dữ liệu quan hệ:", opts:["Không toàn vẹn dữ liệu","Đơn giản nhưng không tiện lợi cho người sử dụng","Phức tạp, tổn thất thông tin","Đơn giản và thuận tiện cho người sử dụng"], ans:3},
+  {q:"Mô hình thực thể quan hệ cho phép mô tả:", opts:["Bộ sưu tập các loại dữ liệu của một tổ chức","Cấu trúc hệ thống cơ sở dữ liệu","Hệ thống thông tin quản lý của tổ chức","Lược đồ khái niệm của một tổ chức"], ans:3},
+  {q:"Mô hình thực thể - quan hệ cơ bản bao gồm các lớp đối tượng:", opts:["Thực thể và thuộc tính","Môi trường và ranh giới môi trường","Thực thể, mối quan hệ và thuộc tính","Các mối quan hệ"], ans:2},
+  {q:"Thực thể là:", opts:["Các đối tượng và mối liên kết giữa các đối tượng","Các đối tượng dữ liệu","Các mối liên kết giữa các đối tượng","Các quan hệ"], ans:1},
+  {q:"Trong biểu thức quan hệ các toán hạng là:", opts:["Các phần tử","Các phụ thuộc hàm","Các thuộc tính","Các quan hệ trong một CSDL"], ans:3},
+  {q:"Khi thực hiện các phép toán trong một biểu thức quan hệ, thứ tự ưu tiên là:", opts:["Phép kết nối được ưu tiên hơn so với phép chọn và chiếu","Các phép toán một ngôi có thứ tự ưu tiên cao hơn so với phép toán hai ngôi","Phụ thuộc vào vị trí của các phép toán","Phép kết nối được ưu tiên hơn so với phép hợp, phép giao"], ans:1},
+  {q:"Quy tắc gia tăng trong hệ tiên đề Armstrong:", opts:["Nếu A -> B => B -> A","Nếu A -> B => A -> BC","Nếu A -> B => BC -> A","Nếu A -> B => AC -> B"], ans:3},
+  {q:"Quy tắc bắc cầu trong hệ tiên đề Armstrong:", opts:["Nếu A -> B và B -> C => A -> C","Nếu A -> B và B -> C => AC -> B","Nếu A -> B và B -> C => AB -> C","Nếu A -> B và B -> C => AC -> BC"], ans:0},
+  {q:"Nếu A -> B và A -> C thì suy ra:", opts:["AA -> C","A -> AB","A -> BC","AB -> BC"], ans:2},
+  {q:"Nếu A -> BC suy ra:", opts:["AC -> B và A -> CC","A -> C","A -> B và A -> C","A -> B"], ans:2},
+  {q:"F = {A -> B, C -> X, BX -> Z}, khi đó:", opts:["AB -> C Thuộc F+","A -> Z Thuộc F+","CB -> Z Thuộc F+","AC -> Z Thuộc F+"], ans:3},
+  {q:"Tối ưu theo nghĩa biến đổi một biểu thức đại số quan hệ:", opts:["Cho cùng một kết quả với chi phí thời gian thực hiện và sử dụng bộ nhớ ít hơn","Cho cùng một kết quả, không tổn thất thông tin","Với chi phí thời gian ít hơn rất nhiều","Cho cùng một kết quả với chi phí bộ nhớ không nhiều"], ans:0},
+  {q:"Trong SQL, ngôn ngữ thao tác dữ liệu DML bao gồm các chức năng:", opts:["Truy vấn thông tin, thêm, sửa, xoá dữ liệu","Bảo mật và quyền truy nhập","Tạo, sửa và xóa cấu trúc quan hệ","Tạo, sửa và xóa cấu trúc và đảm bảo bảo mật và quyền truy nhập"], ans:0},
+  {q:"Phụ thuộc nào sau đây là phụ thuộc đầy đủ:", opts:["(Số thứ tự, mã lớp) -> Họ tên sinh viên","(Số chứng minh thư, mã nhân viên) -> Quá trình công tác","(Số hoá đơn, mã khách hàng) -> Họ tên khách hàng","(Mã báo, mã khách hàng) -> Giá báo"], ans:3},
+  {q:"Giá trị các thành phần của khoá quy định:", opts:["Có thể nhận giá trị null","Không thể nhận giá trị null hay các giá trị không xác định","Có thể nhận giá trị null hay các giá trị không xác định","Không thể nhận giá trị null nhưng có thể nhận các giá trị không xác định"], ans:1},
+  {q:"Các thuộc tính khóa là:", opts:["Các thuộc tính không được chứa trong khóa","Các thuộc tính khoá","Các thuộc tính không khóa","Các phần tử của khóa"], ans:3},
+  {q:"Mục tiêu của cơ sở dữ liệu là:", opts:["Tính toàn vẹn của dữ liệu","Phản ánh trung thực thế giới hiện thực dữ liệu","Tính độc lập của dữ liệu","Tính phụ thuộc dữ liệu"], ans:2},
+  {q:"Quá trình tách không làm tổn thất thông tin theo nghĩa:", opts:["Quan hệ gốc được khôi phục từ các quan hệ chiếu bằng phép kết nối tự nhiên","Quan hệ gốc được khôi phục chính xác từ các quan hệ chiếu","Quan hệ gốc được khôi phục từ các quan hệ chiếu bằng phép kết nối","Quan hệ gốc được khôi phục từ các quan hệ chiếu bằng phép chiếu và chọn"], ans:0},
+  {q:"φ[Ω1, Ω2..Ωp] là phép tách - kết nối tự nhiên của lược đồ quan hệ nếu:", opts:["Kết nối tự nhiên các quan hệ chiếu","φ[Ω1, Ω2..Ωp] là một phép tách và kết nối các quan hệ chiếu","φ[Ω1, Ω2..Ωp] là một phép tách và kết nối tự nhiên các quan hệ chiếu","Kết nối của các quan hệ chiếu"], ans:2},
+  {q:"φ[Ω1, Ω2..Ωp] là phép tách không tổn thất thông tin, nếu:", opts:["Kết quả kết nối tự nhiên các quan hệ chiếu chứa quan hệ gốc","Kết quả kết nối tự nhiên các quan hệ chiếu chính là quan hệ gốc","Kết quả kết nối tự nhiên các quan hệ chiếu được chứa trong quan hệ gốc","Kết quả kết nối các quan hệ chiếu trên một số thuộc tính của quan hệ gốc"], ans:1},
+  {q:"Mục tiêu của phép tách lược đồ quan hệ là:", opts:["Nhằm thực hiện các phép lưu trữ dễ dàng","Nhằm tối ưu hoá truy vấn","Nhằm loại bỏ các dị thường thông tin khi thực hiện các phép lưu trữ","Nhằm thực hiện các phép tìm kiếm"], ans:2},
+  {q:"Cần thiết phải chuẩn hoá dữ liệu vì:", opts:["Giá trị khoá nhận giá trị null hay giá trị không xác định","Khi thực hiện các phép lưu trữ trên các quan hệ chưa được chuẩn hoá thường xuất hiện các dị thường thông tin","Khi thực hiện các phép tách - kết nối tự nhiên các quan hệ","Khi thực hiện các phép tìm kiếm, xuất hiện các dị thường thông tin"], ans:1},
+  {q:"Dị thường thông tin là nguyên nhân:", opts:["Gây cản trở cho việc cập nhật, bổ sung thông tin","Gây cản trở cho việc tách kết nối tổn thất thông tin","Gây cản trở cho việc tìm kiếm, hỏi đáp thông tin","Gây cản trở cho việc thực hiện các phép lưu trữ"], ans:0},
+  {q:"Mục tiêu của chuẩn hoá dữ liệu là:", opts:["Đảm bảo tính nhất quán dữ liệu","Triệt tiêu mức cao nhất khả năng xuất hiện các dị thường thông tin","Đảm bảo tính bảo mật dữ liệu","Đảm bảo cho việc lưu trữ dữ liệu"], ans:1},
+  {q:"Quá trình chuẩn hoá dữ liệu là quá trình:", opts:["Tách lược đồ quan hệ hạn chế thấp nhất tổn thất thông tin","Thực hiện các phép tìm kiếm dữ liệu","Chuyển đổi biểu diễn thông tin trong các dạng khác nhau","Tách lược đồ quan hệ không làm tổn thất thông tin"], ans:3},
+  {q:"Cơ sở để chuẩn hoá dựa trên các khái niệm:", opts:["Bao đóng các phụ thuộc hàm","Phụ thuộc hàm","Các thuộc tính, bao đóng các thuộc tính","Khoá và siêu khoá"], ans:1},
+  {q:"Một mô hình CSDL được xem là mô hình chuẩn hoá tốt, nếu:", opts:["Không xuất hiện dị thường thông tin","Đảm bảo tính độc lập dữ liệu","Mỗi một thuộc tính không khoá phụ thuộc hàm vào khoá","Mỗi một thuộc tính được biểu diễn trong dạng duy nhất"], ans:2},
+  {q:"Quan hệ R được gọi là dạng chuẩn 1NF, khi và chỉ khi:", opts:["Một thuộc tính có nhiều giá trị khác nhau","Các thuộc tính chỉ chứa các giá trị nguyên tố","Một quan hệ có nhiều hàng","Một quan hệ có nhiều cột"], ans:1},
+  {q:"Quan hệ 1NF không thể chấp nhận được trong quá trình tìm kiếm, vì:", opts:["Không đảm bảo tính toàn vẹn dữ liệu","Khi thao tác các phép lưu trữ thường xuất hiện dị thường thông tin","Cấu trúc biểu diễn dữ liệu phức tạp","Có quá nhiều phụ thuộc hàm trong nó"], ans:1},
+  {q:"Quan hệ R được gọi là dạng chuẩn 2NF, khi và chỉ khi:", opts:["1NF và các thuộc tính không khoá phụ thuộc đầy đủ vào khoá","1NF và các thuộc tính không khoá phụ thuộc không đầy đủ vào khoá","Tồn tại X->Y trong F+ sao cho X là tập con của khóa và Y là thuộc tính không khóa","1NF và tồn tại các thuộc tính không khoá phụ thuộc đầy đủ vào khoá"], ans:0},
+  {q:"Quan hệ 2NF không thể chấp nhận được trong quá trình tìm kiếm, vì:", opts:["Không thể thực hiện được các phép cập nhật","Bao đóng phụ thuộc hàm quá lớn","Có thể không thể chèn thêm thông tin","Không đảm bảo tính toàn vẹn dữ liệu"], ans:2},
+  {q:"Có thể chèn thêm thông tin một loại cáp khi chưa được lắp đặt?", opts:["Không thể được. vì dị thường thông tin","Không thể được. vì giá trị khoá không xác định","Không thể được. vì mâu thuẫn thông tin","Có thể chèn được"], ans:1},
+  {q:"Trong quan hệ dạng chuẩn 3NF:", opts:["Không tồn tại các thuộc tính không khoá phụ thuộc vào khoá","Không tồn tại các thuộc tính không khoá phụ thuộc đầy đủ vào khoá và sơ đồ bắc cầu","Tồn tại các thuộc tính không khoá phụ thuộc vào khoá và sơ đồ bắc cầu","Tồn tại các thuộc tính không khoá phụ thuộc vào khoá"], ans:3},
+  {q:"Quan hệ 3NF có thể chấp nhận được trong quá trình tìm kiếm, vì:", opts:["Thực hiện được các phép cập nhật","Đảm bảo tính toàn vẹn dữ liệu","Bao đóng phụ thuộc hàm quá lớn","Không xuất hiện dị thường thông tin khi thực hiện các phép lưu trữ"], ans:3},
+  {q:"Quan hệ gồm các thuộc tính mã số, họ tên và địa chỉ ở dạng chuẩn nào?", opts:["Dạng chuẩn 3NF","Dạng chuẩn 2NF, không là 3NF","Dạng chuẩn 1NF, không là 2NF","Dạng chuẩn 2NF"], ans:0},
+  {q:"Một quan hệ dạng chuẩn 1NF có thể chuyển đổi về nhóm các quan hệ 3NF bằng cách:", opts:["Loại bỏ các phụ thuộc bắc cầu vào khoá","Loại bỏ các phụ thuộc không đầy đủ vào khoá","Loại bỏ các phụ thuộc không đầy đủ vào khoá và bắc cầu vào khoá","Loại bỏ các phụ thuộc đầy đủ vào khoá và bắc cầu vào khoá"], ans:2},
+  {q:"Quá trình chuyển quan hệ 1NF về 3NF là quá trình:", opts:["Loại bỏ dị thường thông tin và không tổn thất thông tin","Loại bỏ dị thường thông tin và tổn thất thông tin","Loại bỏ dị thường thông tin","Không tổn thất thông tin"], ans:0},
+  {q:"Ngôn ngữ thao tác dữ liệu là:", opts:["Một tập các ký hiệu biểu diễn dữ liệu","Một tập các quy tắc biểu diễn dữ liệu","Một tập các phép toán dùng để thao tác trên các hệ cơ sở dữ liệu","Một tập các phép toán dùng để cập nhật, bổ sung trên các hệ cơ sở dữ liệu"], ans:2},
+  {q:"Các toán hạng trong các phép toán là:", opts:["Các thuộc tính","Các biểu thức","Các bộ n_giá trị","Các quan hệ"], ans:3},
+  {q:"Kết quả của các phép thao tác dữ liệu là:", opts:["Quan hệ","Tệp dữ liệu","Chuỗi dữ liệu","Cơ sở dữ liệu"], ans:0},
+  {q:"Phép chèn thêm là phép toán:", opts:["Chèn vào CSDL một số thông tin về một đối tượng","Chèn vào CSDL các thuộc tính mới","Chèn vào CSDL một số thông tin tuỳ ý","Chèn vào CSDL từ vùng đệm chứa các thông tin về một bản ghi cụ thể"], ans:3},
+  {q:"Phép xoá là phép toán:", opts:["Xoá một thuộc tính hay xoá một nhóm các thuộc tính","Xoá một quan hệ hay xoá một nhóm các quan hệ","Xoá một hệ CSDL","Xoá một bộ hay xoá một nhóm các bộ"], ans:3},
+  {q:"Phép sửa đổi là phép toán:", opts:["Sửa đổi giá trị của một bộ hay một nhóm các bộ","Sửa đổi giá trị của một số thuộc tính","Sửa đổi mô tả các thuộc tính","Sửa đổi giá trị của một quan hệ hay một nhóm các quan hệ"], ans:0},
+  {q:"Phép chọn SELECT là phép toán:", opts:["Tạo một quan hệ mới từ quan hệ nguồn","Tạo một quan hệ mới, thoả mãn một tân từ xác định","Tạo một nhóm các phụ thuộc","Tạo một quan hệ mới, các bộ được rút ra một cách duy nhất từ quan hệ nguồn"], ans:1},
+  {q:"Phép chiếu PROJECT là phép toán:", opts:["Tạo một quan hệ mới, các thuộc tính là các thuộc tính quan hệ nguồn","Tạo một quan hệ mới, các bộ của quan hệ nguồn bỏ đi những bộ trùng lặp","Tạo một quan hệ mới, thoả mãn một tân từ xác định","Tạo một quan hệ mới, các thuộc tính được biến đổi từ quan hệ nguồn"], ans:1},
+  {q:"Phép kết nối JOIN là phép toán:", opts:["Tạo một quan hệ mới","Tạo một quan hệ mới, các thuộc tính là các thuộc tính quan hệ nguồn","Tạo một quan hệ mới, thoả mãn một tân từ xác định","Tạo một quan hệ mới, kết nối nhiều quan hệ trên miền thuộc tính chung"], ans:3},
+  {q:"Kết nối bằng nhau các quan hệ theo thuộc tính là:", opts:["Thực hiện tích Đề Các và phép chọn","Thực hiện tích Đề Các và phép chiếu","Thực hiện phép chiếu và chia","Thực hiện phép chiếu và phép chọn"], ans:0},
+  {q:"Trong SQL, ngôn ngữ định nghĩa dữ liệu bao gồm các chức năng:", opts:["Tạo, sửa và xóa cấu trúc quan hệ. Bảo mật và quyền truy nhập","Bảo mật và quyền truy nhập","Tạo, sửa và xóa cấu trúc quan hệ. Thêm cột, sửa cột và xoá cột","Tạo, sửa và xóa các bộ quan hệ. Bảo mật và quyền truy nhập"], ans:0},
+  {q:"Trong SQL, ngôn ngữ thao tác dữ liệu DML bao gồm các chức năng:", opts:["Truy vấn thông tin, thêm, sửa, xoá dữ liệu","Bảo mật và quyền truy nhập","Tạo, sửa và xóa cấu trúc quan hệ","Tạo, sửa và xóa cấu trúc và đảm bảo bảo mật và quyền truy nhập"], ans:0},
+  {q:"Thứ tự đúng trong câu lệnh SELECT:", opts:["SELECT, FROM, GROUP BY HAVING, WHERE, ORDER BY","SELECT, FROM, WHERE, GROUP BY HAVING, ORDER BY","SELECT, FROM, GROUP BY HAVING, ORDER BY","SELECT, FROM, GROUP BY HAVING, ORDER BY"], ans:1},
+  {q:"Các bước thực hiện đúng trong câu lệnh SELECT:", opts:["Tích Đề các, phép toán chọn, theo nhóm, sắp xếp và phép chiếu","Tích Đề các, phép toán chọn, theo nhóm, phép chiếu và sắp xếp","Phép toán chọn, tích Đề các, theo nhóm, sắp xếp và phép chiếu","Phép toán chọn, tích Đề các, theo nhóm, phép chiếu và sắp xếp"], ans:1},
+  {q:"Phép toán tập hợp trong mệnh đề WHERE bao gồm:", opts:["Các phép số học và các phép so sánh","Các phép đại số quan hệ","Các phép so sánh","Biểu thức đại số"], ans:0},
+  {q:"Các phép toán gộp nhóm được sử dụng sau mệnh đề:", opts:["SELECT","WHERE","GROUP BY","FROM"], ans:2},
+  {q:"Phép chọn được thực hiện sau mệnh đề nào trong SELECT - FROM - WHERE?", opts:["GROUP BY HAVING","SELECT","WHERE","FROM"], ans:2},
+  {q:"Phép chiếu được thực hiện sau mệnh đề nào trong SELECT - FROM - WHERE:", opts:["FROM","SELECT","GROUP BY HAVING","WHERE"], ans:1},
+  {q:"Mệnh đề GROUP BY ... HAVING:", opts:["Phân hoạch các bộ của một quan hệ thành các nhóm riêng biệt","Áp dụng các phép toán gộp nhóm","Phân hoạch các bộ của một quan hệ thành các nhóm riêng biệt và áp dụng các phép toán gộp cho các nhóm","Tách các quan hệ thành các quan hệ con, không tổn thất thông tin"], ans:2},
+  {q:"Ngôn ngữ định nghĩa dữ liệu - DDL (Data Definition Language):", opts:["Được đặc tả bằng một ngôn ngữ dữ liệu","Được đặc tả bằng một ngôn ngữ, một phần của hệ quản trị cơ sở dữ liệu","Được đặc tả bằng một phần của hệ quản trị cơ sở dữ liệu","Được đặc tả bằng cách chương trình ứng dụng"], ans:1},
+  {q:"Tối ưu hoá câu hỏi truy vấn dữ liệu là:", opts:["Quá trình biến đổi câu hỏi về dạng quan hệ","Quá trình biến đổi câu hỏi về dạng đơn giản","Quá trình biến đổi câu hỏi về dạng biểu thức quan hệ","Quá trình biến đổi câu hỏi sao cho chi phí thời gian thực hiện là ít nhất"], ans:3},
+  {q:"Sự cần thiết phải tối ưu hoá câu hỏi:", opts:["Nâng cao hiệu suất các phiên làm việc của người sử dụng","Tìm kiếm và truy xuất dữ liệu tại các thiết bị đầu cuối","Chia sẻ thông tin nhiều người sử dụng","Tối ưu về không gian lưu trữ"], ans:0},
+  {q:"Tối ưu theo nghĩa biến đổi một biểu thức đại số quan hệ:", opts:["Cho cùng một kết quả với chi phí thời gian thực hiện và sử dụng bộ nhớ ít hơn","Cho cùng một kết quả, không tổn thất thông tin","Với chi phí thời gian ít hơn rất nhiều","Cho cùng một kết quả với chi phí bộ nhớ không nhiều"], ans:0},
+  {q:"Tối ưu hoá câu hỏi bằng cách:", opts:["Thực hiện các phép chiếu và chọn, tiếp sau mới thực hiện phép kết nối","Thực hiện các phép toán đại số quan hệ","Bỏ đi các phép kết nối hoặc tích Đề các có chi phí lớn","Thực hiện biến đổi không làm tổn thất thông tin"], ans:0},
+  {q:"Nguyên tắc đánh giá tối ưu hóa biểu thức quan hệ:", opts:["Thực hiện các phép kết nối bằng nhau","Ưu tiên thực hiện các phép chiếu và chọn","Thực hiện phép tích Đề các","Nhóm các phép tích và chiếu liên tiếp thành một phép toán duy nhất"], ans:1},
+  {q:"Hai biểu thức E1 và E2 tương đương với nhau, ký hiệu là E1 = E2, nếu:", opts:["Các quan hệ giống nhau trong biểu thức","Chúng biểu diễn cùng một ánh xạ","Các kết quả giống nhau","Các quan hệ trong các biểu thức cùng miền xác định"], ans:1},
+  {q:"Khi thực hiện các phép toán trong một biểu thức quan hệ, thứ tự ưu tiên là:", opts:["Phép kết nối được ưu tiên hơn so với phép chọn và chiếu","Các phép toán một ngôi có thứ tự ưu tiên cao hơn so với phép toán hai ngôi","Phụ thuộc vào vị trí của các phép toán","Phép kết nối được ưu tiên hơn so với phép hợp, phép giao"], ans:1},
+  {q:"Một câu hỏi của người sử dụng:", opts:["Được biểu diễn bằng một đại số quan hệ","Được biểu diễn bằng nhiều cách khác nhau","Được biểu diễn bằng một quan hệ","Được biểu diễn bằng một biểu thức quan hệ"], ans:1},
+  {q:"Cơ sở dữ liệu cần thiết phải bảo vệ, vì:", opts:["Rất nhiều loại dữ liệu được tải về giữ trên các máy cục bộ để khai thác","Tài nguyên chung, nhiều người cùng sử dụng","Một bộ sưu tập rất lớn về các loại dữ liệu tác nghiệp","Truy xuất vào cơ sở dữ liệu bằng nhiều ngôn ngữ thao tác dữ liệu khác nhau"], ans:1},
+  {q:"Bảo vệ an toàn cơ sở dữ liệu có thể là:", opts:["Không cho phép ghi đè dữ liệu","Không cho phép cập nhật dữ liệu","Không cho phép đọc, sửa đổi, ghi, xoá dữ liệu","Không cho phép sửa đổi dữ liệu"], ans:2},
+  {q:"Mức độ an toàn hệ thống cơ sở dữ liệu:", opts:["Có thể được phép thực hiện các câu hỏi truy vấn","Người quản trị cơ sở dữ liệu cấp phép truy nhập cho bất kỳ người sử dụng","Phụ thuộc vào người sử dụng, không cần sự cấp phép của người quản trị","Người quản trị cấp phép truy nhập cho người sử dụng khi có nhu cầu"], ans:3},
+  {q:"'An toàn' dữ liệu có nghĩa là cơ sở dữ liệu....", opts:["Cần phải được bảo vệ chống truy nhập trái phép","Chống sửa đổi hay phá hoại","Cần thiết phải quản trị, bảo vệ tập trung","Chống vi phạm có chủ định"], ans:0},
+  {q:"Để bảo vệ cơ sở dữ liệu, phải thực hiện biện pháp an toàn:", opts:["Mạng","Hệ thống, người quản trị cấp phép, an toàn mạng","An toàn hệ thống điều hành","Người quản trị cơ sở dữ liệu cấp phép truy nhập"], ans:1},
+  {q:"Một số biện pháp bảo vệ cơ sở dữ liệu:", opts:["Người quản trị cơ sở dữ liệu cấp phép truy nhập","Nhận diện người sử dụng, bảo vệ mức vật lý, kiểm tra truy nhập","Kiểm tra Password","Kiểm tra truy nhập người sử dụng"], ans:1},
+  {q:"An toàn mức độ mạng:", opts:["Không cho phép truy cập từ xa","Bảo vệ thông tin trên đường truyền","Cho phép truy cập từ xa","Cho phép truy cập từ xa, có kiểm soát"], ans:1},
+  {q:"Mức độ nhận diện người sử dụng:", opts:["Xác định cho hệ thống những thao tác","Cho phép người sử dụng truy nhập","Nếu được phép của người quản trị CSDL","Người quản trị cung cấp phương tiện cho người sử dụng để hệ thống nhận biết"], ans:3},
+  {q:"Mức bảo vệ mức vật lý:", opts:["Nhận diện bằng cách kiểm tra","Nhận diện qua nhân viên bảo vệ, hoặc các quy định về hành chính","Nhận diện bằng các phương pháp trao quyền","Nhận diện bằng mật khẩu"], ans:1},
+  {q:"Dạng cấp quyền truy xuất trong SQL:", opts:["GRANT ON TO","GRANT ON TO","GRANT ON TO","GRANT READ ON R"], ans:0},
+  {q:"Dạng thu hồi quyền truy nhập:", opts:["REVOKE ON FROM","REVOKE ON FROM","REVOKE ON FROM","REVOKE SELECT ON FROM"], ans:0},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về đối tượng nghiên cứu CSDL:", opts:["CSDL bao gồm là các thực thể","CSDL bao gồm là các thực thể và mối quan hệ giữa các thực thể","Trong CSDL quan hệ có nhiều cách biểu diễn dữ liệu","Mối quan hệ giữa các thực thể cũng là một loại thực thể"], ans:3},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về ưu điểm tổ chức lưu trữ dữ liệu theo lý thuyết cơ sở dữ liệu:", opts:["Tốn kém, lãng phí bộ nhớ và các thiết bị lưu trữ","Có thể chia sẻ tài nguyên thông tin và giảm dư thừa trong lưu trữ","Nhiều thuộc tính được mô tả và lưu trữ nhiều lần độc lập với nhau","Giảm dư thừa dữ liệu trong lưu trữ"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về tính nhất quán và tính toàn vẹn của dữ liệu:", opts:["Tránh dư thừa dữ liệu trong lưu trữ","Một thuộc tính được mô tả lặp lại nhiều lần","Tiết kiệm bộ nhớ và các thiết bị lưu trữ","Tránh được dị thường thông tin"], ans:3},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Sự không nhất quán dữ liệu trong lưu trữ làm cho dữ liệu mất đi tính toàn vẹn","Tổ chức lưu trữ theo lý thuyết cơ sở dữ liệu, các thuộc tính có thể lặp lại","Tính toàn vẹn dữ liệu đảm bảo dữ liệu luôn luôn đúng","Tính nhất quán dữ liệu đảm bảo cho sự cập nhật, bổ sung dễ dàng"], ans:0},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về biện pháp an toàn dữ liệu:", opts:["Thống nhất các tiêu chuẩn, thủ tục và các biện pháp bảo vệ","Dễ dàng truy xuất, thao tác trên các cơ sở dữ liệu","Ngăn chặn các truy nhập trái phép, sai quy định từ trong ra hoặc từ ngoài vào","Người sử dụng có thể kiểm tra, kiểm soát các quyền truy nhập của họ"], ans:2},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Mô hình kiến trúc 3 lớp dữ liệu là mô hình lưu trữ cơ sở dữ liệu","Mô hình kiến trúc 3 lớp dữ liệu đảm bảo tính nhất quán và toàn vẹn dữ liệu","Mô hình kiến trúc 3 lớp dữ liệu đảm bảo tính bảo mật và an toàn dữ liệu","Mô hình kiến trúc 3 lớp đảm bảo tính độc lập dữ liệu"], ans:3},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Nhiều người sử dụng có cách nhìn chung một khung nhìn dữ liệu","Có duy nhất một cách nhìn dữ liệu ở mô hình ngoài","Một người sử dụng có một và chỉ một mô hình ngoài","Mô hình ngoài là nội dung thông tin của một phần dữ liệu của người sử dụng"], ans:3},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Mô hình quan niệm là cách nhìn dữ liệu của người sử dụng","Chỉ có nhiều cách nhìn dữ liệu ở mô hình quan niệm","Biểu diễn toàn bộ thông tin trong mô hình quan niệm là duy nhất","Mô hình dữ liệu là nội dung thông tin của người sử dụng"], ans:2},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Mô hình trong là mô hình dữ liệu","Chỉ có duy nhất một cách biểu diễn CSDL dưới dạng lưu trữ vật lý","Mô hình dữ liệu là nội dung thông tin của người sử dụng","Biểu diễn cơ sở dữ liệu trìu tượng ở mức thấp nhất"], ans:3},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Cấu trúc lưu trữ và các hệ chương trình ứng dụng trên độc lập với nhau","Người sử dụng khi thao tác trên các cơ sở dữ liệu có thể làm thay đổi cấu trúc lưu trữ dữ liệu","Mục tiêu của các hệ CSDL là tính bất biến cuả các hệ ứng dụng đối với sự thay đổi trong cấu trúc lưu trữ","Dữ liệu được biểu diễn, mô tả nhiều cách khác nhau"], ans:2},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Ràng buộc dữ liệu là các khái niệm về phụ thuộc hàm","Ràng buộc dữ liệu bảo đảm tính độc lập","Các ràng buộc là tập các quy tắc, quy định biểu diễn dữ liệu trong cơ sở dữ liệu","Giữa các thực thể dữ liệu tồn tại các mối quan hệ, ràng buộc lẫn nhau"], ans:2},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về khái niệm mô hình CSDL Client-Server:", opts:["Các máy khách chia sẻ xử lý thông tin","Khi máy khách thực hiện các ứng dụng, nó gửi yêu cầu về máy chủ được kết nối với cơ sở dữ liệu, máy chủ xử lý và gửi trả lại kết quả về máy khách","Máy chủ và máy khách có quyền truy xuất cơ sở dữ liệu","Máy khách truy xuất cơ sở dữ liệu trên máy chủ qua môi trường mạng"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về đặc trưng của một mô hình dữ liệu:", opts:["Sử dụng ngôn ngữ bậc cao để biểu diễn các phép toán trên cơ sở dữ liệu","Mô hình có cấu trúc đơn giản, có cách nhìn trong suốt đối với người sử dụng","Phải kiểm tra tính dư thừa","Có tính ổn định khi thiết kế, đơn giản, dễ thao tác. Có tính đối xứng và có cơ sở lý thuyết vững chắc"], ans:3},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["CSDL là tập bảng và mỗi bảng là một cấu trúc hai chiều","Dữ liệu được người sử dụng nhìn dưới dạng một quan hệ toán học và các phép toán thao tác dữ liệu được xây dựng trên các cấu trúc quan hệ toán học","Dữ liệu được người sử dụng nhìn dưới dạng một cấu trúc hình cây","Gồm nhiều tệp dữ liệu có cấu trúc xác định"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về ngôn ngữ dữ liệu thao tác trên quan hệ:", opts:["Ngôn ngữ con dữ liệu biếu diễn dữ liệu một cách duy nhất","Là tập các phép toán thao tác trên các dữ liệu dưới dạng quan hệ","Ngôn ngữ con dữ liệu liên kết các thực thể dữ liệu quan hệ","Ngôn ngữ con dữ liệu gồm nhóm các phép toán tìm kiếm và cập nhật, lưu trữ, thao tác trên các quan hệ"], ans:3},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Các câu hỏi tìm kiếm không đối xứng","Các phép toán lưu trữ có khả năng xử lý tập hợp theo lô, kết quả là quan hệ","Kết quả của các phép tìm kiếm là một quan hệ","Các phép lưu trữ làm mất đi sự nhất quán và tính toàn vẹn dữ liệu"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về mối liên kết giữa các thực thể trong mô hình thực thể quan hệ:", opts:["Mối quan hệ giữa các thực thể chỉ có thể là một-một hoặc một-nhiều","Mối quan hệ giữa các thực thể có thể là một-một, một-nhiều và nhiều-nhiều","Trong lược đồ quan hệ, cấu trúc dữ liệu nhiều-nhiều không thể chuyển về dạng một-nhiều","Thực thể là những đối tượng dữ liệu cơ bản chứa nội dung các thông tin"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về các bước triển khai mô hình thực thể quan hệ:", opts:["Xác định nội dung, yêu cầu của các thực thể","Phân tích yêu cầu, xác định các thực thể và các mối liên kết, tích hợp yêu cầu, chuyển đổi về các quan hệ, chuẩn hoá dữ liệu và thiết kế vật lý","Mô tả thông tin về các đối tượng và xác định mối quan hệ giữa các đối tượng cần thiết kế","Phân tích yêu cầu, xác định các thực thể, chuẩn hoá dữ liệu và thiết kế vật lý"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Chuẩn hoá dữ liệu dựa trên các khái niệm phụ thuộc hàm","Phụ thuộc hàm mô tả các phương pháp biểu diễn dữ liệu","Phụ thuộc hàm mô tả các ràng buộc trong cơ sở dữ liệu","Các phương pháp chuẩn hoá dữ liệu"], ans:0},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["X xác định Y nếu các giá trị của X xác định các giá trị của Y","X xác định Y nếu r và s trùng nhau trên X thì cũng trùng nhau trên Y","X->Y, (r, s ∈ R) (r(X) = s(Y)) thì suy ra r(X) = s(Y)","(r, s ∈ R) ((a ∈ X) (r(a) = s(a)) thì suy ra (b ∈ Y) (r(b) = s(b)))"], ans:3},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về các phụ thuộc hàm phản xạ:", opts:["Phụ thuộc mà vế trái được chứa trong vế phải","Với mọi B là Con của A => A -> B","Phụ thuộc mà vế phải được chứa trong vế trái","Phụ thuộc vào Ω, không phụ thuộc vào F"], ans:2},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Số điện thoại -> Mã vùng là phụ thuộc phản xạ","Số điện thoại -> Họ tên thuê bao là phụ thuộc phản xạ","(Số thứ tự, Mã lớp) -> Mã lớp là phụ thuộc phản xạ","Số chứng minh thư -> Họ tên là phụ thuộc phản xạ"], ans:2},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về các phụ thuộc hàm gia tăng:", opts:["Có thể mở rộng vế trái hoặc cả hai vế phụ thuộc hàm cùng một thuộc tính","A -> B => A -> BC","A -> B => AC -> B và A -> BC","Có thể mở rộng vế trái, không mở rộng vế phải"], ans:2},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về phụ thuộc bắc cầu:", opts:["Nếu A -> B và B -> C thì suy ra AC -> BC","Nếu A -> B và B -> C suy ra A -> C","Nếu một thuộc tính xác định thuộc tính thứ hai, hoặc xác định thuộc tính thứ ba, khi đó thuộc tính thứ nhất xác định thuộc tính thứ 3","Nếu một thuộc tính xác định thuộc tính thứ hai thì nó xác định thuộc tính thứ ba"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["A -> B và BC -> Z => AC -> Z","AC -> B và B -> Z => AC -> Z","A -> B và B -> Z => AC -> Z","A -> BC và BC -> Z => AC -> Z"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Tên thuê bao -> Số điện thoại thuê bao","A -> B và A -> C => A -> BC","A -> B và A -> C => B -> BC","AA -> AB và AA -> C, suy ra A -> BC"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Thuộc tính vế phải sẽ xác định các thành phần trong vế trái","Thuộc tính vế trái sẽ xác định các thành phần trong vế phải","Thuộc tính vế trái có mặt trong vế phải","Thuộc tính vế trái sẽ xác định các thành phần trong vế phải"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về các phụ thuộc đầy đủ:", opts:["Các thuộc tính vế phải không xác định vế trái","Các thuộc tính vế trái không xác định các thuộc tính thuộc vế phải","Các thuộc tính vế trái xác định vế phải","Các thuộc tính vế trái không xác định vế phải"], ans:2},
+  {q:"Phụ thuộc nào sau đây là phụ thuộc đầy đủ:", opts:["(Mã nhân viên, tên nhân viên) xác định đơn vị công tác","(Số thứ tự, đơn vị) xác định số thứ tự trong bảng lương","Mã nhân viên xác định quá trình công tác nhân viên đó","Số thứ tự xác định tiền lương của một nhân viên"], ans:2},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về bao đóng các thuộc tính:", opts:["Hợp tất cả vế phải của các phụ thuộc hàm","Bao đóng của X ứng với tập F là hợp của vế trái của các phụ thuộc hàm","Bao đóng của X ứng với tập F là hợp của vế phải của các phụ thuộc hàm","Thông tin về đối tượng"], ans:2},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về tập tương đương:", opts:["Tập G là tập con của F","Các phụ thuộc của G là các phụ thuộc của F","Các phụ thuộc của F được suy dẫn logic từ G và các phụ thuộc của G được suy dẫn logic từ F","Các phụ thuộc của F cũng là các phụ thuộc của G và ngược lại"], ans:2},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về thuộc tính dư thừa:", opts:["A1A2 -> B, A1 dư thừa khi A2 -> B","A1A2 -> B, A1 dư thừa khi A1A2 -> B phụ thuộc đầy đủ","A1A2 -> B, A1 dư thừa khi A2 -> B phụ thuộc đầy đủ","A1A2 -> B, A1 dư thừa khi A2 không xác định B"], ans:0},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất với F={X->Z, XY->WP, XY->ZWQ, XZ->R}:", opts:["Vế trái của X -> Z có chứa thuộc tính dư thừa","Vế trái của XY -> WP có chứa thuộc tính dư thừa","Vế trái của XZ -> R có chứa thuộc tính dư thừa","Vế trái của XY -> WP có chứa thuộc tính dư thừa"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Phụ thuộc có vế trái dư thừa là phụ thuộc bắc cầu","Phụ thuộc dư thừa có thể là phụ thuộc có vế trái dư thừa","Phụ thuộc có vế trái dư thừa là phụ thuộc đầy đủ","Phụ thuộc dư thừa là phụ thuộc có vế trái dư thừa"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về khoá của lược đồ quan hệ:", opts:["Giá trị của mỗi thuộc tính có thể xác định duy nhất giá trị các thuộc tính khác","Khoá gồm nhiều thuộc tính có khả năng biểu diễn các thuộc khác","Giá trị của một hay nhiều thuộc tính có thể xác định duy nhất giá trị các thuộc tính khác kể cả giá trị null","Khoá là một thuộc tính hay một tập các thuộc tính có khả năng biểu diễn duy nhất các thuộc tính còn lại"], ans:3},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["X là khóa nếu: X+ = Ω và (X - A)+ = Ω","Các thuộc tính không khoá phụ thuộc đầy đủ vào khóa","Mỗi một giá trị của khoá xác định các giá trị của các thuộc tính không khoá","Giá trị các khoá có thể trùng nhau"], ans:0},
+  {q:"F:={AB->C, D->EG, C->A, BE->C, BC->D, CG->BD, ACD->B, CE->AG}:", opts:["EB, CE, BC không là khóa của lược đồ quan hệ","EC, CE, BC khóa của lược đồ quan hệ","AB, CG, CD không là khóa của lược đồ quan hệ","AB, CG, CD khóa của lược đồ quan hệ"], ans:3},
+  {q:"Ω={A,B,C,D,E,G}, F={B->C, C->B, A->GD}, khoá quan hệ là:", opts:["ACE","ABC","AC","AB"], ans:0},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Chuẩn hoá dữ liệu là quá trình thực hiện các phép lưu trữ","Dữ liệu lưu trữ trong CSDL phản ảnh tính toàn vẹn dữ liệu","Chuẩn hoá dữ liệu là quá trình tách quan hệ không làm tổn thất thông tin","Quan hệ gốc được chứa trong quan hệ kết nối tự nhiên của các quan hệ chiếu"], ans:2},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi tách quan hệ:", opts:["Đảm bảo tính toàn vẹn dữ liệu","Đảm bảo tính độc lập dữ liệu","Làm tổn thất thông tin","Không làm tổn thất thông tin"], ans:3},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi tách - kết nối không tổn thất thông tin:", opts:["Quan hệ R được khôi phục từ phép kết nối tự nhiên các quan hệ chiếu","Thông tin của R có thể nhận được từ các quan hệ chiếu ứng với phép tách j","Thông tin của R có thể nhận được từ các quan hệ khác","Quan hệ R được khôi phục từ phép kết nối các quan hệ chiếu"], ans:0},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về mục tiêu:", opts:["Tách quan hệ là thực hiện tối ưu truy vấn, tìm kiếm","Tách quan hệ là thực hiện tối ưu lưu trữ, tiết kiệm bộ nhớ","Tách quan hệ là nhằm đảm bảo tính độc lập dữ liệu","Tách quan hệ là làm giảm nhẹ tính toán"], ans:2},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Khi thực hiện phép tách, quan hệ gốc bị tổn thất","Khi thực hiện phép tách, quan hệ gốc có thể bị tổn thất","Khi thực hiện phép tách, quan hệ gốc luôn luôn tổn thất","Khi thực hiện phép tách, quan hệ gốc không tổn thất"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Khi thực hiện các phép lưu trữ trên các quan hệ chưa được chuẩn hoá thường xuất hiện dị thường thông tin","Dữ liệu trong các quan hệ không đảm bảo tính toàn vẹn","Trong dữ liệu lưu trữ luôn luôn có sự dư thừa, không nhất quán dữ liệu","Dị thường thông tin thường xuất hiện khi thực hiện truy vấn dữ liệu"], ans:0},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Chuẩn hoá là quá trình loại bỏ dị thường thông tin và không tổn thất thông tin","Chuẩn hoá là quá trình tách dữ liệu không làm tổn thất thông tin","Chuẩn hoá là quá trình tách lược đồ quan hệ về các lược đồ quan hệ chuẩn cao và không làm tổn thất thông tin","Chuẩn hoá là quá trình loại bỏ dị thường thông tin"], ans:2},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Quan hệ gồm: Mã báo, tên báo, giá báo và mã khách đặt mua là quan hệ 2NF","Quan hệ gồm: Mã nhân viên, tên, địa chỉ là quan hệ 2NF","Quan hệ gồm: Mã hoá đơn, mã khách, mã mặt hàng là quan hệ 2NF","Quan hệ gồm: Mã khách, tên khách và mã báo, tên báo là quan hệ 2NF"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Quan hệ 1NF có thể chứa các thuộc tính khoá không phụ thuộc vào khoá","Quan hệ 1NF chứa các thuộc tính không khoá phụ thuộc vào khoá","Quan hệ 1NF chứa các thuộc tính không khoá phụ thuộc đầy đủ vào khoá","Quan hệ 1NF không chứa các thuộc tính không khoá phụ thuộc vào khoá"], ans:1},
+  {q:"Cho Ω = {A, B, C} và F = {A -> C, A -> B}:", opts:["Không tồn tại các thuộc tính không khoá","'{A, C}, {B, E}' là khoá của quan hệ trên","Quan hệ trên có dạng chuẩn không 2NF","Tồn tại các thuộc tính không khoá"], ans:3},
+  {q:"Trong quan hệ 2NF, cấm tất cả các phụ thuộc không đầy đủ:", opts:["Trong quan hệ 2NF, cấm tất cả các phụ thuộc không đầy đủ vào khoá","Trong quan hệ 2NF, cấm tất cả các phụ thuộc đầy đủ vào khoá","Trong quan hệ 2NF, các thuộc tính khoá phụ thuộc vào các tập con của khoá","Trong quan hệ 2NF, các thuộc tính không khoá phụ thuộc vào khoá"], ans:0},
+  {q:"Trong quan hệ 3NF:", opts:["Trong quan hệ 3NF, các thuộc tính không khoá bằng rỗng","Trong quan hệ 3NF, cấm các thuộc tính không khoá phụ thuộc vào thuộc tính có bao đóng khác Ω","Trong quan hệ 3NF, cấm thuộc tính không khoá phụ thuộc vào các thuộc tính có bao đóng bằng Ω","Trong quan hệ 3NF, các thuộc tính không khoá phụ thuộc hàm vào thuộc tính có bao đóng khác Ω"], ans:2},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi khảo sát quan hệ gồm các thuộc tính: Mã cáp, tên cáp, giá, mã nước sản xuất, nước sản xuất (lần 2):", opts:["Là quan hệ 2NF và không chứa các phụ thuộc bắc cầu","Là quan hệ 3NF, không phải là quan hệ 2NF","Là quan hệ 3NF","Tồn tại phụ thuộc mà vế phải và trái không phải là thuộc tính khoá"], ans:3},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Tách một quan hệ không 3NF thành nhiều quan hệ 3NF, tổn thất thông tin","Từ một quan hệ 2NF tách thành nhiều quan hệ 3NF","Tách một quan hệ thành nhiều quan hệ 3NF, không mất thông tin","Từ một quan hệ 2NF tách thành nhiều quan hệ 3NF, không làm mất thông tin"], ans:3},
+  {q:"Xét quan hệ Ω = {A, B, C, D, E, G, H} và F = {C -> AB, D -> E, B -> G}:", opts:["Khoá quan hệ là {B, C, A}","Quan hệ có dạng chuẩn 3NF","Khoá quan hệ là {H, C, D}","Tất cả đều sai"], ans:2},
+  {q:"CREATE TABLE trong SQL:", opts:["CREATE TABLE mô tả các thuộc tính","CREATE TABLE mô tả quan hệ và các thuộc tính","CREATE TABLE mô tả quan hệ","CREATE TABLE mô tả các phụ thuộc hàm"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về phép UNION:", opts:["Thuộc tính của quan hệ hợp là hợp các thuộc tính của các quan hệ nguồn","Các bộ của quan hệ hợp là hợp các bộ của các quan hệ nguồn","Hợp của 2 quan hệ khả hợp là một quan hệ khả hợp với các quan hệ nguồn","Hợp của 2 quan hệ là một quan hệ khả hợp với các quan hệ nguồn"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về phép giao:", opts:["Thuộc tính của quan hệ giao là giao các thuộc tính của các quan hệ nguồn","Giao của các quan hệ là một quan hệ","Các bộ của quan hệ giao là giao các bộ của các quan hệ nguồn","Giao của các quan hệ khả hợp là một quan hệ khả hợp"], ans:3},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về phép trừ:", opts:["Hiệu của các quan hệ cũng là quan hệ","Các bộ quan hệ kết quả là các bộ của các quan hệ nguồn","Các quan hệ tham gia phép trừ không cần phải khả hợp","Hiệu của các quan hệ khả hợp cũng là quan hệ khả hợp"], ans:3},
+  {q:"Câu hỏi truy vấn có thể biểu diễn bằng:", opts:["Các phép toán đại số quan hệ và cây quan hệ","Các phép toán đại số quan hệ hoặc cây quan hệ","Các phép toán đại số quan hệ","Cây đại số quan hệ"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về ngôn ngữ con dữ liệu SQL:", opts:["Được xây dựng trên cơ sở đại số quan hệ và các phép toán quan hệ","Là một ngôn ngữ lập trình độc lập","Là ngôn ngữ con dữ liệu cho tất cả các kiểu CSDL","Là một ngôn ngữ lập trình"], ans:0},
+  {q:"Các phép toán trong tổ hợp SELECT-FROM-WHERE:", opts:["Tích các quan hệ trong mệnh đề FROM, chọn theo biểu thức sau WHERE và chiếu trên các thuộc tính sau mệnh đề SELECT","Tích các quan hệ trong mệnh đề FROM, chiếu trong WHERE và chọn trên các thuộc tính sau mệnh đề SELECT","Kết nối các quan hệ sau mệnh đề FROM, chiếu các thuộc tính sau SELECT","Kết nối tự nhiên các quan hệ sau mệnh đề SELECT, thoả mãn biểu thức logic sau WHERE và chiếu trên các thuộc tính sau mệnh đề FROM"], ans:0},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi thực hiện truy vấn:", opts:["Thực hiện phép kết nối tự nhiên các quan hệ sau FROM","Thực hiện phép hợp các quan hệ sau FROM","Thực hiện phép chiếu trên sau mệnh đề WHERE","Thực hiện phép chọn sau mệnh đề WHERE"], ans:3},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Phân loại theo các cột được mô tả sau GROUP BY","Sắp xếp các bản ghi theo khoá được mô tả sau GROUP BY","GROUP BY sẽ phân hoạch quan hệ thành nhiều nhóm tách biệt nhau","GROUP BY sẽ chia dọc quan hệ thành nhiều nhóm"], ans:2},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi thực hiện phép chiếu:", opts:["Sau khi thực hiện phép chọn, phân loại","Sau khi thực hiện phép chọn, các phép theo nhóm","Trước khi thực hiện phép chọn, các phép theo nhóm","Trước khi thực hiện phép chọn, phân loại"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất:", opts:["Biến đổi một biểu thức đại số quan hệ về một biểu thức tương đương tối ưu","Biến đổi các biểu thức đại số quan hệ về tương đương","Biến đổi một biểu thức đại số quan hệ với chi phí ít hơn rất nhiều","Biến đổi các biểu thức đại số quan hệ tối ưu lưu trữ"], ans:0},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất nhận xét khi thực hiện tối ưu hoá câu hỏi:", opts:["Thực hiện các phép chọn muộn hơn các phép chiếu thường thì tốt hơn","Phép chiếu sớm giảm số các thuộc tính","Các phép chọn sớm sẽ làm tăng dữ liệu","Thực hiện các phép chọn càng sớm không tốt hơn"], ans:1},
+  {q:"Quá trình tối ưu hoá các câu hỏi truy vấn dữ liệu là quá trình:", opts:["Kết quả của các phép toán được biểu diễn duy nhất bằng một quan hệ","Biến đổi câu hỏi sao cho chi phí thời gian và sử dụng bộ nhớ là ít nhất","Chi phí thời gian thực hiện các phép toán là ít nhất","Cần thiết phải biến đổi các câu hỏi hợp lý"], ans:1},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về an toàn CSDL:", opts:["Cần có cơ chế kiểm soát, quản lý cơ sở dữ liệu","Các biện pháp bảo vệ an toàn thông tin trên mạng","Cần có các biện pháp bảo vệ chống truy nhập trái phép vào cơ sở dữ liệu","Các chiến lược truy nhập cơ sở dữ liệu"], ans:2},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về các nguy cơ không an toàn:", opts:["Nhiều người sử dụng truy nhập và khai thác trên cùng một cơ sở dữ liệu","Truy xuất vào cơ sở dữ liệu bằng nhiều ngôn ngữ thao tác dữ liệu khác nhau","Nhiều người trao đổi thông tin với nhau trên mạng","Rất nhiều loại dữ liệu được tải về lưu trữ trên các máy chủ mạng cục bộ"], ans:0},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi nói về các biện pháp nhận diện người sử dụng:", opts:["Cần cung cấp phương tiện cho người sử dụng","Cần xác định các thao tác người sử dụng được phép thực hiện","Cung cấp các phương pháp truy nhập cho người sử dụng","Cần xác định các thao tác cho bất kỳ người sử dụng"], ans:1},
+  {q:"Khẳng định nào sau đây là đúng:", opts:["GRANT SELECT ON ACCOUNT","GRANT READ ON R","GRANT ALL ON R TO GROUP/WORLD","GRANT ON R TO GROUP/WORLD"], ans:2},
+  {q:"Khẳng định nào sau đây là đúng khi nói về thu hồi các quyền truy nhập CSDL của người sử dụng:", opts:["REVOKE GRANT OPTION FOR SELECT ON BRANCH FROM U1","REVOKE READ ON R FROM GROUP/WORLD","REVOKE SELECT ON BRANCH","REVOKE ON BRANCH FROM U1"], ans:0},
+  {q:"Tìm kiếm và tra cứu thông tin là chức năng quan trọng. Hệ quản trị cơ sở dữ liệu là ....... các chiến lược truy nhập CSDL.", opts:["Tài nguyên thông tin","Hệ thống các máy chủ lưu trữ CSDL","Hệ thống phần mềm điều khiển","Hệ điều hành mạng"], ans:2},
+  {q:"Trong cơ sở dữ liệu quan hệ, mối quan hệ giữa các thực thể cũng là một loại ......... đặc biệt.", opts:["Cơ sở dữ liệu","Phụ thuộc hàm","Đối tượng dữ liệu","Thực thể"], ans:3},
+  {q:"Tổ chức lưu trữ dữ liệu theo lý thuyết cơ sở dữ liệu có thể tránh được sự không nhất quán trong lưu trữ dữ liệu và bảo đảm được .......... của dữ liệu.", opts:["Tính toàn vẹn","Tính độc lập dữ liệu","An toàn","Quyền truy nhập cơ sở dữ liệu"], ans:0},
+  {q:"Người quản trị CSDL bảo đảm việc truy nhập CSDL. Kiểm tra, kiểm soát các quyền truy nhập của ........ Ngăn chặn các truy nhập trái phép.", opts:["Hệ quản trị cơ sở dữ liệu","Người quản trị cơ sở dữ liệu","Hệ ứng dụng","Người sử dụng"], ans:3},
+  {q:"Mô hình kiến trúc CSDL có 3 mức, thể hiện ............", opts:["Tính nhất quán dữ liệu","Tính đơn giản thao tác dữ liệu","Tính toàn vẹn dữ liệu","Tính độc lập dữ liệu"], ans:3},
+  {q:"Có rất nhiều cách nhìn dữ liệu ở mô hình ngoài, nhưng ..... biểu diễn toàn bộ thông tin trong CSDL là duy nhất.", opts:["Mô hình quan niệm","Mô hình khái niệm","Mô hình trong","Mô hình ngoài"], ans:0},
+  {q:"Trong cơ sở dữ liệu, dữ liệu chỉ được biểu diễn, mô tả ......... Cấu trúc lưu trữ dữ liệu và các hệ chương trình ứng dụng trên các hệ CSDL độc lập với nhau.", opts:["Rõ ràng, logic","Một cách duy nhất","Chặt chẽ, logic","Bằng nhiều cách khác nhau"], ans:1},
+  {q:"Tính độc lập dữ liệu là '...... cuả các hệ ứng dụng đối với sự thay đổi trong cấu trúc lưu trữ và chiến lược truy nhập dữ liệu' (lần 2).", opts:["Nội dung thông tin","Phương thức truy nhập","Tính tất biến","Các chiến lược truy nhập"], ans:2},
+  {q:"Có rất nhiều loại ràng buộc......", opts:["Ràng buộc logic","Ràng buộc giải tích và phụ thuộc hàm","Phụ thuộc hàm","Ràng buộc về kiểu, ràng buộc giải tích và phụ thuộc hàm"], ans:3},
+  {q:"Một mô hình dữ liệu là một hệ thống hình thức toán học, bao gồm các hệ thống các ký hiệu và tập hợp các ............. trên cơ sở dữ liệu.", opts:["Các phép lưu trữ dữ liệu","Các phép tìm kiếm, tra cứu thông tin","Phép toán thao tác","Các phép toán đại số quan hệ"], ans:2},
+  {q:"Tổ chức dữ liệu theo mô hình nào là tốt nhất phụ thuộc vào yêu cầu......... thông tin của tổ chức quản lý nó.", opts:["Tìm kiếm","Truy vấn","Cập nhật, bổ sung, sửa đổi","Truy xuất và khai thác"], ans:3},
+  {q:"Trong mô hình CSDL phân cấp, trong mỗi một cây ............. và dưới nó là tập các bản ghi phụ thuộc.", opts:["Chỉ chứa một và chỉ một bản ghi gốc","Một bản ghi gốc và nhiều bản ghi phụ thuộc","Một bản ghi gốc và một bản ghi phụ thuộc","Nhiều bản ghi gốc"], ans:0},
+  {q:"Trong cấu trúc hình cây, khi sửa đổi một số thông tin trong các bản ghi phụ thuộc thì phải duyệt toàn bộ mô hình. Dẫn đến sự xuất hiện ...........", opts:["Toàn vẹn dữ liệu trong lưu trữ","An toàn dữ liệu","Không nhất quán dữ liệu trong lưu trữ","Tổn thất thông tin"], ans:2},
+  {q:"Mô hình dữ liệu mạng là mô hình thực thể quan hệ, trong đó các mối liên kết hạn chế......... Không chứa liên kết nhiều - nhiều.", opts:["Tính đối xứng","Trong kiểu một kiểu bản ghi liên kết","Trong kiểu một - một và nhiều - một","Trong kiểu một bản ghi thực thể"], ans:2},
+  {q:"Trong mô hình CSDL mạng, dữ liệu được biểu diễn trong .......bằng các mối nối liên kết tạo thành một đồ thị có hướng.", opts:["Trong kiểu một - một và nhiều - một","Các bản ghi liên kết với nhau","Các bản ghi thực thể","Trong kiểu một bản ghi thực thể"], ans:2},
+  {q:"CSDL mạng biểu diễn dữ liệu theo cấu trúc chặt chẽ. Các xuất hiện kiểu bản ghi được........", opts:["Kết nối với nhau bằng các xuất hiện kiểu bản ghi liên kết","Lưu trữ nhất quán và toàn vẹn","Mô tả chặt chẽ","Biểu diễn có cấu trúc đối xứng"], ans:0},
+  {q:"Cấu trúc dữ liệu trong mô hình CSDL mạng quá phức tạp vì .......... Vì vậy việc thiết kế và cài đặt cơ sở dữ liệu mạng thường rất khó khăn.", opts:["Mô hình dữ liệu mạng chứa nhiều thực thể","Mô hình dữ liệu mạng chứa một thực thể","Quá nhiều liên kết giữa các xuất hiện dữ liệu bằng các xuất hiện liên kết","Mối liên kết giữa các thực thể biểu diễn không tường minh"], ans:2},
+  {q:"Quan hệ là.......... của một hoặc hữu hạn các miền. Các phần tử của quan hệ là các bộ.", opts:["Kết quả của phép hợp","Kết quả của phép chiếu và chọn","Kết quả của phép chiếu","Một tập con của tích Đề các"], ans:3},
+  {q:"Cơ sở dữ liệu quan hệ được biểu diễn........., các cột là thuộc tính và các hàng là tập n giá trị của thực thể, đối tượng.", opts:["Dưới dạng các File dữ liệu","Cấu trúc hình cây","Dưới dạng các bảng","Cấu trúc hình mạng"], ans:2},
+  {q:"Ngôn ngữ dữ liệu quan hệ là.......... thao tác trên các dữ liệu dưới dạng quan hệ. Dữ liệu được biểu diễn một cách duy nhất.", opts:["Ngôn ngữ biểu diễn dữ liệu","Tập các phép toán số học","Tập các phép toán có các cấu trúc quan hệ","Ngôn ngữ mô tả các thực thể và mối liên kết các thực thể"], ans:2},
+  {q:"Trong CSDL quan hệ, các phép toán lưu trữ là các phép chèn thêm, sửa đổi và loại bỏ. Khi thao tác .......và đảm bảo tính nhất quán dữ liệu và tính toàn vẹn dữ liệu.", opts:["Không dị thường thông tin","Tổn thất thông tin","Bảo mật thông tin","Độc lập dữ liệu"], ans:0},
+  {q:"Cấu trúc dữ liệu trong mô hình CSDL quan hệ đơn giản, thông tin về các thực thể và ràng buộc của các thực thể ............... trong các bảng, trong suốt với người sử dụng.", opts:["Được biểu diễn duy nhất","Được biểu diễn bằng nhiều cách khác nhau","Cấu trúc đơn giản","Mô tả logic"], ans:0},
+  {q:"Tính độc lập dữ liệu trong các hệ cơ sở dữ liệu quan hệ cao, thể hiện cấu trúc lưu trữ và chiến lược truy nhập có thể .........nhưng không thay đổi sơ đồ quan niệm và ngược lại.", opts:["Không thay đổi","Thay đổi","Phụ thuộc lẫn nhau","Độc lập lẫn nhau"], ans:1},
+  {q:"Trong CSDL quan hệ, các câu hỏi đối xứng, kết quả cũng đối xứng và biểu diễn bằng ..........", opts:["Tệp dữ liệu","Cây dữ liệu","Đồ thị vô hướng","Quan hệ"], ans:3},
+  {q:"Nói rằng A -> B được suy dẫn từ F, nếu ..........", opts:["Hai bộ bất kỳ trùng nhau trên A thì khác nhau trên B","Hai bộ bất kỳ thoả trên A thì thoả trên B","Hai bộ bất kỳ khác nhau trên A thì cũng khác nhau trên B","Áp dụng liên tiếp các hệ tiên đề Armstrong"], ans:3},
+  {q:"Bao đóng tập các phụ thuộc hàm gồm các phụ thuộc.......", opts:["Bắc cầu được suy dẫn logic","Được suy dẫn bằng định nghĩa","Được suy dẫn bằng cách áp dụng liên tiếp các hệ tiên đề Armstrong","Đầy đủ được suy dẫn logic"], ans:2},
+  {q:"X -> Y (Y ∈ F) là phụ thuộc hàm đầy đủ, khi và chỉ khi ..........", opts:["Mọi con thực sự của X xác định Y","Tập con thực sự của X xác định Y","Tồn tại tập con của X xác định Y","X không chứa thuộc tính dư thừa"], ans:3},
+  {q:"Trong một lược đồ quan hệ luôn tồn tại một hoặc một tập các thuộc tính có khả năng ........", opts:["Biểu diễn các thuộc tính còn lại","Biểu diễn duy nhất các thuộc tính còn lại","Biểu diễn duy nhất các phụ thuộc hàm","Biểu diễn các phụ thuộc hàm"], ans:1},
+  {q:"Nếu 2 bộ bất kỳ trùng nhau trên các thành phần của khóa thì .........", opts:["Cũng trùng nhau trên các thành phần của tất cả các bộ","Cũng trùng nhau trên các thành phần không khóa","Khác nhau trên các thành phần tất cả các bộ","Khác nhau trên các thành phần không khóa"], ans:1},
+  {q:"Giá trị các thành phần của khoá ......... (lần 2)", opts:["Có thể nhận giá trị null hay các giá trị không xác định","Không thể nhận giá trị null hay các giá trị không xác định","Có thể nhận giá trị các giá trị không xác định","Không thể nhận giá trị null và chấp nhận các giá trị không xác định"], ans:1},
+  {q:"Từ một siêu khóa cho trước, có thể..........", opts:["Xác định một khóa trong nó","Xác định một siêu khóa trong nó","Xác định một nhóm các thuộc tính","Xác định một thuộc tính"], ans:0},
+  {q:"Trong quá trình chuẩn hoá dữ liệu, cần thiết phải thực hiện các phép tách quan hệ về các quan hệ có dạng chuẩn cao .......", opts:["Đảm bảo tính toàn vẹn dữ liệu","Và biểu diễn thông tin là duy nhất","Và không tổn thất thông tin","Không làm mất đi tính độc lập dữ liệu"], ans:2},
+  {q:"Phép tách không tổn thất thông tin theo nghĩa..........", opts:["Thông tin của quan hệ gốc được khôi phục từ các quan hệ chiếu","Phép tách bảo toàn phụ thuộc trong các quan hệ chiếu","Phép tách bảo đảm tính độc lập dữ liệu","Thông tin của quan hệ gốc không bị mâu thuẫn, thừa hoặc thiếu"], ans:0},
+  {q:"Chuẩn hoá dữ liệu là quá trình biến đổi dữ liệu thành nhiều tập nhỏ hơn sao cho.........", opts:["Không rõ ràng trong suy diễn, bảo đảm tính toàn vẹn dữ liệu","Tối thiểu việc lặp lại, tránh sự không rõ ràng, nhập nhằng trong suy diễn","Các quan hệ thành viên không tổn thất thông tin, đảm bảo tính độc lập dữ liệu","Các quan hệ thành viên có cấu trúc đơn giản, không chứa dị thường thông tin"], ans:3},
+  {q:"Một mô hình CSDL được coi là mô hình chuẩn hoá tốt, nếu........", opts:["Các thuộc tính không khoá phụ thuộc hàm vào khoá","Các thuộc tính không khoá phụ thuộc hàm đầy đủ vào khoá","Các thuộc tính khoá xác định duy nhất","Các thuộc tính không khoá không phụ thuộc bắc cầu vào khoá"], ans:1},
+  {q:"Trong các quan hệ dạng chuẩn 1NF.....", opts:["Xuất hiện các thuộc tính phụ thuộc đầy đủ vào khoá","Khi thao tác các phép lưu trữ xuất hiện dị thường thông tin","Không xuất hiện dị thường thông tin","Không xuất hiện các phụ thuộc bắc cầu vào khoá"], ans:1},
+  {q:"Nếu quan hệ là dạng chuẩn 1NF và không tồn tại các phụ thuộc hàm sao cho thuộc tính vế trái là một tập con thực sự của khóa và thuộc tính vế phải ..........", opts:["Là thuộc tính không khóa của quan hệ","Phụ thuộc hàm vào thuộc tính không khoá","Là thuộc tính dư thừa vế trái","Phụ thuộc hàm vào thuộc tính vế trái"], ans:0},
+  {q:"Trong các quan hệ dạng chuẩn 2NF, không thể chèn thêm thông tin ......", opts:["Khi chưa xác định giá trị của các thuộc tính khoá","Khi giá trị của các thuộc tính chưa được xác định","Khi giá trị của một thuộc tính chưa được xác định","Khi còn dị thường thông tin"], ans:0},
+  {q:"Trong các quan hệ dạng chuẩn 2NF........", opts:["Các thuộc tính không khoá phụ thuộc không đầy đủ vào khoá","Các thuộc tính không khoá phụ thuộc vào khoá","Cấm tất cả các thuộc tính không khoá phụ thuộc vào tập con thực sự của khoá","Không xuất hiện các phụ thuộc bắc cầu"], ans:2},
+  {q:"Biến đổi một quan hệ chưa chuẩn hoá về nhóm các quan hệ 3NF .........", opts:["Không tổn thất thông tin","Tổn thất thông tin","Bảo toàn phụ thuộc","Bảo đảm tính độc lập dữ liệu"], ans:0},
+  {q:"Từ một quan hệ 1NF có thể chuyển đổi về nhóm các quan hệ 3NF bằng cách.........", opts:["Loại bỏ các phụ thuộc không đầy đủ vào khoá","Loại bỏ các phụ thuộc không đầy đủ vào khoá và các phụ thuộc bắc cầu","Loại bỏ các phụ thuộc không đầy đủ","Loại bỏ các phụ thuộc đầy đủ vào khoá và các phụ thuộc bắc cầu"], ans:1},
+  {q:"Kết quả của phép chọn SELECT là một quan hệ mới, các bộ.....", opts:["Là một File dữ liệu","Là tập các bản ghi","Phụ thuộc hàm với các thuộc tính","Thoả mãn một tân từ xác định"], ans:3},
+  {q:"Toán hạng trong các phép đại số quan hệ là các ......", opts:["Các biểu thức toán học","Quan hệ hoặc các biểu thức quan hệ","Quan hệ hằng hoặc các biến biểu thị cho các quan hệ có bậc cố định","Các biến biểu thị cho các quan hệ có bậc cố định"], ans:2},
+  {q:"Hợp các quan hệ khả hợp trên cùng tập các thuộc tính Ω là một quan hệ trên Ω, các bộ là .................... bỏ đi các bộ trùng nhau.", opts:["Các bộ của các quan hệ nguồn thoả điều kiện hợp","Các bộ của các quan hệ nguồn","Các bộ của các quan hệ nguồn được tách không tổn thất thông tin","Các bộ có mặt trong các quan hệ nguồn"], ans:3},
+  {q:"Giao của các quan hệ trên Ω cũng là một quan hệ trên Ω, các bộ của nó là các bộ.......", opts:["Có mặt trong các quan hệ nguồn","Của các quan hệ nguồn thoả tân từ xác định","Của các quan hệ nguồn","Các quan hệ nguồn được tách không tổn thất thông tin"], ans:0},
+  {q:"Tích Đề các các quan hệ là một quan hệ, với tập các thuộc tính là........, các bộ bao gồm các bộ quan hệ nguồn nối tiếp theo thứ tự phép nhân.", opts:["Hợp tập các thuộc tính của các quan hệ nguồn","Thuộc tính có mặt trong quan hệ đầu tiên phép nhân","Giao tập các thuộc tính của các quan hệ nguồn","Tập các thuộc tính của các quan hệ tách"], ans:0},
+  {q:"Phép chiếu quan hệ, tức là từ quan hệ nguồn .........", opts:["Bỏ đi một số bộ thoả mãn biểu thức logic","Bỏ đi một số bộ thoả mãn biểu thức logic","Bỏ đi một số bộ","Bỏ đi một số thuộc tính"], ans:3},
+  {q:"Ngôn ngữ SQL có thể sử dụng theo các phương thức tương tác và........", opts:["Nhúng vào một ngôn ngữ chủ","Nhúng vào một cơ sở dữ liệu khác","Nhúng vào hệ điều hành","Nhúng vào một hệ quản trị cơ sở dữ liệu khác"], ans:0},
+  {q:"Thực hiện phép chọn trên quan hệ sau mệnh đề HAVING ........", opts:["Trước khi sau mệnh đề GROUP BY thực hiện gộp nhóm","Nếu GROUP BY đã xuất hiện","Theo các yêu cầu của mệnh đề GROUP BY","Thoả mãn biểu thức logic"], ans:1},
+  {q:"Trước khi thực hiện các câu truy vấn, cần thiết phải .........", opts:["Truy xuất dữ liệu tại các thiết bị đầu cuối","Tối ưu hoá câu hỏi, bảo đảm tính độc lập của dữ liệu","Thực hiện các phép chiếu và chọn","Biến đổi câu hỏi dưới dạng biểu thức quan hệ"], ans:3},
+  {q:"Biến đổi một biểu thức đại số quan hệ về một biểu thức tương đương, cho cùng một kết quả .......", opts:["Bảo toàn dữ liệu","Bảo đảm độc lập dữ liệu","Không tổn thất thông tin","Với chi phí thời gian thực hiện và sử dụng bộ nhớ ít hơn rất nhiều"], ans:3},
+  {q:"Có nhiều kỹ thuật tối ưu hoá các câu hỏi, trong đó có kỹ thuật phân rã câu hỏi dựa trên..........", opts:["Suy dẫn logic từ các tiên đề Armstrong","Ngôn ngữ của đại số quan hệ","Biểu thức đại số quan hệ","Ngôn ngữ dữ liệu"], ans:2},
+  {q:"Biến đổi một biểu thức đại số quan hệ về một biểu thức tương đương với chi phí thời gian thực hiện và sử dụng bộ nhớ......", opts:["Không phụ thuộc các phép toán","Tối ưu","Phụ thuộc và các phép toán thực hiện","Hạn chế"], ans:1},
+  {q:"Đánh giá tối ưu hóa biểu thức quan hệ dựa vào cây kết nối trái theo chiều sâu, có.......", opts:["Chi phí thời gian nhỏ","Chi phí tính theo chiều sâu của cây","Chi phí bộ nhớ nhỏ","Chi phí bằng chi phí biểu thức ban đầu"], ans:0},
+  {q:"Trong biểu thức quan hệ các toán hạng là ......... (lần 2)", opts:["Các phần tử","Các phụ thuộc hàm","Các thuộc tính","Các quan hệ trong một CSDL"], ans:3},
+  {q:"Biểu thức E1 tương đương với E2, nếu chúng biểu diễn cùng một ánh xạ, nghĩa là .......... giống nhau trong biểu thức, thì kết quả cũng giống nhau.", opts:["Các quan hệ","Các bản ghi","Các thuộc tính","Các toán hạng"], ans:0},
+  {q:"Hệ quản trị cơ sở dữ liệu DBMS không cho phép người sử dụng ........", opts:["Truy nhập tìm kiếm hay truy vấn thông tin","Thực hiện quyền truy nhập nếu không được phép của người quản trị CSDL","Thực hiện quyền truy nhập CSDL","Vi phạm tính độc lập và tính toàn vẹn dữ liệu"], ans:1},
+  {q:"Hình thức thông dụng nhất để nhận biết người sử dụng là mật khẩu......", opts:["Đảm bảo toàn vẹn dữ liệu","Và các quy tắc bảo vệ cơ sở dữ liệu","Chỉ có hệ thống và người sử dụng biết","Mới được phép truy nhập CSDL"], ans:2},
+  {q:"Một người sử dụng được .......... và các quyền này có thể tham chiếu đến quyền truy nhập của người sử dụng khác.", opts:["Cấp một vài quyền truy nhập cơ sở dữ liệu","Cấp quyền đọc và ghi dữ liệu","Cấp quyền tìm kiếm dữ liệu","Cấp tất cả các quyền truy nhập cơ sở dữ liệu"], ans:0},
+  {q:"Cấp quyền READ người sử dụng chỉ được quyền.......", opts:["Chỉ được đọc và ghi","Sửa đổi, bổ sung và cập nhật dữ liệu","Sử dụng trong các câu vấn tin và cập nhật, lưu trữ dữ liệu","Vấn tin, không được phép sửa đổi, bổ sung"], ans:3},
+  {q:"'An toàn' dữ liệu nghĩa là cơ sở dữ liệu cần phải ......", opts:["Bảo đảm tính độc lập dữ liệu","Bảo vệ, bảo đảm sự toàn vẹn dữ liệu","Bảo toàn dữ liệu khi thao tác trên nó","Bảo vệ chống truy nhập trái phép"], ans:3},
+  {q:"Toàn vẹn dữ liệu nghĩa là ......", opts:["Dữ liệu trong CSDL luôn luôn chính xác tại mọi thời điểm","Có thể thực hiện các chiến lược truy nhập dữ liệu","Bảo đảm tính độc lập dữ liệu tại mọi thời điểm","Có thể tìm kiếm tại mọi thời điểm"], ans:0},
+  {q:"Mô hình kiến trúc CSDL có 3 mức, thể hiện ............ (lần 2)", opts:["Tính nhất quán dữ liệu","Tính đơn giản thao tác dữ liệu","Tính toàn vẹn dữ liệu","Tính độc lập dữ liệu"], ans:3},
+  {q:"Người sử dụng được quyền ghi và đọc bao gồm các quyền như chèn, xóa và sửa đổi.......", opts:["GRANT READ ON R TO GROUP/WORLD","GRANT ALL ON R TO GROUP/WORLD","GRANT SELECT ON R TO GROUP/WORLD","GRANT READ/WRITE ON R TO GROUP/WORLD"], ans:1},
+  {q:"Các quyền tham chiếu REFERENCE được cấp cho người sử dụng U1 trên thuộc tính branch-name đến quan hệ BRANCH............", opts:["GRANT REFERENCE (branch-name) TO U","GRANT REFERENCE ON BRANCH TO U","GRANT REFERENCE (branch-name) ON BRANCH TO U","GRANT REFERENCE (branch-name) ON BRANCH"], ans:2},
+  {q:"Thu hồi đặc quyền đã cấp cho U1, U2 và U3......", opts:["REVOKE SELECT ON BRANCH FROM U1, U2, U3","GRANT ALL ON ACCOUNT TO U1, U2, U3","REVOKE REFERENCES (branch-name) ON BRANCH FROM U1","GRANT SELECT ON ACCOUNT TO U1, U2, U3"], ans:0},
+  {q:"Cho Ω = {A, B, C} và F = {A -> C, A -> B} (lần 2):", opts:["Không tồn tại các thuộc tính không khoá","'{A, C}, {B, E}' là khoá của quan hệ trên","Quan hệ trên có dạng chuẩn không 2NF","Tồn tại các thuộc tính không khoá"], ans:3},
+  {q:"Trong quan hệ 2NF, cấm tất cả các phụ thuộc không đầy đủ (lần 2):", opts:["Trong quan hệ 2NF, cấm tất cả các phụ thuộc không đầy đủ vào khoá","Trong quan hệ 2NF, cấm tất cả các phụ thuộc đầy đủ vào khoá","Trong quan hệ 2NF, các thuộc tính khoá phụ thuộc vào các tập con của khoá","Trong quan hệ 2NF, các thuộc tính không khoá phụ thuộc vào khoá"], ans:0},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất (quan hệ 3NF lần 2):", opts:["Trong quan hệ 3NF, các thuộc tính không khoá bằng rỗng","Trong quan hệ 3NF, cấm các thuộc tính không khoá phụ thuộc vào thuộc tính có bao đóng khác Ω","Trong quan hệ 3NF, cấm thuộc tính không khoá phụ thuộc vào các thuộc tính có bao đóng bằng Ω","Trong quan hệ 3NF, các thuộc tính không khoá phụ thuộc hàm vào thuộc tính có bao đóng khác Ω"], ans:2},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất khi khảo sát quan hệ gồm các thuộc tính: Mã cáp, tên cáp, giá, mã nước sản xuất, nước sản xuất (lần 3):", opts:["Là quan hệ 2NF và không chứa các phụ thuộc bắc cầu","Là quan hệ 3NF, không phải là quan hệ 2NF","Là quan hệ 3NF","Tồn tại phụ thuộc mà vế phải và trái không phải là thuộc tính khoá"], ans:3},
+  {q:"Chọn một khẳng định nào sau đây là đúng nhất (tách 3NF lần 2):", opts:["Tách một quan hệ không 3NF thành nhiều quan hệ 3NF, tổn thất thông tin","Từ một quan hệ 2NF tách thành nhiều quan hệ 3NF","Tách một quan hệ thành nhiều quan hệ 3NF, không mất thông tin","Từ một quan hệ 2NF tách thành nhiều quan hệ 3NF, không làm mất thông tin"], ans:3},
+  {q:"Xét quan hệ Ω = {A, B, C, D, E, G, H} và F = {C -> AB, D -> E, B -> G} (lần 2):", opts:["Khoá quan hệ là {B, C, A}","Quan hệ có dạng chuẩn 3NF","Khoá quan hệ là {H, C, D}","Tất cả đều sai"], ans:2}
+];
+
+// ===========================
+// STATE
+// ===========================
+let questions = [];
+let currentIdx = 0;
+let answers = {};   // idx -> chosen opt index
+let results = {};   // idx -> 'correct'|'wrong'
+let mode = 'practice';
+let startTime, elapsedTime=0;
+let timerInterval, questionTimer;
+let retryData = null;
+let panelOpen = false;
+
+// ===========================
+// HOME
+// ===========================
+function selectMode(el){
+  document.querySelectorAll('.mode-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  mode = el.dataset.mode;
+  const timerBadge = document.getElementById('timer-badge');
+  if(mode==='review') {
+    document.getElementById('num-questions').disabled=true;
+    document.getElementById('start-from').disabled=true;
+  } else {
+    document.getElementById('num-questions').disabled=false;
+    document.getElementById('start-from').disabled=false;
+  }
+}
+
+function startQuiz(){
+  const numQ = parseInt(document.getElementById('num-questions').value)||30;
+  const startFrom = parseInt(document.getElementById('start-from').value)||1;
+  
+  if(mode==='review'){
+    questions = RAW_QUESTIONS.map((q,i)=>({...q,origIdx:i}));
+  } else {
+    let pool = RAW_QUESTIONS.slice(startFrom-1);
+    // shuffle
+    pool = pool.map((q,i)=>({...q,origIdx:startFrom-1+i})).sort(()=>Math.random()-0.5);
+    questions = pool.slice(0, Math.min(numQ, pool.length));
+  }
+  
+  answers = {}; results = {}; currentIdx = 0;
+  startTime = Date.now();
+  
+  showScreen('quiz-screen');
+  buildNavGrid();
+  renderQuestion();
+  
+  if(mode==='timed') startTimerBadge();
+  if(mode==='review') enterReviewMode();
+}
+
+function enterReviewMode(){
+  // Show all answers immediately
+  questions.forEach((_,i)=>{ answers[i]=questions[i].ans; results[i]='correct'; });
+  document.getElementById('btn-submit').style.display='none';
+  document.getElementById('btn-end-quiz').textContent='Xong ✓';
+}
+
+// ===========================
+// NAVIGATION PANEL
+// ===========================
+function buildNavGrid(){
+  const grid = document.getElementById('nav-grid');
+  grid.innerHTML='';
+  questions.forEach((_,i)=>{
+    const b=document.createElement('button');
+    b.className='nav-btn'; b.textContent=i+1;
+    b.onclick=()=>jumpTo(i);
+    b.id=`nav-${i}`;
+    grid.appendChild(b);
+  });
+}
+
+function updateNavBtn(i){
+  const b=document.getElementById(`nav-${i}`);
+  if(!b) return;
+  b.className='nav-btn';
+  if(i===currentIdx) b.classList.add('current');
+  else if(results[i]==='correct') b.classList.add('correct');
+  else if(results[i]==='wrong') b.classList.add('wrong');
+  else if(answers[i]!==undefined) b.classList.add('answered');
+}
+
+function togglePanel(){
+  panelOpen=!panelOpen;
+  const p=document.getElementById('nav-panel');
+  if(panelOpen) p.classList.add('show'); else p.classList.remove('show');
+}
+
+// ===========================
+// TIMER
+// ===========================
+function startTimerBadge(){
+  const badge=document.getElementById('timer-badge');
+  badge.style.display='block';
+  let sec=60;
+  badge.textContent='1:00';
+  badge.classList.remove('danger');
+  clearInterval(questionTimer);
+  questionTimer=setInterval(()=>{
+    sec--;
+    const m=Math.floor(sec/60), s=sec%60;
+    badge.textContent=`${m}:${s<10?'0':''}${s}`;
+    if(sec<=10) badge.classList.add('danger');
+    if(sec<=0){
+      clearInterval(questionTimer);
+      // auto next
+      if(answers[currentIdx]===undefined) answers[currentIdx]=-1;
+      if(currentIdx<questions.length-1) nextQ();
+      else endQuiz();
+    }
+  },1000);
+}
+
+// ===========================
+// RENDER QUESTION
+// ===========================
+function renderQuestion(){
+  const q=questions[currentIdx];
+  const total=questions.length;
+  
+  // Header
+  document.getElementById('q-counter').textContent=`Câu ${currentIdx+1}/${total}`;
+  const correct=Object.values(results).filter(r=>r==='correct').length;
+  const wrong=Object.values(results).filter(r=>r==='wrong').length;
+  document.getElementById('q-score-live').innerHTML=`✓ ${correct} &nbsp;✗ ${wrong}`;
+  document.getElementById('progress-fill').style.width=`${((currentIdx+1)/total)*100}%`;
+  
+  // Question tag
+  document.getElementById('q-tag').textContent=`📌 Câu ${currentIdx+1} (Gốc: #${q.origIdx+1})`;
+  document.getElementById('question-text').textContent=q.q;
+  
+  // Options
+  const ol=document.getElementById('options-list');
+  ol.innerHTML='';
+  const letters=['A','B','C','D'];
+  q.opts.forEach((opt,i)=>{
+    const btn=document.createElement('button');
+    btn.className='option-btn';
+    btn.id=`opt-${i}`;
+    btn.innerHTML=`<span class="option-letter">${letters[i]}</span><span class="option-text">${opt}</span>`;
+    btn.onclick=()=>selectOption(i);
+    ol.appendChild(btn);
+  });
+  
+  // Explanation
+  document.getElementById('explanation-box').classList.remove('show');
+  document.getElementById('explanation-box').textContent='';
+  
+  // Restore state if already answered
+  if(answers[currentIdx]!==undefined){
+    restoreAnswerState();
+  }
+  
+  // Buttons
+  const submitted=results[currentIdx]!==undefined;
+  const btnSubmit=document.getElementById('btn-submit');
+  if(mode==='review'){
+    btnSubmit.style.display='none';
+  } else if(mode==='exam'){
+    btnSubmit.style.display='none';
+  } else {
+    btnSubmit.style.display='inline-block';
+    btnSubmit.disabled=answers[currentIdx]===undefined;
+    if(submitted) { btnSubmit.disabled=true; btnSubmit.textContent='Đã kiểm tra ✓'; }
+    else btnSubmit.textContent='Kiểm tra';
+  }
+  
+  document.getElementById('btn-prev').disabled=currentIdx===0;
+  document.getElementById('btn-next').disabled=currentIdx===total-1;
+  
+  // Nav
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('current'));
+  updateNavBtn(currentIdx);
+  
+  // Timer
+  if(mode==='timed' && results[currentIdx]===undefined) startTimerBadge();
+  
+  // Scroll to top of main
+  document.querySelector('.quiz-main').scrollTo(0,0);
+}
+
+function restoreAnswerState(){
+  const q=questions[currentIdx];
+  const chosen=answers[currentIdx];
+  const submitted=results[currentIdx]!==undefined;
+  const letters=['A','B','C','D'];
+  
+  q.opts.forEach((_,i)=>{
+    const btn=document.getElementById(`opt-${i}`);
+    if(!btn) return;
+    if(i===chosen) btn.classList.add('selected');
+    if(submitted || mode==='review'){
+      btn.disabled=true;
+      if(i===q.ans) btn.classList.add('correct-ans');
+      else if(i===chosen && i!==q.ans) btn.classList.add('wrong-ans');
+    }
+  });
+  
+  if(submitted && mode==='practice'){
+    const expBox=document.getElementById('explanation-box');
+    expBox.textContent=`✓ Đáp án đúng: ${letters[q.ans]}. ${q.opts[q.ans]}`;
+    expBox.classList.add('show');
+  }
+}
+
+function selectOption(idx){
+  if(results[currentIdx]!==undefined) return; // already submitted
+  if(mode==='review') return;
+  
+  answers[currentIdx]=idx;
+  document.querySelectorAll('.option-btn').forEach(b=>b.classList.remove('selected'));
+  document.getElementById(`opt-${idx}`).classList.add('selected');
+  
+  if(mode==='practice'){
+    document.getElementById('btn-submit').disabled=false;
+  } else if(mode==='exam' || mode==='timed'){
+    // no instant check
+  }
+  
+  updateNavBtn(currentIdx);
+}
+
+function submitAnswer(){
+  if(answers[currentIdx]===undefined) return;
+  const q=questions[currentIdx];
+  const chosen=answers[currentIdx];
+  const isCorrect=chosen===q.ans;
+  results[currentIdx]=isCorrect?'correct':'wrong';
+  
+  // Update options UI
+  q.opts.forEach((_,i)=>{
+    const btn=document.getElementById(`opt-${i}`);
+    if(!btn) return;
+    btn.disabled=true;
+    if(i===q.ans) btn.classList.add('correct-ans');
+    else if(i===chosen && !isCorrect) btn.classList.add('wrong-ans');
+  });
+  
+  // Explanation
+  const letters=['A','B','C','D'];
+  const expBox=document.getElementById('explanation-box');
+  expBox.textContent=isCorrect
+    ? `✅ Đúng! Đáp án: ${letters[q.ans]}. ${q.opts[q.ans]}`
+    : `❌ Sai! Đáp án đúng: ${letters[q.ans]}. ${q.opts[q.ans]}`;
+  expBox.classList.add('show');
+  
+  document.getElementById('btn-submit').disabled=true;
+  document.getElementById('btn-submit').textContent='Đã kiểm tra ✓';
+  updateNavBtn(currentIdx);
+  
+  clearInterval(questionTimer);
+  
+  // Auto advance in timed/practice mode after 1.5s
+  if(mode==='timed'){
+    setTimeout(()=>{ if(currentIdx<questions.length-1) nextQ(); },1500);
+  }
+}
+
+function jumpTo(i){
+  currentIdx=i;
+  renderQuestion();
+}
+
+function prevQ(){
+  if(currentIdx>0){ currentIdx--; renderQuestion(); }
+}
+
+function nextQ(){
+  if(currentIdx<questions.length-1){ currentIdx++; renderQuestion(); }
+}
+
+function endQuiz(){
+  clearInterval(timerInterval);
+  clearInterval(questionTimer);
+  elapsedTime=Math.floor((Date.now()-startTime)/1000);
+  
+  // Compute results for exam mode
+  if(mode==='exam' || mode==='timed'){
+    questions.forEach((_,i)=>{
+      if(answers[i]!==undefined && results[i]===undefined){
+        results[i]=answers[i]===questions[i].ans?'correct':'wrong';
+      }
+    });
+  }
+  
+  showResults();
+}
+
+// ===========================
+// RESULTS
+// ===========================
+function showResults(){
+  const total=questions.length;
+  const correct=Object.values(results).filter(r=>r==='correct').length;
+  const wrong=Object.values(results).filter(r=>r==='wrong').length;
+  const skip=total-Object.keys(results).length;
+  const pct=Math.round((correct/total)*100);
+  
+  document.getElementById('score-pct').textContent=pct+'%';
+  document.getElementById('score-circle').style.setProperty('--pct', `${pct*3.6}deg`);
+  document.getElementById('rs-correct').textContent=correct;
+  document.getElementById('rs-wrong').textContent=wrong;
+  document.getElementById('rs-skip').textContent=skip;
+  
+  const m=Math.floor(elapsedTime/60), s=elapsedTime%60;
+  document.getElementById('rs-time').textContent=`${m}:${s<10?'0':''}${s}`;
+  
+  let emoji='🎉', title='Hoàn thành!', sub='';
+  if(pct>=90){ emoji='🏆'; title='Xuất sắc!'; sub='Tuyệt vời, bạn nắm vững kiến thức!'; }
+  else if(pct>=70){ emoji='😊'; title='Tốt lắm!'; sub='Kết quả khả quan, tiếp tục cố gắng!'; }
+  else if(pct>=50){ emoji='😐'; title='Cần ôn thêm!'; sub='Hãy xem lại phần chưa nắm vững.'; }
+  else { emoji='😅'; title='Cần cố gắng hơn!'; sub='Đừng nản lòng, ôn tập thêm nhé!'; }
+  
+  document.getElementById('result-emoji').textContent=emoji;
+  document.getElementById('result-title').textContent=title;
+  document.getElementById('result-sub').textContent=sub || `Đúng ${correct}/${total} câu – ${pct}%`;
+  
+  retryData = { mode, numQ:questions.length };
+  renderReview('all');
+  showScreen('result-screen');
+}
+
+function renderReview(filter){
+  const list=document.getElementById('review-list');
+  list.innerHTML='';
+  const letters=['A','B','C','D'];
+  
+  questions.forEach((q,i)=>{
+    const res=results[i];
+    const userAns=answers[i];
+    if(filter==='wrong' && res!=='wrong') return;
+    if(filter==='correct' && res!=='correct') return;
+    if(filter==='skip' && res!==undefined) return;
+    
+    const div=document.createElement('div');
+    div.className=`review-item ${res==='correct'?'correct-r':res==='wrong'?'wrong-r':'skip-r'}`;
+    
+    let ansHtml='';
+    if(res===undefined){
+      ansHtml=`<div class="review-skip">Chưa trả lời</div>`;
+    } else {
+      const userCls=res==='correct'?'review-user ok':'review-user';
+      const icon=res==='correct'?'✓':'✗';
+      ansHtml=`<div class="${userCls}">${icon} Bạn chọn: ${letters[userAns]}. ${q.opts[userAns]}</div>`;
+      if(res==='wrong') ansHtml+=`<div class="review-correct">✓ Đáp án đúng: ${letters[q.ans]}. ${q.opts[q.ans]}</div>`;
+    }
+    
+    div.innerHTML=`
+      <div class="review-q"><span class="review-q-num">${i+1}.</span>${q.q}</div>
+      <div class="review-ans">${ansHtml}</div>
+    `;
+    list.appendChild(div);
+  });
+  
+  if(list.children.length===0){
+    list.innerHTML='<div style="color:var(--text-muted);text-align:center;padding:2rem">Không có câu nào</div>';
+  }
+}
+
+function filterReview(type, btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderReview(type);
+}
+
+function retryQuiz(){
+  // redo same questions
+  answers={}; results={}; currentIdx=0;
+  startTime=Date.now();
+  questions=questions.sort(()=>Math.random()-0.5);
+  showScreen('quiz-screen');
+  buildNavGrid();
+  renderQuestion();
+  if(mode==='timed') startTimerBadge();
+}
+
+// ===========================
+// SCREEN MANAGER
+// ===========================
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function goHome(){
+  clearInterval(timerInterval); clearInterval(questionTimer);
+  showScreen('home-screen');
+}
+</script>
+</body>
+</html>

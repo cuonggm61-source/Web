@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/Codelearn" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/dsaonl" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/hw3_24000086_vu_kien_cuong" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/hw4_24000086_Vu_Kien_Cuong" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/hw5" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
