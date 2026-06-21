@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đồ Sơn - CuongThinh Photography</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/font/themify-icons-font/themify-icons/themify-icons.css">
+</head>
+<body>
+    <!-- ===== HEADER ===== -->
+    <div id="header" class="scrolled">
+        <a href="index.html" class="logo">Cuong<span>Thinh</span></a>
+        <ul id="nav">
+            <li><a href="index.html" class="nav-link"><i class="ti-arrow-left"></i> Về Trang Chủ</a></li>
+        </ul>
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+            <i class="ti-light-bulb"></i>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+    
+    <div id="mobile-nav-overlay" class="mobile-nav-overlay"></div>
+    <div id="mobile-nav" class="mobile-nav">
+        <button class="close-btn" onclick="closeMobileNav()"><i class="ti-close"></i></button>
+        <ul>
+            <li><a href="index.html" onclick="closeMobileNav()">Về Trang Chủ</a></li>
+        </ul>
+    </div>
+
+    <!-- ===== BLOG HERO ===== -->
+    <div class="blog-hero" style="background-image: url('./assets/img/doson.jpg');">
+        <div class="hero-overlay"></div>
+        <div class="blog-hero-content reveal-up">
+            <span class="blog-category">Nhật ký hành trình</span>
+            <h1 class="blog-title">Biển Đồ Sơn - Gọi nắng ngày hè rực rỡ</h1>
+            <div class="blog-meta">
+                <span><i class="ti-location-pin"></i> Hải Phòng</span>
+                <span><i class="ti-calendar"></i> August 2025</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== BLOG CONTENT ===== -->
+    <div class="blog-container reveal-up">
+        <article class="blog-post">
+            <p class="lead">Nằm cách trung tâm thành phố Hải Phòng khoảng 20km, Đồ Sơn từ lâu đã là một khu nghỉ mát nổi tiếng. Dù ngày nay có nhiều bãi biển mới, Đồ Sơn vẫn giữ được sức hút riêng bởi sự gần gũi, tiện lợi và nét đặc trưng văn hóa biển.</p>
+            
+            <h2>Vui đùa cùng sóng biển</h2>
+            <p>Bãi biển Đồ Sơn được chia thành các khu vực khác nhau. Khu 2 là nơi nhộn nhịp nhất với bãi cát dài, sóng đánh mạnh rất thích hợp cho việc tắm biển. Mùa hè, không khí tại đây luôn rộn ràng tiếng cười đùa của du khách và tiếng sóng vỗ rì rào.</p>
+            
+            <img src="./assets/img/doson.jpg" alt="Bãi biển Đồ Sơn" class="blog-img">
+            <span class="img-caption">Biển xanh vẫy gọi trong những ngày hè</span>
+            
+            <h2>Cảm nhận cá nhân</h2>
+            <p>Sau những giờ ngâm mình dưới làn nước mát lạnh, không gì sảng khoái hơn là ngồi hóng gió trên kè đá, thưởng thức một đĩa mực ống hấp gừng hay bề bề rang muối. Đồ Sơn có một vẻ đẹp bình dị, chân chất đúng như tính cách của người dân đất Cảng.</p>
+            
+            <blockquote>
+                "Hãy sống như một con sóng, luôn mạnh mẽ vươn tới bờ dù biết mình sẽ tan ra."
+            </blockquote>
+
+            <p>Bên cạnh tắm biển, bạn cũng có thể ghé thăm Dinh Bảo Đại, Casino Đồ Sơn hay đảo Hòn Dáu với ngọn hải đăng cổ kính ẩn mình giữa khu rừng nguyên sinh tĩnh lặng.</p>
+        </article>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div id="footer">
+        <div class="footer-logo">CT<span>.</span></div>
+        <div class="socials-list">
+            <a href="https://www.facebook.com/teo.vu.94043/?locale=vi_VN" target="_blank"><i class="ti-facebook"></i></a>
+            <a href="https://www.instagram.com/cuongpro_86/" target="_blank"><i class="ti-instagram"></i></a>
+            <a href="https://github.com/cuonggm61-source"><i class="ti-linkedin"></i></a>
+        </div>
+        <p class="coppy-right">© 2025 <a href="index.html">CuongPro</a>. Made with ❤️</p>
+    </div>
+
+    <script src="./assets/js/main.js"></script>
+</body>
+</html>

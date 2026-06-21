@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hạ Long - CuongThinh Photography</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/font/themify-icons-font/themify-icons/themify-icons.css">
+</head>
+<body>
+    <!-- ===== HEADER ===== -->
+    <div id="header" class="scrolled">
+        <a href="index.html" class="logo">Cuong<span>Thinh</span></a>
+        <ul id="nav">
+            <li><a href="index.html" class="nav-link"><i class="ti-arrow-left"></i> Về Trang Chủ</a></li>
+        </ul>
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+            <i class="ti-light-bulb"></i>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+    
+    <div id="mobile-nav-overlay" class="mobile-nav-overlay"></div>
+    <div id="mobile-nav" class="mobile-nav">
+        <button class="close-btn" onclick="closeMobileNav()"><i class="ti-close"></i></button>
+        <ul>
+            <li><a href="index.html" onclick="closeMobileNav()">Về Trang Chủ</a></li>
+        </ul>
+    </div>
+
+    <!-- ===== BLOG HERO ===== -->
+    <div class="blog-hero" style="background-image: url('./assets/img/halong.jpg');">
+        <div class="hero-overlay"></div>
+        <div class="blog-hero-content reveal-up">
+            <span class="blog-category">Nhật ký hành trình</span>
+            <h1 class="blog-title">Kỳ quan thiên nhiên Vịnh Hạ Long</h1>
+            <div class="blog-meta">
+                <span><i class="ti-location-pin"></i> Quảng Ninh</span>
+                <span><i class="ti-calendar"></i> February 2026</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== BLOG CONTENT ===== -->
+    <div class="blog-container reveal-up">
+        <article class="blog-post">
+            <p class="lead">Được UNESCO công nhận là di sản thiên nhiên thế giới, Vịnh Hạ Long mang vẻ đẹp hùng vĩ nhưng cũng vô cùng lãng mạn. Với hàng nghìn đảo đá vôi kỳ vĩ nhô lên từ mặt nước xanh ngọc bích, Hạ Long giống như một bức tranh thủy mặc khổng lồ.</p>
+            
+            <h2>Lênh đênh trên vịnh biển</h2>
+            <p>Trải nghiệm tuyệt vời nhất ở Hạ Long chính là ngồi trên du thuyền, từ từ lướt qua những hòn đảo mang nhiều hình thù độc đáo như Hòn Trống Mái, Hòn Chó Đá, Đỉnh Hương. Không khí trong lành mang theo hương vị mặn mòi của biển cả khiến mọi mệt mỏi tan biến.</p>
+            
+            <img src="./assets/img/halong.jpg" alt="Vịnh Hạ Long" class="blog-img">
+            <span class="img-caption">Tuyệt tác thiên nhiên Vịnh Hạ Long</span>
+            
+            <h2>Cảm nhận cá nhân</h2>
+            <p>Hoàng hôn trên Vịnh Hạ Long có lẽ là khoảnh khắc quyến rũ nhất. Khi ánh mặt trời nhuộm đỏ cả một vùng biển nước, những đảo đá vôi bỗng trở nên huyền ảo và bí ẩn. Buổi tối, nằm trên boong tàu ngắm bầu trời đầy sao và tận hưởng sự tĩnh lặng của biển đêm là một đặc ân của tạo hóa.</p>
+            
+            <blockquote>
+                "Thiên nhiên Việt Nam kỳ vĩ và tươi đẹp biết bao. Càng đi, ta càng thấy yêu thêm dải đất hình chữ S này."
+            </blockquote>
+
+            <p>Bên cạnh việc ngắm cảnh, tham quan Hang Sửng Sốt hay chèo thuyền Kayak xuyên qua những hang động luồn lách dưới núi đá cũng là những trải nghiệm thú vị không thể bỏ qua tại Hạ Long.</p>
+        </article>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div id="footer">
+        <div class="footer-logo">CT<span>.</span></div>
+        <div class="socials-list">
+            <a href="https://www.facebook.com/teo.vu.94043/?locale=vi_VN" target="_blank"><i class="ti-facebook"></i></a>
+            <a href="https://www.instagram.com/cuongpro_86/" target="_blank"><i class="ti-instagram"></i></a>
+            <a href="https://github.com/cuonggm61-source"><i class="ti-linkedin"></i></a>
+        </div>
+        <p class="coppy-right">© 2025 <a href="index.html">CuongPro</a>. Made with ❤️</p>
+    </div>
+
+    <script src="./assets/js/main.js"></script>
+</body>
+</html>

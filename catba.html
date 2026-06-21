@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cát Bà - CuongThinh Photography</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/font/themify-icons-font/themify-icons/themify-icons.css">
+</head>
+<body>
+    <!-- ===== HEADER ===== -->
+    <div id="header" class="scrolled">
+        <a href="index.html" class="logo">Cuong<span>Thinh</span></a>
+        <ul id="nav">
+            <li><a href="index.html" class="nav-link"><i class="ti-arrow-left"></i> Về Trang Chủ</a></li>
+        </ul>
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+            <i class="ti-light-bulb"></i>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+    
+    <div id="mobile-nav-overlay" class="mobile-nav-overlay"></div>
+    <div id="mobile-nav" class="mobile-nav">
+        <button class="close-btn" onclick="closeMobileNav()"><i class="ti-close"></i></button>
+        <ul>
+            <li><a href="index.html" onclick="closeMobileNav()">Về Trang Chủ</a></li>
+        </ul>
+    </div>
+
+    <!-- ===== BLOG HERO ===== -->
+    <div class="blog-hero" style="background-image: url('./assets/img/catba.jpg');">
+        <div class="hero-overlay"></div>
+        <div class="blog-hero-content reveal-up">
+            <span class="blog-category">Nhật ký hành trình</span>
+            <h1 class="blog-title">Đảo ngọc Cát Bà - Viên ngọc xanh của Vịnh Bắc Bộ</h1>
+            <div class="blog-meta">
+                <span><i class="ti-location-pin"></i> Hải Phòng</span>
+                <span><i class="ti-calendar"></i> May 2025</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== BLOG CONTENT ===== -->
+    <div class="blog-container reveal-up">
+        <article class="blog-post">
+            <p class="lead">Được mệnh danh là hòn đảo lớn nhất và đẹp nhất trong quần thể vịnh Lan Hạ, Cát Bà mang trong mình một vẻ đẹp hoang sơ với sự kết hợp hài hòa giữa rừng và biển.</p>
+            
+            <h2>Hành trình ra đảo và khám phá Vịnh Lan Hạ</h2>
+            <p>Bắt đầu từ bến phà Gót, chuyến hành trình ra đảo đã mang lại một cảm giác phấn khích. Những bãi tắm Cát Cò 1, 2, 3 với dải cát trắng mịn luôn tấp nập du khách. Nhưng điểm nhấn thực sự của Cát Bà phải kể đến là việc thuê thuyền tham quan Vịnh Lan Hạ hoang sơ, với những hòn đảo đá vôi không kém phần kỳ vĩ so với Hạ Long.</p>
+            
+            <img src="./assets/img/catba.jpg" alt="Vịnh Lan Hạ Cát Bà" class="blog-img">
+            <span class="img-caption">Lênh đênh trên vịnh Lan Hạ thơ mộng</span>
+            
+            <h2>Cảm nhận cá nhân</h2>
+            <p>Tôi đặc biệt thích cảm giác đạp xe hoặc thuê xe máy chạy dọc theo con đường ven biển uốn lượn nối từ bến phà vào trung tâm thị trấn. Một bên là vách núi sừng sững, một bên là biển xanh dập dềnh. Buổi tối, thưởng thức hải sản tươi rói ngay trên bè nổi là một trải nghiệm ẩm thực khó quên.</p>
+            
+            <blockquote>
+                "Biển cả luôn có một sức mạnh kỳ lạ, nó vỗ về tâm hồn ta bằng những con sóng dạt dào và làm dịu đi những âu lo của cuộc sống."
+            </blockquote>
+
+            <p>Nếu có sức khỏe, bạn đừng quên thử thách bản thân với chuyến trekking xuyên Vườn Quốc Gia Cát Bà để chinh phục đỉnh Ngự Lâm, nơi bạn có thể phóng tầm mắt ôm trọn núi rừng hùng vĩ.</p>
+        </article>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div id="footer">
+        <div class="footer-logo">CT<span>.</span></div>
+        <div class="socials-list">
+            <a href="https://www.facebook.com/teo.vu.94043/?locale=vi_VN" target="_blank"><i class="ti-facebook"></i></a>
+            <a href="https://www.instagram.com/cuongpro_86/" target="_blank"><i class="ti-instagram"></i></a>
+            <a href="https://github.com/cuonggm61-source"><i class="ti-linkedin"></i></a>
+        </div>
+        <p class="coppy-right">© 2025 <a href="index.html">CuongPro</a>. Made with ❤️</p>
+    </div>
+
+    <script src="./assets/js/main.js"></script>
+</body>
+</html>

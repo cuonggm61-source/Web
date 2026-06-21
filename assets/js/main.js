@@ -183,3 +183,144 @@ const sectionObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.4 });
 
 sections.forEach(section => sectionObserver.observe(section));
+
+
+// ── 8. TYPING EFFECT ─────────────────────────────────────────────────────────
+const typingElement = document.getElementById('typing-text');
+const phrases = [
+    "Photography · Adventure · Life",
+    "Xin chào, mình là Cường...",
+    "Đam mê nhiếp ảnh và xê dịch...",
+    "Lưu giữ những khoảnh khắc đẹp..."
+];
+let phraseIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+
+function typeEffect() {
+    if (!typingElement) return;
+    const currentPhrase = phrases[phraseIndex];
+    
+    if (isDeleting) {
+        typingElement.textContent = currentPhrase.substring(0, charIndex - 1);
+        charIndex--;
+    } else {
+        typingElement.textContent = currentPhrase.substring(0, charIndex + 1);
+        charIndex++;
+    }
+
+    let typeSpeed = isDeleting ? 40 : 80;
+
+    if (!isDeleting && charIndex === currentPhrase.length) {
+        typeSpeed = 2000; // Wait before deleting
+        isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        typeSpeed = 500; // Wait before typing next
+    }
+
+    setTimeout(typeEffect, typeSpeed);
+}
+
+if (typingElement) {
+    setTimeout(typeEffect, 1000);
+}
+
+// ── 9. DARK/LIGHT MODE TOGGLE ────────────────────────────────────────────────
+const themeToggleBtn = document.getElementById('theme-toggle');
+const body = document.body;
+const themeIcon = themeToggleBtn ? themeToggleBtn.querySelector('i') : null;
+
+// Check local storage for theme
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') {
+    body.classList.add('dark-mode');
+    if (themeIcon) {
+        themeIcon.classList.remove('ti-light-bulb');
+        themeIcon.classList.add('ti-shine'); // Or any sun icon
+    }
+}
+
+if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        const isDark = body.classList.contains('dark-mode');
+        
+        if (isDark) {
+            localStorage.setItem('theme', 'dark');
+            themeIcon.classList.remove('ti-light-bulb');
+            themeIcon.classList.add('ti-shine');
+        } else {
+            localStorage.setItem('theme', 'light');
+            themeIcon.classList.remove('ti-shine');
+            themeIcon.classList.add('ti-light-bulb');
+        }
+    });
+}
+
+// ── 10. INTERACTIVE MAP ──────────────────────────────────────────────────────
+const mapContainer = document.getElementById('travel-map');
+if (mapContainer && typeof L !== 'undefined') {
+    // Tọa độ trung tâm: Việt Nam
+    const map = L.map('travel-map').setView([16.0471, 106.0000], 5);
+    
+    // Theme dark for map tiles
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20
+    }).addTo(map);
+
+    const locations = [
+        { name: "Cát Bà, Hải Phòng", coords: [20.7262, 107.0456] },
+        { name: "Đồ Sơn, Hải Phòng", coords: [20.7090, 106.7909] },
+        { name: "Hải Phòng (Trung tâm)", coords: [20.8449, 106.6881] },
+        { name: "Hà Giang", coords: [22.8233, 104.9839] },
+        { name: "Tà Xùa, Sơn La", coords: [21.2652, 104.3168] },
+        { name: "Tam Đảo, Vĩnh Phúc", coords: [21.4578, 105.6475] },
+        { name: "Hạ Long, Quảng Ninh", coords: [20.9500, 107.0167] },
+        { name: "Quảng Ninh (Trung tâm)", coords: [21.0065, 107.2925] },
+        { name: "Ninh Bình", coords: [20.2539, 105.9750] },
+        { name: "Hà Nội", coords: [21.0285, 105.8048] },
+        { name: "Thái Nguyên", coords: [21.5942, 105.8446] },
+        { name: "Phú Thọ", coords: [21.3653, 105.2174] },
+        { name: "Sapa, Lào Cai", coords: [22.3364, 103.8438] },
+        { name: "Đà Nẵng", coords: [16.0471, 108.2062] },
+        { name: "Đà Lạt, Lâm Đồng", coords: [11.9404, 108.4583] }
+    ];
+
+    locations.forEach(loc => {
+        L.marker(loc.coords).addTo(map)
+            .bindPopup(`<b>${loc.name}</b>`);
+    });
+}
+
+// ── 11. MUSIC PLAYER ─────────────────────────────────────────────────────────
+const musicPlayer = document.getElementById('music-player');
+const bgMusic = document.getElementById('bg-music');
+
+if (musicPlayer && bgMusic) {
+    // Attempt autoplay
+    bgMusic.play().then(() => {
+        musicPlayer.classList.add('playing');
+    }).catch(err => {
+        // Autoplay blocked by browser policy, wait for first click anywhere
+        document.body.addEventListener('click', function initAudio() {
+            bgMusic.play();
+            musicPlayer.classList.add('playing');
+            document.body.removeEventListener('click', initAudio);
+        }, { once: true });
+    });
+
+    musicPlayer.addEventListener('click', (e) => {
+        e.stopPropagation(); // Ngăn chặn sự kiện click lan ra body
+        if (bgMusic.paused) {
+            bgMusic.play();
+            musicPlayer.classList.add('playing');
+        } else {
+            bgMusic.pause();
+            musicPlayer.classList.remove('playing');
+        }
+    });
+}

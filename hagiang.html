@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hà Giang - CuongThinh Photography</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/font/themify-icons-font/themify-icons/themify-icons.css">
+</head>
+<body>
+    <!-- ===== HEADER ===== -->
+    <div id="header" class="scrolled">
+        <a href="index.html" class="logo">Cuong<span>Thinh</span></a>
+        <ul id="nav">
+            <li><a href="index.html" class="nav-link"><i class="ti-arrow-left"></i> Về Trang Chủ</a></li>
+        </ul>
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+            <i class="ti-light-bulb"></i>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+    
+    <div id="mobile-nav-overlay" class="mobile-nav-overlay"></div>
+    <div id="mobile-nav" class="mobile-nav">
+        <button class="close-btn" onclick="closeMobileNav()"><i class="ti-close"></i></button>
+        <ul>
+            <li><a href="index.html" onclick="closeMobileNav()">Về Trang Chủ</a></li>
+        </ul>
+    </div>
+
+    <!-- ===== BLOG HERO ===== -->
+    <div class="blog-hero" style="background-image: url('./assets/img/DSC_0217.jpg');">
+        <div class="hero-overlay"></div>
+        <div class="blog-hero-content reveal-up">
+            <span class="blog-category">Nhật ký hành trình</span>
+            <h1 class="blog-title">Hà Giang - Tiếng gọi nơi địa đầu Tổ quốc</h1>
+            <div class="blog-meta">
+                <span><i class="ti-location-pin"></i> Hà Giang</span>
+                <span><i class="ti-calendar"></i> June 17, 2025</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== BLOG CONTENT ===== -->
+    <div class="blog-container reveal-up">
+        <article class="blog-post">
+            <p class="lead">Nói đến mảnh đất địa đầu Tổ quốc, Hà Giang hiện lên trong tâm trí những người đam mê xê dịch bằng hình ảnh của những cung đường đèo uốn lượn hiểm trở, cao nguyên đá Đồng Văn hùng vĩ và những cánh đồng hoa tam giác mạch miên man.</p>
+            
+            <h2>Chinh phục Mã Pì Lèng</h2>
+            <p>Hành trình khám phá Hà Giang không thể thiếu việc đi qua Mã Pì Lèng - một trong "Tứ đại đỉnh đèo" của miền Bắc Việt Nam. Đường đèo bám theo sườn núi, phía dưới là vực sâu và dòng sông Nho Quế xanh ngắt như dải lụa vắt ngang qua những khe núi đá sừng sững.</p>
+            
+            <img src="./assets/img/DSC_0217.jpg" alt="Phong cảnh Hà Giang" class="blog-img">
+            <span class="img-caption">Vẻ đẹp hùng vĩ của vùng cao nguyên đá</span>
+            
+            <h2>Cảm nhận cá nhân</h2>
+            <p>Đứng trên cột cờ Lũng Cú, phóng tầm mắt ra bốn bề núi non trùng điệp, tôi cảm thấy một niềm tự hào mãnh liệt về cảnh sắc quê hương. Những nụ cười trong trẻo của các em bé dân tộc vùng cao, những phiên chợ lùi đầy sắc màu đã để lại trong tôi những kỷ niệm sâu sắc.</p>
+            
+            <blockquote>
+                "Cuộc đời là những chuyến đi dài, và Hà Giang là một chặng đường khiến ta phải thốt lên rằng thiên nhiên hùng vĩ vượt quá trí tưởng tượng của con người."
+            </blockquote>
+
+            <p>Dù đường đi có gian nan, nhưng mỗi mét đèo đều mang đến những cảm xúc thăng hoa. Hà Giang không chỉ là một điểm đến, mà là một trải nghiệm rèn luyện ý chí và đánh thức tình yêu thiên nhiên mãnh liệt.</p>
+        </article>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div id="footer">
+        <div class="footer-logo">CT<span>.</span></div>
+        <div class="socials-list">
+            <a href="https://www.facebook.com/teo.vu.94043/?locale=vi_VN" target="_blank"><i class="ti-facebook"></i></a>
+            <a href="https://www.instagram.com/cuongpro_86/" target="_blank"><i class="ti-instagram"></i></a>
+            <a href="https://github.com/cuonggm61-source"><i class="ti-linkedin"></i></a>
+        </div>
+        <p class="coppy-right">© 2025 <a href="index.html">CuongPro</a>. Made with ❤️</p>
+    </div>
+
+    <script src="./assets/js/main.js"></script>
+</body>
+</html>

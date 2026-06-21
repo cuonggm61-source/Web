@@ -22,6 +22,8 @@
 
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/font/themify-icons-font/themify-icons/themify-icons.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
 </head>
 <body>
 
@@ -34,16 +36,16 @@
         <ul id="nav">
             <li><a href="#" class="nav-link">Home</a></li>
             <li><a href="#band" class="nav-link">About</a></li>
-            <li><a href="#gallery" class="nav-link">Gallery</a></li>
             <li><a href="#tour" class="nav-link">Travel</a></li>
             <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
 
-        <!-- Search -->
-        <div class="search-btn">
-            <input type="text" id="search-input" placeholder="Tìm kiếm...">
-            <i class="search-icon ti-search"></i>
-        </div>
+
+
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+            <i class="ti-light-bulb"></i>
+        </button>
 
         <!-- Hamburger button (mobile) -->
         <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -58,7 +60,6 @@
         <ul>
             <li><a href="#" onclick="closeMobileNav()">Home</a></li>
             <li><a href="#band" onclick="closeMobileNav()">About</a></li>
-            <li><a href="#gallery" onclick="closeMobileNav()">Gallery</a></li>
             <li><a href="#tour" onclick="closeMobileNav()">Travel</a></li>
             <li><a href="#contact" onclick="closeMobileNav()">Contact</a></li>
         </ul>
@@ -70,7 +71,7 @@
         <div class="hero-overlay"></div>
         <div class="text-content reveal-up">
             <h1 class="text-heading">Cuong<span class="accent-text">Thinh</span></h1>
-            <p class="hero-subtitle">Photography · Adventure · Life</p>
+            <p class="hero-subtitle"><span id="typing-text"></span><span class="cursor">|</span></p>
             <a href="#band" class="hero-btn">Khám phá <i class="ti-arrow-down"></i></a>
         </div>
         <!-- Scroll indicator -->
@@ -81,6 +82,8 @@
 
     <!-- ===== CONTENT ===== -->
     <div id="content">
+
+
 
         <!-- ===== ABOUT ===== -->
         <div id="band" class="content-selection">
@@ -102,61 +105,6 @@
             </div>
         </div>
 
-        <!-- ===== GALLERY SECTION ===== -->
-        <div id="gallery" class="gallery-section">
-            <div class="content-selection">
-                <div class="section-label reveal-up" style="color: rgba(255,255,255,0.5)">Moments</div>
-                <h2 class="selection-heading text-white reveal-up">GALLERY</h2>
-                <p class="selection-sub-heading reveal-up" style="color:rgba(255,255,255,0.6)">Những khoảnh khắc đáng nhớ</p>
-                
-                <div class="gallery-grid">
-                    <div class="gallery-item reveal-scale" style="--delay: 0s">
-                        <img src="./assets/img/DSC_0069.jpg" alt="Cát Bà" class="js-lightbox" data-src="./assets/img/DSC_0069.jpg">
-                        <div class="gallery-overlay"><i class="ti-zoom-in"></i></div>
-                    </div>
-                    <div class="gallery-item reveal-scale" style="--delay: 0.1s">
-                        <img src="./assets/img/DOSON.jpg" alt="Đồ Sơn" class="js-lightbox" data-src="./assets/img/DOSON.jpg">
-                        <div class="gallery-overlay"><i class="ti-zoom-in"></i></div>
-                    </div>
-                    <div class="gallery-item reveal-scale" style="--delay: 0.2s">
-                        <img src="./assets/img/DSC_0217.jpg" alt="Hà Giang" class="js-lightbox" data-src="./assets/img/DSC_0217.jpg">
-                        <div class="gallery-overlay"><i class="ti-zoom-in"></i></div>
-                    </div>
-                    <div class="gallery-item reveal-scale" style="--delay: 0.3s">
-                        <img src="./assets/img/DSC_0222.jpg" alt="Ảnh chụp" class="js-lightbox" data-src="./assets/img/DSC_0222.jpg">
-                        <div class="gallery-overlay"><i class="ti-zoom-in"></i></div>
-                    </div>
-                    <div class="gallery-item reveal-scale" style="--delay: 0.4s">
-                        <img src="./assets/img/DSC_0245.jpg" alt="Phong cảnh" class="js-lightbox" data-src="./assets/img/DSC_0245.jpg">
-                        <div class="gallery-overlay"><i class="ti-zoom-in"></i></div>
-                    </div>
-                    <div class="gallery-item reveal-scale" style="--delay: 0.5s">
-                        <img src="./assets/img/DSC_0249.jpg" alt="Ảnh chụp" class="js-lightbox" data-src="./assets/img/DSC_0249.jpg">
-                        <div class="gallery-overlay"><i class="ti-zoom-in"></i></div>
-                    </div>
-                    <div class="gallery-item reveal-scale" style="--delay: 0.6s">
-                        <img src="./assets/img/catba.jpg" alt="Cát Bà" class="js-lightbox" data-src="./assets/img/catba.jpg">
-                        <div class="gallery-overlay"><i class="ti-zoom-in"></i></div>
-                    </div>
-                    <div class="gallery-item reveal-scale" style="--delay: 0.7s">
-                        <img src="./assets/img/slide1.jpg" alt="Phong cảnh" class="js-lightbox" data-src="./assets/img/slide1.jpg">
-                        <div class="gallery-overlay"><i class="ti-zoom-in"></i></div>
-                    </div>
-                    <div class="gallery-item reveal-scale" style="--delay: 0.8s">
-                        <img src="./assets/img/z6272672532722_b6894a02d317dfbbb2509bf0a548ae11.jpg" alt="Ảnh chụp" class="js-lightbox" data-src="./assets/img/z6272672532722_b6894a02d317dfbbb2509bf0a548ae11.jpg">
-                        <div class="gallery-overlay"><i class="ti-zoom-in"></i></div>
-                    </div>
-                    <div class="gallery-item reveal-scale" style="--delay: 0.9s">
-                        <img src="./assets/img/hoankiem.jpg" alt="Hồ Hoàn Kiếm" class="js-lightbox" data-src="./assets/img/hoankiem.jpg">
-                        <div class="gallery-overlay"><i class="ti-zoom-in"></i></div>
-                    </div>
-                    <div class="gallery-item reveal-scale" style="--delay: 1.0s">
-                        <img src="./assets/img/tayho.jpg" alt="Hồ Tây" class="js-lightbox" data-src="./assets/img/tayho.jpg">
-                        <div class="gallery-overlay"><i class="ti-zoom-in"></i></div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- ===== TRAVEL ===== -->
         <div id="tour" class="tour-section">
@@ -169,23 +117,31 @@
                     <div class="col col-thir reveal-up" style="--delay: 0s">
                         <div class="place-item">
                             <div class="place-img-wrapper">
-                                <img src="./assets/img/DSC_0069.jpg" alt="Cát Bà" class="place-img js-lightbox" data-src="./assets/img/DSC_0069.jpg">
+                                <a href="catba.html">
+                                    <img src="./assets/img/catba.jpg" alt="Cát Bà" class="place-img">
+                                </a>
                             </div>
                             <div class="place-body">
                                 <span class="place-badge">Hải Phòng</span>
-                                <h3 class="place-heading">CÁT BÀ</h3>
-                                <p class="place-timne"><i class="ti-calendar"></i> June 14, 2025</p>
+                                <a href="catba.html" style="text-decoration: none; color: inherit;">
+                                    <h3 class="place-heading" style="margin-bottom: 0;">CÁT BÀ</h3>
+                                </a>
+                                <p class="place-timne"><i class="ti-calendar"></i> May 2025</p>
                             </div>
                         </div>
                     </div>
                     <div class="col col-thir reveal-up" style="--delay: 0.15s">
                         <div class="place-item">
                             <div class="place-img-wrapper">
-                                <img src="./assets/img/DOSON.jpg" alt="Đồ Sơn" class="place-img js-lightbox" data-src="./assets/img/DOSON.jpg">
+                                <a href="doson.html">
+                                    <img src="./assets/img/DOSON.jpg" alt="Đồ Sơn" class="place-img">
+                                </a>
                             </div>
                             <div class="place-body">
                                 <span class="place-badge">Hải Phòng</span>
-                                <h3 class="place-heading">ĐỒ SƠN</h3>
+                                <a href="doson.html" style="text-decoration: none; color: inherit;">
+                                    <h3 class="place-heading" style="margin-bottom: 0;">ĐỒ SƠN</h3>
+                                </a>
                                 <p class="place-timne"><i class="ti-calendar"></i> October 2, 2025</p>
                             </div>
                         </div>
@@ -193,12 +149,96 @@
                     <div class="col col-thir reveal-up" style="--delay: 0.3s">
                         <div class="place-item">
                             <div class="place-img-wrapper">
-                                <img src="./assets/img/DSC_0217.jpg" alt="Hà Giang" class="place-img js-lightbox" data-src="./assets/img/DSC_0217.jpg">
+                                <a href="hagiang.html">
+                                    <img src="./assets/img/DSC_0217.jpg" alt="Hà Giang" class="place-img">
+                                </a>
                             </div>
                             <div class="place-body">
                                 <span class="place-badge">Hà Giang</span>
-                                <h3 class="place-heading">HÀ GIANG</h3>
+                                <a href="hagiang.html" style="text-decoration: none; color: inherit;">
+                                    <h3 class="place-heading" style="margin-bottom: 0;">HÀ GIANG</h3>
+                                </a>
                                 <p class="place-timne"><i class="ti-calendar"></i> June 17, 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-thir reveal-up" style="--delay: 0.45s">
+                        <div class="place-item">
+                            <div class="place-img-wrapper">
+                                <a href="namdinh.html">
+                                    <img src="./assets/img/namdinh.jpg" alt="Nam Định" class="place-img">
+                                </a>
+                            </div>
+                            <div class="place-body">
+                                <span class="place-badge">Nam Định</span>
+                                <a href="namdinh.html" style="text-decoration: none; color: inherit;">
+                                    <h3 class="place-heading" style="margin-bottom: 0;">NAM ĐỊNH</h3>
+                                </a>
+                                <p class="place-timne"><i class="ti-calendar"></i> April 11, 2026</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-thir reveal-up" style="--delay: 0.6s">
+                        <div class="place-item">
+                            <div class="place-img-wrapper">
+                                <a href="blog-template.html">
+                                    <img src="./assets/img/taxua.jpg" alt="Tà Xùa" class="place-img">
+                                </a>
+                            </div>
+                            <div class="place-body">
+                                <span class="place-badge">Sơn La</span>
+                                <a href="blog-template.html" style="text-decoration: none; color: inherit;">
+                                    <h3 class="place-heading" style="margin-bottom: 0;">TÀ XÙA</h3>
+                                </a>
+                                <p class="place-timne"><i class="ti-calendar"></i> March 2026</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-thir reveal-up" style="--delay: 0.75s">
+                        <div class="place-item">
+                            <div class="place-img-wrapper">
+                                <a href="tamdao.html">
+                                    <img src="./assets/img/tamdao.jpg" alt="Tam Đảo" class="place-img">
+                                </a>
+                            </div>
+                            <div class="place-body">
+                                <span class="place-badge">Vĩnh Phúc</span>
+                                <a href="tamdao.html" style="text-decoration: none; color: inherit;">
+                                    <h3 class="place-heading" style="margin-bottom: 0;">TAM ĐẢO</h3>
+                                </a>
+                                <p class="place-timne"><i class="ti-calendar"></i> May 2026</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-thir reveal-up" style="--delay: 0.9s">
+                        <div class="place-item">
+                            <div class="place-img-wrapper">
+                                <a href="halong.html">
+                                    <img src="./assets/img/halong.jpg" alt="Hạ Long" class="place-img">
+                                </a>
+                            </div>
+                            <div class="place-body">
+                                <span class="place-badge">Quảng Ninh</span>
+                                <a href="halong.html" style="text-decoration: none; color: inherit;">
+                                    <h3 class="place-heading" style="margin-bottom: 0;">HẠ LONG</h3>
+                                </a>
+                                <p class="place-timne"><i class="ti-calendar"></i> February 2026</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-thir reveal-up" style="--delay: 1.05s">
+                        <div class="place-item">
+                            <div class="place-img-wrapper">
+                                <a href="ninhbinh.html">
+                                    <img src="./assets/img/ninhbinh.jpg" alt="Ninh Bình" class="place-img">
+                                </a>
+                            </div>
+                            <div class="place-body">
+                                <span class="place-badge">Ninh Bình</span>
+                                <a href="ninhbinh.html" style="text-decoration: none; color: inherit;">
+                                    <h3 class="place-heading" style="margin-bottom: 0;">NINH BÌNH</h3>
+                                </a>
+                                <p class="place-timne"><i class="ti-calendar"></i> April 2026</p>
                             </div>
                         </div>
                     </div>
@@ -209,8 +249,8 @@
 
         <!-- ===== CONTACT ===== -->
         <div id="contact" class="content-selection">
-            <div class="section-label reveal-up">Say Hello</div>
-            <h2 class="selection-heading reveal-up">CONTACT</h2>
+            <div class="section-label reveal-up">Recommend</div>
+            <h2 class="selection-heading reveal-up">GỢI Ý ĐỊA ĐIỂM</h2>
 
             <div class="row contact-content reveal-up">
                 <div class="col col-half contact-info">
@@ -231,19 +271,17 @@
                         </div>
                         <div class="row mt-8">
                             <div class="col col-full">
-                                <textarea name="message" placeholder="Lời nhắn của bạn..." class="form-control" rows="4"></textarea>
+                                <textarea name="message" placeholder="Địa điểm bạn muốn giới thiệu..." class="form-control" rows="4"></textarea>
                             </div>
                         </div>
-                        <input class="btn floatRight mt-16" type="submit" value="GỬI TIN NHẮN →">
+                        <input class="btn floatRight mt-16" type="submit" value="GỬI GỢI Ý →">
                     </form>
                 </div>
             </div>
         </div>
 
         <!-- Map -->
-        <div class="map-section">
-            <img src="./assets/img/Ảnh chụp màn hình 2025-10-31 092052.png" alt="Map">
-        </div>
+        <div class="map-section" id="travel-map"></div>
     </div>
 
     <!-- ===== FOOTER ===== -->
@@ -251,7 +289,7 @@
         <div class="footer-logo">CT<span>.</span></div>
         <div class="socials-list">
             <a href="https://www.facebook.com/teo.vu.94043/?locale=vi_VN" target="_blank" aria-label="Facebook"><i class="ti-facebook"></i></a>
-            <a href="https://www.instagram.com/weal__86/" target="_blank" aria-label="Instagram"><i class="ti-instagram"></i></a>
+            <a href="https://www.instagram.com/cuongpro_86/" target="_blank" aria-label="Instagram"><i class="ti-instagram"></i></a>
             <a href="https://github.com/cuonggm61-source" aria-label="LinkedIn"><i class="ti-linkedin"></i></a>
         </div>
         <p class="coppy-right">© 2025 <a href="#">CuongPro</a>. Made with ❤️</p>
@@ -267,11 +305,21 @@
         </div>
     </div>
 
+    <!-- ===== MUSIC PLAYER ===== -->
+    <div class="music-player" id="music-player" aria-label="Play/Pause Music">
+        <i class="ti-music-alt"></i>
+        <audio id="bg-music" loop autoplay>
+            <source src="./assets/audio/bgm.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
     <!-- ===== SCROLL TO TOP ===== -->
     <button class="scroll-top" id="scroll-top" aria-label="Lên đầu trang">
         <i class="ti-angle-up"></i>
     </button>
 
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
     <!-- ===== SCRIPTS ===== -->
     <script src="./assets/js/main.js"></script>
 </body>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tam Đảo - CuongThinh Photography</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/font/themify-icons-font/themify-icons/themify-icons.css">
+</head>
+<body>
+    <!-- ===== HEADER ===== -->
+    <div id="header" class="scrolled">
+        <a href="index.html" class="logo">Cuong<span>Thinh</span></a>
+        <ul id="nav">
+            <li><a href="index.html" class="nav-link"><i class="ti-arrow-left"></i> Về Trang Chủ</a></li>
+        </ul>
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+            <i class="ti-light-bulb"></i>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+    
+    <div id="mobile-nav-overlay" class="mobile-nav-overlay"></div>
+    <div id="mobile-nav" class="mobile-nav">
+        <button class="close-btn" onclick="closeMobileNav()"><i class="ti-close"></i></button>
+        <ul>
+            <li><a href="index.html" onclick="closeMobileNav()">Về Trang Chủ</a></li>
+        </ul>
+    </div>
+
+    <!-- ===== BLOG HERO ===== -->
+    <div class="blog-hero" style="background-image: url('./assets/img/tamdao.jpg');">
+        <div class="hero-overlay"></div>
+        <div class="blog-hero-content reveal-up">
+            <span class="blog-category">Nhật ký hành trình</span>
+            <h1 class="blog-title">Tam Đảo - Thị trấn mù sương yên bình</h1>
+            <div class="blog-meta">
+                <span><i class="ti-location-pin"></i> Vĩnh Phúc</span>
+                <span><i class="ti-calendar"></i> May 2026</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== BLOG CONTENT ===== -->
+    <div class="blog-container reveal-up">
+        <article class="blog-post">
+            <p class="lead">Được ví như một "Đà Lạt thu nhỏ" của miền Bắc, Tam Đảo chào đón du khách bằng tiết trời se lạnh quanh năm và cảnh sắc thiên nhiên thơ mộng ẩn mình trong màn sương mù.</p>
+            
+            <h2>Chạy trốn sự ồn ào của phố thị</h2>
+            <p>Chỉ cách Hà Nội hơn 2 giờ chạy xe, Tam Đảo là địa điểm lý tưởng cho những chuyến đi trốn chớp nhoáng. Đường lên Tam Đảo uốn lượn qua những cánh rừng xanh mát, mang lại cảm giác thích thú cho những ai yêu thích việc rong ruổi trên xe máy.</p>
+            
+            <img src="./assets/img/tamdao.jpg" alt="Thị trấn Tam Đảo" class="blog-img">
+            <span class="img-caption">Một góc sương mù tại Tam Đảo</span>
+            
+            <h2>Cảm nhận cá nhân</h2>
+            <p>Đến với Tam Đảo, không gì tuyệt vời hơn là ngồi nhâm nhi ly cà phê ấm nóng tại Quán Gió, phóng tầm mắt xuống toàn cảnh thung lũng. Đêm xuống, dạo bước quanh Quảng trường trung tâm và thưởng thức những món đồ nướng thơm lừng thật sự làm ấm lòng những ngày sương giá.</p>
+            
+            <blockquote>
+                "Đôi khi, tất cả những gì chúng ta cần chỉ là một ngày cuối tuần gác lại mọi âu lo, trốn lên núi và thả lỏng tâm hồn."
+            </blockquote>
+
+            <p>Nhà thờ đá Tam Đảo, Thác Bạc, Tháp truyền hình... đều là những góc check-in tuyệt đẹp bạn không nên bỏ lỡ khi ghé thăm thị trấn nhỏ bé nhưng đầy sức hút này.</p>
+        </article>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div id="footer">
+        <div class="footer-logo">CT<span>.</span></div>
+        <div class="socials-list">
+            <a href="https://www.facebook.com/teo.vu.94043/?locale=vi_VN" target="_blank"><i class="ti-facebook"></i></a>
+            <a href="https://www.instagram.com/cuongpro_86/" target="_blank"><i class="ti-instagram"></i></a>
+            <a href="https://github.com/cuonggm61-source"><i class="ti-linkedin"></i></a>
+        </div>
+        <p class="coppy-right">© 2025 <a href="index.html">CuongPro</a>. Made with ❤️</p>
+    </div>
+
+    <script src="./assets/js/main.js"></script>
+</body>
+</html>
