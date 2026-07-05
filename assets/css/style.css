@@ -33,8 +33,11 @@ body.dark-mode {
 }
 
 body.dark-mode .contact-content {
-    background: var(--surface);
-    border-color: rgba(255,255,255,0.1);
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-top: 1px solid rgba(255,255,255,0.3);
+    border-left: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 body.dark-mode .contact-form .form-control {
     background: #0f172a;
@@ -106,7 +109,7 @@ img { display: block; max-width: 100%; }
     padding: 13px 28px;
     display: inline-block;
     border: none;
-    border-radius: var(--radius-sm);
+    border-radius: 30px; /* Apple style pill */
     font-family: var(--font);
     font-weight: 600;
     font-size: 14px;
@@ -140,10 +143,10 @@ img { display: block; max-width: 100%; }
 ================== */
 #header {
     height: 70px;
-    background: rgba(10, 16, 35, 0.8);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    background: rgba(10, 16, 35, 0.55);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -522,6 +525,46 @@ img { display: block; max-width: 100%; }
 .tour-section {
     background: linear-gradient(160deg, #0f172a, #1e1b4b);
     padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle Aurora Blobs */
+.tour-section::before {
+    content: '';
+    position: absolute;
+    top: 10%; left: 5%;
+    width: 400px; height: 400px;
+    background: rgba(59, 130, 246, 0.4);
+    filter: blur(100px);
+    border-radius: 50%;
+    z-index: 0;
+    animation: blob1 15s infinite alternate;
+}
+.tour-section::after {
+    content: '';
+    position: absolute;
+    bottom: 5%; right: 5%;
+    width: 350px; height: 350px;
+    background: rgba(168, 85, 247, 0.3);
+    filter: blur(100px);
+    border-radius: 50%;
+    z-index: 0;
+    animation: blob2 18s infinite alternate;
+}
+
+@keyframes blob1 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(50px, 100px) scale(1.2); }
+}
+@keyframes blob2 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-100px, -50px) scale(1.1); }
+}
+
+.tour-section .content-selection {
+    position: relative;
+    z-index: 1;
 }
 .tour-section .content-selection { padding: 100px 0; }
 
@@ -529,16 +572,20 @@ img { display: block; max-width: 100%; }
 .place-list .col { display: flex; }
 
 .place-item {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: var(--radius-md);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-top: 1px solid rgba(255,255,255,0.3);
+    border-left: 1px solid rgba(255,255,255,0.3);
+    border-radius: 24px;
     overflow: hidden;
     width: 100%;
     display: flex;
     flex-direction: column;
     transition: var(--transition);
     cursor: pointer;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
 }
 .place-item:hover {
     transform: translateY(-10px);
@@ -597,12 +644,16 @@ img { display: block; max-width: 100%; }
    CONTACT SECTION
 ================== */
 .contact-content {
-    background: var(--surface);
-    border-radius: var(--radius-md);
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border-radius: 24px;
     padding: 40px;
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 8px 32px rgba(31,38,135,0.07);
     margin-top: 40px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid rgba(255,255,255,0.8);
+    border-top: 1px solid rgba(255,255,255,1);
+    border-left: 1px solid rgba(255,255,255,1);
 }
 
 .contact-info {
